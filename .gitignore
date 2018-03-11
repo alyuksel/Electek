@@ -1,0 +1,4 @@
+/ProjetElectek-business/target/
+/ProjetElectek-application/target/
+/ProjetElectek-ear/target/
+/ProjetElectek-business/src/main/resources/META-INF/persistence.xml
