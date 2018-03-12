@@ -35,6 +35,8 @@ public class AttachedZone implements Serializable {
     @Column
     private Integer number;
     
+    @Column
+    private Integer arr;
     @Column(name="geo_point")
     private Point geoPoint;
     
@@ -54,6 +56,9 @@ public class AttachedZone implements Serializable {
         return number;
     }
     
+    public Integer getArr() {
+        return arr;
+    }
     public Point getGeoPoint() {
         return geoPoint;
     }
@@ -70,7 +75,9 @@ public class AttachedZone implements Serializable {
         this.voteOffice = voteOffice;
     }
 
-    
+    public void setArr(Integer arr) {
+        this.arr=arr;
+    }
     public void setNumber(Integer number) {
         this.number = number;
     }
