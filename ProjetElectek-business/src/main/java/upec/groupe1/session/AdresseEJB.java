@@ -5,7 +5,9 @@
  */
 package upec.groupe1.session;
 
+
 import javax.ejb.EJB;
+
 import upec.groupe1.entities.Adresse;
 import upec.groupe1.entities.AttachedZone;
 
