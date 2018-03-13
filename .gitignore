@@ -7,5 +7,5 @@ nbdist/
 
 target/
 
-persistence.xml
-nb-configuration.xml
+*persistence.xml
+*nb-configuration.xml
