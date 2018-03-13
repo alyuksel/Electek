@@ -9,8 +9,8 @@ import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import java.awt.Point;
-import java.awt.Polygon;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import upec.groupe1.tools.Tools;
@@ -28,38 +28,24 @@ public class TEST {
     
     public static void main(String[] args){        
         
-        String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=zones-de-rattachement-des-bureaux-de-vote-en-2014&rows=-1");
+        String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=adresse_paris&rows=-1");
             Map<String,Object> bv = new Gson().fromJson(json, Map.class);
             int i = 0;
             List<Map<String,Object>> records = (List<Map<String,Object>>) bv.get("records");
             
             for(Map<String,Object> m : records){
-                try{
                 i++;
                 Map<String,Object> ms = (Map<String,Object>) m.get("fields");
-                Double arr = (Double) ms.get("arrondisse");
-                Double num_bv = (Double) ms.get("num_bv");
-                List<Double> lp =  (List<Double>) ms.get("geo_point_2d");
                 
-                Point point = new Point(lp.get(0).intValue(), lp.get(1).intValue());
+                String address = (String)ms.get("l_adr");
                 
-                Polygon p = new Polygon();
-                System.out.println("DONE :"+ i);
-                Map<String,Object> ml = (Map<String,Object>) ms.get("geo_shape");
+                Double num_voie = (Double) ms.get("n_voie");
+                Double num_b = (Double) ms.get("n_sq_vo");
+                Map<String,Object> geo = (Map<String,Object>) ms.get("geom");
                 
-                List<List<List<Object>>> ll = (List<List<List<Object>>>) ml.get("coordinates");
-                for (List<List<Object>> ll2: ll){
-                    for (List<Object> ll3: ll2){
-                        
-                        Double x = (Double) ll3.get(0);
-                        Double y = (Double) ll3.get(1);
-                        p.addPoint(x.intValue(), y.intValue());
-                         
-                    }
-                } 
-               }catch(NullPointerException|ClassCastException np){
-                            System.err.println("null");
-                } 
+                Double[] l =  (Double[]) geo.get("coordinates");
+                Point2D p = new Point2D.Double(l[0],l[1]);
+                System.out.println(p);         
             }
                 
             

@@ -7,8 +7,10 @@ package upec.groupe1.session;
 
 
 import com.google.gson.Gson;
-import java.awt.Point;
-import java.awt.Polygon;
+import java.awt.geom.Area;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +38,8 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
         return voteOfficeEJB.findVoteOffice(numBV,arr);
     }
     // A TESTER le contains
-    protected boolean isInPolyGon(AttachedZone area , Point x){
-        Polygon polyArea = area.getCoodinate();
+    protected boolean isInPolyGon(AttachedZone area , Point2D x){
+        Area polyArea = area.getCoodinate();
         return polyArea.contains(x);
     }
     protected AttachedZone findAttachedZone(Adresse adress){
@@ -67,25 +69,10 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
                 zone.setArr(arr.intValue());
                 Double num_bv = (Double) ms.get("num_bv");
                 zone.setNumber(num_bv.intValue());
-                List<Double> lp =  (List<Double>) ms.get("geo_point_2d");
-                System.err.println(lp);
-                Point point = new Point(lp.get(0).intValue(), lp.get(1).intValue());
-                zone.setGeoPoint(point);
-                Polygon p = new Polygon();
-                
                 Map<String,Object> ml = (Map<String,Object>) ms.get("geo_shape");
-                
-                List<List<List<Object>>> ll = (List<List<List<Object>>>) ml.get("coordinates");
-                for (List<List<Object>> ll2: ll){
-                    for (List<Object> ll3: ll2){
-                        
-                        Double x = (Double) ll3.get(0);
-                        Double y = (Double) ll3.get(1);
-                        p.addPoint(x.intValue(), y.intValue());
-                         
-                    }
-                } 
-                zone.setCoodinate(p);
+                Area p = new Area();
+                Double[][][] ll = (Double[][][]) ml.get("coordinates");
+                zone.setCoodinate(ll);
                 VoteOffices voteOffice = getVoteOfficeFromAttachedZone(zone);
                 zone.setVoteOffice(voteOffice);
                 System.out.println("DONE !!!");

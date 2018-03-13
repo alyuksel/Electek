@@ -6,7 +6,11 @@
 package upec.groupe1.entities;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,14 +45,15 @@ public class Adresse implements Serializable {
     @Column
     private Integer Arr;
 
-    @Column(name="geo_point")
-    private Point geoPoint;
+    @Column(name="geo_point",length = 1000)
+    private Double[] geoPoint;
 
-    public Point getGeoPoint() {
-        return geoPoint;
+    public Point2D getGeoPoint() {
+        List<Double> l = Arrays.asList(geoPoint);
+        return new Point2D.Double(l.get(0),l.get(1));
     }
 
-    public void setGeoPoint(Point geoPoint) {
+    public void setGeoPoint(Double[] geoPoint) {
         this.geoPoint = geoPoint;
     }
     
