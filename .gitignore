@@ -1,4 +1,11 @@
-/ProjetElectek-business/target/
-/ProjetElectek-application/target/
-/ProjetElectek-ear/target/
-/ProjetElectek-business/src/main/resources/META-INF/persistence.xml
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+target/
+
+persistence.xml
+nb-configuration.xml
