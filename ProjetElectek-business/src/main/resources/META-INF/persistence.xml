@@ -6,5 +6,7 @@
     <class>upec.groupe1.entities.AttachedZone</class>
     <class>upec.groupe1.entities.Results</class>
     <class>upec.groupe1.entities.VoteOffices</class>
+    <properties>
+    </properties>
   </persistence-unit>
 </persistence>

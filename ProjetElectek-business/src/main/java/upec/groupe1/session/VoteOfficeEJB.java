@@ -7,12 +7,14 @@ package upec.groupe1.session;
 
 
 import java.util.List;
+import javax.ejb.Stateless;
 import upec.groupe1.entities.VoteOffices;
 
 /**
  *
  * @author drajasin
  */
+@Stateless
 public class VoteOfficeEJB extends ConcretEJB<VoteOffices> {
     
     public VoteOffices findVoteOffice(int numBV, int arr){

@@ -44,10 +44,10 @@ public class AttachedZone implements Serializable {
     
     @Column
     private Integer arr;
-    @Column(name="geo_point")
+    @Column(name="geo_point",length = 1000)
     private Point geoPoint;
     
-    @Column
+    @Column(length = 1000)
     private Polygon coodinate;
 
     public Long getIdAttachedVoteOffices() {
@@ -66,6 +66,7 @@ public class AttachedZone implements Serializable {
     public Integer getArr() {
         return arr;
     }
+    
     public Point getGeoPoint() {
         return geoPoint;
     }

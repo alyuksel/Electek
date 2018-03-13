@@ -7,6 +7,7 @@ package upec.groupe1.session;
 
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import upec.groupe1.entities.Adresse;
 import upec.groupe1.entities.AttachedZone;
@@ -15,7 +16,7 @@ import upec.groupe1.entities.AttachedZone;
  *
  * @author drajasin
  */
-
+@Stateless
 public class AdresseEJB extends ConcretEJB<Adresse>{
 
     @EJB

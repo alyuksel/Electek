@@ -24,9 +24,8 @@ import upec.groupe1.session.Exceptions.NotFoundException;
  * @param <T>
  */
 @LocalBean
-@Stateless
 public class ConcretEJB<T> implements genericDAOImplLocal<T>{
-    @PersistenceContext(name="electek-persist")
+    @PersistenceContext(name="com.upec_ProjetElectek")
     protected EntityManager em ;
     
     
