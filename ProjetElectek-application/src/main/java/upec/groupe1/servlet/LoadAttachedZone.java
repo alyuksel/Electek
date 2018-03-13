@@ -52,13 +52,7 @@ public class LoadAttachedZone extends HttpServlet {
             out.println("<title>Servlet remoteDatasServletAttachedZone</title>");            
             out.println("</head>");
             out.println("<body>");
-            
-             
-                AttachedZone aZ = new AttachedZone();
-                attachezEJB.create(aZ);
-                
-            
-            
+            attachezEJB.create();            
             out.println("<h1>Servlet remoteDatasServletAttachedZone at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
