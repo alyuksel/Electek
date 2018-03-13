@@ -5,6 +5,7 @@
  */
 package upec.groupe1.entities;
 
+import java.awt.Point;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +41,16 @@ public class Adresse implements Serializable {
     @Column
     private Integer Arr;
 
-    
+    @Column(name="geo_point")
+    private Point geoPoint;
+
+    public Point getGeoPoint() {
+        return geoPoint;
+    }
+
+    public void setGeoPoint(Point geoPoint) {
+        this.geoPoint = geoPoint;
+    }
     
     public AttachedZone getAttachedZone() {
         return attachedZone;
