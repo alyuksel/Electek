@@ -30,19 +30,21 @@ public class TEST {
         
         String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=zones-de-rattachement-des-bureaux-de-vote-en-2014&rows=-1");
             Map<String,Object> bv = new Gson().fromJson(json, Map.class);
-        
+            int i = 0;
             List<Map<String,Object>> records = (List<Map<String,Object>>) bv.get("records");
-            try{
+            
             for(Map<String,Object> m : records){
+                try{
+                i++;
                 Map<String,Object> ms = (Map<String,Object>) m.get("fields");
                 Double arr = (Double) ms.get("arrondisse");
                 Double num_bv = (Double) ms.get("num_bv");
                 List<Double> lp =  (List<Double>) ms.get("geo_point_2d");
-                System.err.println(lp);
+                
                 Point point = new Point(lp.get(0).intValue(), lp.get(1).intValue());
                 
                 Polygon p = new Polygon();
-                
+                System.out.println("DONE :"+ i);
                 Map<String,Object> ml = (Map<String,Object>) ms.get("geo_shape");
                 
                 List<List<List<Object>>> ll = (List<List<List<Object>>>) ml.get("coordinates");
@@ -55,12 +57,13 @@ public class TEST {
                          
                     }
                 } 
-                System.err.println(p);
-            }
-            }catch(NullPointerException|ClassCastException np){
+               }catch(NullPointerException|ClassCastException np){
                             System.err.println("null");
-                }
-            System.out.println(records); 
+                } 
+            }
+                
+            
+            
             
     }
    

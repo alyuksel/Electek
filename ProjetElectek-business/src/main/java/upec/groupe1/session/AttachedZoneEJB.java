@@ -58,8 +58,9 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
             Map<String,Object> bv = new Gson().fromJson(json, Map.class);
         
             List<Map<String,Object>> records = (List<Map<String,Object>>) bv.get("records");
-            try{
+           
             for(Map<String,Object> m : records){
+                try{
                 AttachedZone zone = new AttachedZone();
                 Map<String,Object> ms = (Map<String,Object>) m.get("fields");
                 Double arr = (Double) ms.get("arrondisse");
@@ -87,12 +88,13 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
                 zone.setCoodinate(p);
                 VoteOffices voteOffice = getVoteOfficeFromAttachedZone(zone);
                 zone.setVoteOffice(voteOffice);
-                System.err.println("DONE !!!");
+                System.out.println("DONE !!!");
                 super.create(zone); 
-            }
-            }catch(NullPointerException|ClassCastException np){
+                }catch(NullPointerException|ClassCastException np){
                             
                 }
+            }
+            
            
         
           
