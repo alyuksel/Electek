@@ -22,7 +22,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 import upec.groupe1.entities.VoteOffices;
-import upec.groupe1.session.ConcretEJB;
+import upec.groupe1.session.VoteOfficeEJB;
 
 
 
@@ -35,7 +35,7 @@ import upec.groupe1.session.ConcretEJB;
 public class remoteDatasServlet extends HttpServlet {
     
     @EJB
-    private ConcretEJB<VoteOffices> concretEJB;
+    private VoteOfficeEJB officeEJB;
     
     private Client client;
     private ClientResponse clientResponse;
@@ -66,7 +66,7 @@ public class remoteDatasServlet extends HttpServlet {
                 vo.setNumber((String)infos.get("id_bv"));
                 vo.setPostalCode((String)infos.get("cp"));
                 
-                concretEJB.create(vo);
+                officeEJB.create(vo);
                 
             }
             

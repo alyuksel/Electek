@@ -12,13 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import upec.groupe1.entities.VoteOffices;
 import upec.groupe1.session.ConcretEJB;
+import upec.groupe1.session.VoteOfficeEJB;
 
 @WebServlet("/TestServlet")
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private ConcretEJB<VoteOffices> tsb;
+	private VoteOfficeEJB tsb;
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

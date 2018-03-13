@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,7 +22,6 @@ import upec.groupe1.session.Exceptions.NotFoundException;
  * @author adam
  * @param <T>
  */
-@Stateless
 @LocalBean
 public class ConcretEJB<T> implements genericDAOImplLocal<T>{
     @PersistenceContext(name="com.upec_ProjetElectek")
