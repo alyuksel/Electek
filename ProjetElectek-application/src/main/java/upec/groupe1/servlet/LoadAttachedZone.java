@@ -5,14 +5,11 @@
  */
 package upec.groupe1.servlet;
 
-import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -56,30 +53,11 @@ public class LoadAttachedZone extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             
-            String json = getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=zones-de-rattachement-des-bureaux-de-vote-en-2014&rows=-1");
-            Map<String,Object> bv = new Gson().fromJson(json, Map.class);
-        
-        
-            List<Map<String,Object>> records = (List<Map<String,Object>>) bv.get("records");
-        
-            for (Map<String,Object> o : records){
-                Map<String,Object> infos = (Map<String,Object>) o.get("fields");
+             
                 AttachedZone aZ = new AttachedZone();
-                
-                
-                //TODO : DRM - VERSION PAS PAS PAS PAS DU TOUT PROPRE A FINIR AU PROPRE MERCI
-                
-                
-                String arr = infos.get("arrondisse").toString();
-                System.out.println(infos.get("geo_point_2d"));
-                String numBV = infos.get("num_bv").toString();
-                Double arrDou = Double.parseDouble(arr);
-                Double numBVDOu = Double.parseDouble(numBV); 
-                aZ.setNumber(numBVDOu.intValue());
-                aZ.setArr(arrDou.intValue());
                 attachezEJB.create(aZ);
                 
-            }
+            
             
             out.println("<h1>Servlet remoteDatasServletAttachedZone at " + request.getContextPath() + "</h1>");
             out.println("</body>");
@@ -125,17 +103,5 @@ public class LoadAttachedZone extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    private  String getResults(String URL){
-        client = Client.create();
-        webResource = client.resource(URL);
-        clientResponse = webResource.accept("application/json")
-                   .get(ClientResponse.class);
-        if (clientResponse.getStatus() != 200) {
-		   throw new RuntimeException("Failed : HTTP error code : "
-			+ clientResponse.getStatus());
-		}
-        
-        
-        return  clientResponse.getEntity(String.class);
-    }
+
 }
