@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import upec.groupe1.entities.Adresse;
 import upec.groupe1.entities.AttachedZone;
 import upec.groupe1.entities.VoteOffices;
@@ -21,7 +20,6 @@ import upec.groupe1.entities.VoteOffices;
  *
  * @author drajasin
  */
-@Stateless
 public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
     @EJB
     protected VoteOfficeEJB voteOfficeEJB;
@@ -46,6 +44,7 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
         }
         return null;
     }
+    
     @Override
     public void create(AttachedZone zone) {
         VoteOffices voteOffice = getVoteOfficeFromAttachedZone(zone);

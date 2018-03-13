@@ -5,12 +5,7 @@
  */
 package upec.groupe1.session;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import upec.groupe1.entities.Adresse;
 import upec.groupe1.entities.AttachedZone;
 
@@ -18,7 +13,7 @@ import upec.groupe1.entities.AttachedZone;
  *
  * @author drajasin
  */
-@Stateless
+
 public class AdresseEJB extends ConcretEJB<Adresse>{
 
     @EJB
