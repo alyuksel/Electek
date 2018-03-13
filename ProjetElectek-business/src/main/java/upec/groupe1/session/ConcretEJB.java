@@ -6,6 +6,8 @@
 package upec.groupe1.session;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -19,6 +21,7 @@ import upec.groupe1.session.Exceptions.NotFoundException;
 /**
  *
  * @author adam
+ * @param <T>
  */
 @LocalBean
 @Stateless
@@ -59,5 +62,33 @@ public class ConcretEJB<T> implements genericDAOImplLocal<T>{
     @Override
     public void update(T t) {
         em.merge(t);
+    }
+    
+    @Override
+    public List<T> findNamedQuery(String namedQuery) {
+         return em.createNamedQuery(namedQuery).getResultList();
+    }
+
+    @Override
+    public List<T> findNamedQuery(String namedQuery, Class<T> clazz) {
+        return em.createNamedQuery(namedQuery, clazz).getResultList();
+    }
+
+    @Override
+    public List<T> findNamedQuery(String namedQuery, Map<String, Object> params) {
+        Query q = em.createNamedQuery(namedQuery);
+        for(Entry<String, Object> entry: params.entrySet()){
+            q.setParameter(entry.getKey(), entry.getValue());
+        }
+        return q.getResultList();
+    }
+
+    @Override
+    public List<T> findNamedQuery(String namedQuery, Map<String, Object> params, Class<T> clazz) {
+        Query q = em.createNamedQuery(namedQuery, clazz);
+        for(Entry<String, Object> entry: params.entrySet()){
+            q.setParameter(entry.getKey(), entry.getValue());
+        }
+        return q.getResultList();
     }
 }

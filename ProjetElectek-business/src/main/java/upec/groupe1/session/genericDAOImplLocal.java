@@ -6,6 +6,7 @@
 package upec.groupe1.session;
 
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Local;
 
 import upec.groupe1.session.Exceptions.NotFoundException;
@@ -23,4 +24,9 @@ public interface genericDAOImplLocal<T> {
     public void delete(Object id) throws NotFoundException; 
     public void update(T t);
     public List<T> getAllData(String query,int returnlimit);
+    
+    public List<T> findNamedQuery(String namedQuery);
+    public List<T> findNamedQuery(String namedQuery, Class<T> clazz);
+    public List<T> findNamedQuery(String namedQuery, Map<String, Object> params);
+    public List<T> findNamedQuery(String namedQuery, Map<String, Object> params, Class<T> clazz);
 }

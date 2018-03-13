@@ -27,8 +27,8 @@ import upec.groupe1.session.AttachedZoneEJB;
  *
  * @author drajasin
  */
-@WebServlet(name = "test", urlPatterns = {"/remoteDatasServletAttachedZone"})
-public class remoteDatasServletAttachedZone extends HttpServlet {
+@WebServlet(name = "test", urlPatterns = {"/LoadAttachedZone"})
+public class LoadAttachedZone extends HttpServlet {
     @EJB
     private AttachedZoneEJB attachezEJB;
     
@@ -65,25 +65,18 @@ public class remoteDatasServletAttachedZone extends HttpServlet {
             for (Map<String,Object> o : records){
                 Map<String,Object> infos = (Map<String,Object>) o.get("fields");
                 AttachedZone aZ = new AttachedZone();
+                
+                
+                //TODO : DRM - VERSION PAS PAS PAS PAS DU TOUT PROPRE A FINIR AU PROPRE MERCI
+                
+                
                 String arr = infos.get("arrondisse").toString();
-                
                 System.out.println(infos.get("geo_point_2d"));
-                
-                
-                System.out.println(arr);
                 String numBV = infos.get("num_bv").toString();
-                
-                
                 Double arrDou = Double.parseDouble(arr);
-                Double numBVDOu = Double.parseDouble(numBV);
-                System.out.println(arrDou + "DILAn" +  numBVDOu.intValue());
-                        
-                
-                
+                Double numBVDOu = Double.parseDouble(numBV); 
                 aZ.setNumber(numBVDOu.intValue());
                 aZ.setArr(arrDou.intValue());
-                
-                
                 attachezEJB.create(aZ);
                 
             }

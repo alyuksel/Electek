@@ -6,6 +6,7 @@
 package upec.groupe1.session;
 
 
+import java.util.List;
 import javax.ejb.Stateless;
 import upec.groupe1.entities.VoteOffices;
 
@@ -17,8 +18,17 @@ import upec.groupe1.entities.VoteOffices;
 public class VoteOfficeEJB extends ConcretEJB<VoteOffices> {
     
     public VoteOffices findVoteOffice(int numBV, int arr){
-        return em.createNamedQuery("VoteOffices.findByNumber",VoteOffices.class)
+        List<VoteOffices> result = em.createNamedQuery("VoteOffices.findByNumber",VoteOffices.class)
                 .setParameter("number", arr+"-"+numBV)
-                .getResultList().get(0);
+                .getResultList();
+        if(! result.isEmpty()) {
+            System.out.println("Count LIST" + result.size());
+            return result.get(0);
+        }
+        return null;
+    }
+    
+    public List<VoteOffices> getVoteOfficesByArrondissement() {
+        return findNamedQuery("VoteOffices.findAll");
     }
 }
