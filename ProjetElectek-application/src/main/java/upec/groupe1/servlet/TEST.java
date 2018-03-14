@@ -28,7 +28,7 @@ public class TEST {
     
     public static void main(String[] args){        
             System.out.println("Begin");
-            String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=adresse_paris&rows=20");
+            String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=resultats_electoraux&rows=-1&facet=libelle_du_scrutin&facet=numero_d_arrondissement_01_a_20&facet=numero_de_bureau_de_vote_000_a_999&facet=nom_du_candidat_ou_liste");
             System.out.println("API OK");
             Map<String,Object> bv = new Gson().fromJson(json, Map.class);
             int i = 0;
@@ -38,27 +38,28 @@ public class TEST {
                 i++;
                 Map<String,Object> ms = (Map<String,Object>) m.get("fields");
                 
-                String address = (String)ms.get("l_adr");
+                String prenom = (String) ms.get("prenom_du_candidat_ou_liste");
+                String nom = (String) ms.get("nom_du_candidat_ou_liste");
+                Double num_bv = (Double) ms.get("numero_de_bureau_de_vote_000_a_999");
+                String libelle = (String) ms.get("libelle_du_scrutin");
+                Double nb_exprime = (Double) ms.get("nombre_d_exprimes_du_bureau_de_vote");
+                Double nb_votant = (Double) ms.get("nombre_de_votants_du_bureau_de_vote");
+                Double nb_voie = (Double) ms.get("nombre_de_voix_du_candidat_ou_liste_obtenues_pour_le_bureau_de_vote");
+                if(libelle.contains("Présidentielle") || libelle.contains("Législatives")){
+                    String lib = libelle.split(" ")[0];
+                    String année = libelle.split(" ")[1];
+                    String tour = libelle.split("-")[1].split(" ")[1];
+                    
+                    System.out.println(prenom);
+                    System.out.println(nom);
+                    System.out.println(num_bv);
+                    System.out.println(lib);
+                    System.out.println(année);
+                    System.out.println(tour);
                 
-                Double num_voie = (Double) ms.get("n_voie");
-                Double num_b = (Double) ms.get("n_sq_vo");
-                Map<String,Object> geo = (Map<String,Object>) ms.get("geom");
+                }
                 
                 
-                Double arr = (Double) ms.get("c_ar");
-                try{
-                    System.out.println(arr.intValue());
-                }catch(NullPointerException e){
-                            System.err.println(arr);
-                        }
-                //a.setArr(arr.intValue());
-               
-                List<Double> li = (List<Double>) geo.get("coordinates");
-                Double[] l =  new Double[2];
-                l[0]=li.get(0);
-                l[1]=li.get(1);
-                Point2D p = new Point2D.Double(l[0],l[1]);
-                //System.out.println(p);         
             }
        
       /* ArrayList<ArrayList<ArrayList<Double>>> l = new ArrayList<>();

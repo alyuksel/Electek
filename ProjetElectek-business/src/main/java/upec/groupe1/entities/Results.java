@@ -34,10 +34,27 @@ public class Results implements Serializable {
     private String caption;
     
     @Column
-    private String candidate;
+    private String candidateFN;
+   
+     
+    @Column
+    private String candidateLN;
+
+    @Column
+    private String yearEl;
     
     @Column
-    private Long numberOfVotes;
+    private String turn;
+    
+    @Column
+    private Long nbVotants;
+    
+    @Column
+    private Long nbExprime;
+    
+    @Column 
+    private Long nbVoie;
+
 
     public Long getIdResults() {
         return idResults;
@@ -52,14 +69,56 @@ public class Results implements Serializable {
         return caption;
     }
 
-    public String getCandidate() {
-        return candidate;
+    public String getCandidateFN() {
+        return candidateFN;
     }
 
-    public Long getNumberOfVotes() {
-        return numberOfVotes;
+     public String getCandidateLN() {
+        return candidateLN;
     }
 
+    public String getYearEl() {
+        return yearEl;
+    }
+
+    public String getTurn() {
+        return turn;
+    }
+
+    public Long getNbVotants() {
+        return nbVotants;
+    }
+
+    public Long getNbExprime() {
+        return nbExprime;
+    }
+
+    public Long getNbVoie() {
+        return nbVoie;
+    }
+
+    public void setYearEl(String yearEl) {
+        this.yearEl = yearEl;
+    }
+
+    public void setTurn(String turn) {
+        this.turn = turn;
+    }
+
+    public void setNbVotants(Long nbVotants) {
+        this.nbVotants = nbVotants;
+    }
+
+    public void setNbExprime(Long nbExprime) {
+        this.nbExprime = nbExprime;
+    }
+
+    public void setNbVoie(Long nbVoie) {
+        this.nbVoie = nbVoie;
+    }
+     
+     
+     
     public void setIdResults(Long idResults) {
         this.idResults = idResults;
     }
@@ -72,13 +131,14 @@ public class Results implements Serializable {
         this.caption = caption;
     }
 
-    public void setCandidate(String candidate) {
-        this.candidate = candidate;
+    public void setCandidateFN(String candidateFN) {
+        this.candidateFN = candidateFN;
     }
 
-    public void setNumberOfVotes(Long numberOfVotes) {
-        this.numberOfVotes = numberOfVotes;
+    public void setCandidateLN(String candidateLN) {
+        this.candidateLN = candidateLN;
     }
+
    
     
     @Override
