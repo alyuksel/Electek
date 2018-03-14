@@ -52,7 +52,7 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
     }
 
     
-    public void create() {
+    public void importAttachedZones() {
         
         String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=zones-de-rattachement-des-bureaux-de-vote-en-2014&rows=-1");
             Map<String,Object> bv = new Gson().fromJson(json, Map.class);
@@ -89,7 +89,7 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
                 VoteOffices voteOffice = getVoteOfficeFromAttachedZone(zone);
                 zone.setVoteOffice(voteOffice);
                 System.out.println("DONE !!!");
-                super.create(zone); 
+                super.create(zone);
                 }catch(NullPointerException|ClassCastException np){
                             
                 }

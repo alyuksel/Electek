@@ -16,7 +16,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import upec.groupe1.entities.AttachedZone;
 import upec.groupe1.session.AttachedZoneEJB;
 
 
@@ -52,7 +51,7 @@ public class LoadAttachedZone extends HttpServlet {
             out.println("<title>Servlet remoteDatasServletAttachedZone</title>");            
             out.println("</head>");
             out.println("<body>");
-            attachezEJB.create();            
+            attachezEJB.importAttachedZones();            
             out.println("<h1>Servlet remoteDatasServletAttachedZone at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
