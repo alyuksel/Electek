@@ -7,6 +7,8 @@ package upec.groupe1.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,23 +39,17 @@ public class VoteOfficesServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet VoteOfficesServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet VoteOfficesServlet at " + request.getContextPath() + "</h1>");
-            
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            for(VoteOffices v : officesEJB.getVoteOfficesByArrondissement()){
-                out.println(v.getAdress());
-                out.print("<br>");
+          
+            Map<String, List<VoteOffices>> voteOfficesMap= officesEJB.getVoteOfficesByArrondissement();
+            for(String key : voteOfficesMap.keySet()){
+                out.println("Arrondissement : "+ key);
+                out.println("<br>");
+                for(VoteOffices vo: voteOfficesMap.get(key)){
+                    out.println(vo.getAdress());
+                    out.println("<br>");
+                }
+                out.println("<br>");
             }
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 

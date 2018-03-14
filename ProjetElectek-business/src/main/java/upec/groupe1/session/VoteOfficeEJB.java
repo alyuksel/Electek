@@ -7,6 +7,9 @@ package upec.groupe1.session;
 
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import upec.groupe1.entities.VoteOffices;
 
@@ -28,7 +31,14 @@ public class VoteOfficeEJB extends ConcretEJB<VoteOffices> {
         return null;
     }
     
-    public List<VoteOffices> getVoteOfficesByArrondissement() {
-        return findNamedQuery("VoteOffices.findAll");
+    public Map<String, List<VoteOffices>> getVoteOfficesByArrondissement() {
+        List<VoteOffices> voteOfficeses = findNamedQuery("VoteOffices.findAll");
+        Map<String, List<VoteOffices>> mapVoteOffices = voteOfficeses.stream().collect(Collectors.groupingBy((VoteOffices vo) -> {
+            return vo.getNumber().split("-")[0];
+        }));
+        mapVoteOffices.forEach((k, v) -> {
+            v.stream().distinct().collect(Collectors.toList());
+        });
+        return mapVoteOffices;
     }
 }
