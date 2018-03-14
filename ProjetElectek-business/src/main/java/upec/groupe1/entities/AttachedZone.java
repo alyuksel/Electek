@@ -49,7 +49,7 @@ public class AttachedZone implements Serializable {
     @Column
     private Integer arr;
  
-    @Column(length = 1000)
+    @Column(length = 10000)
     private Double[][][] coodinate;
 
     public Long getIdAttachedVoteOffices() {

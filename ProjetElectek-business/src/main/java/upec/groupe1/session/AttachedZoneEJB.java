@@ -71,8 +71,16 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
                 zone.setNumber(num_bv.intValue());
                 Map<String,Object> ml = (Map<String,Object>) ms.get("geo_shape");
                 Area p = new Area();
-                Double[][][] ll = (Double[][][]) ml.get("coordinates");
-                zone.setCoodinate(ll);
+                List<List<List<Double>>> coordinate =  (List<List<List<Double>>>) ml.get("coordinates");         
+                Double[][][] tab = new Double[coordinate.size()][coordinate.get(0).size()][2];
+                for (int i=0;i<coordinate.size();i++){
+                    for(int j=0;j<coordinate.get(0).size();j++){
+                        for(int k=0;k<2;k++){
+                            tab[i][j][k]=coordinate.get(i).get(j).get(k);
+                        }
+                    }
+                }
+                zone.setCoodinate(tab);
                 VoteOffices voteOffice = getVoteOfficeFromAttachedZone(zone);
                 zone.setVoteOffice(voteOffice);
                 System.out.println("DONE !!!");
