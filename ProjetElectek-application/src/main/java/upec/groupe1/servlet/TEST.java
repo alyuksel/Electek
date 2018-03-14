@@ -27,8 +27,9 @@ public class TEST {
     
     
     public static void main(String[] args){        
-        
-            String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=adresse_paris&rows=-1");
+            System.out.println("Begin");
+            String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=adresse_paris&rows=20");
+            System.out.println("API OK");
             Map<String,Object> bv = new Gson().fromJson(json, Map.class);
             int i = 0;
             List<Map<String,Object>> records = (List<Map<String,Object>>) bv.get("records");
@@ -44,12 +45,20 @@ public class TEST {
                 Map<String,Object> geo = (Map<String,Object>) ms.get("geom");
                 
                 
+                Double arr = (Double) ms.get("c_ar");
+                try{
+                    System.out.println(arr.intValue());
+                }catch(NullPointerException e){
+                            System.err.println(arr);
+                        }
+                //a.setArr(arr.intValue());
+               
                 List<Double> li = (List<Double>) geo.get("coordinates");
                 Double[] l =  new Double[2];
                 l[0]=li.get(0);
                 l[1]=li.get(1);
                 Point2D p = new Point2D.Double(l[0],l[1]);
-                System.out.println(p);         
+                //System.out.println(p);         
             }
        
       /* ArrayList<ArrayList<ArrayList<Double>>> l = new ArrayList<>();

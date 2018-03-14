@@ -5,13 +5,8 @@
  */
 package upec.groupe1.entities;
 
-import java.awt.geom.Area;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
+import java.awt.geom.Path2D;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +25,7 @@ import javax.persistence.OneToOne;
 
 @NamedQueries({@NamedQuery(name = "AttachedZone.findByNumber", query = "SELECT a FROM AttachedZone a WHERE a.number = :number"),
                @NamedQuery(name = "AttachedZone.findAll", query = "SELECT a FROM AttachedZone a"),
-               @NamedQuery(name = "AttachedZone.findByArrondissement", query = "SELECT a FROM AttachedZone a WHERE a.arr = :arr")
+               @NamedQuery(name = "AttachedZone.findByArrondissement", query = "SELECT a FROM AttachedZone a WHERE a.arr = :arr ")
 })
 public class AttachedZone implements Serializable {
 
@@ -71,13 +66,16 @@ public class AttachedZone implements Serializable {
     
   
 
-    public Area getCoodinate() {
-        Area a = new Area();
+    public Path2D getCoodinate() {
+        boolean first = true;
+        Path2D a = new Path2D.Double();
         for (Double[][] ll : coodinate){
             for (Double[] l : ll){
-                Point2D point = new Point2D.Double(l[0], l[1]);
-                Line2D line = new Line2D.Double(point,point);
-                a.add(new Area(line));
+                if (first){
+                    a.moveTo(l[0],l[1]);
+                    first=false;
+                }else
+                    a.lineTo(l[0],l[1]);
             }
         }
         return a;

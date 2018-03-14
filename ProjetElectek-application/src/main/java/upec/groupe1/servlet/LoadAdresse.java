@@ -5,23 +5,17 @@
  */
 package upec.groupe1.servlet;
 
-import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import upec.groupe1.entities.Adresse;
-import upec.groupe1.entities.AttachedZone;
 import upec.groupe1.session.AdresseEJB;
 
 /**
@@ -57,31 +51,7 @@ public class LoadAdresse extends HttpServlet {
             out.println("<title>Servlet LoadAdresse</title>");            
             out.println("</head>");
             out.println("<body>");
-            
-            String json = getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=adresse_paris&rows=-1");
-            Map<String,Object> bv = new Gson().fromJson(json, Map.class);
-        
-        
-            List<Map<String,Object>> records = (List<Map<String,Object>>) bv.get("records");
-        
-            for (Map<String,Object> o : records){
-                Map<String,Object> infos = (Map<String,Object>) o.get("fields");
-                Adresse a = new Adresse();
-                
-                
-                //TODO : DRM - VERSION PAS PAS PAS PAS DU TOUT PROPRE A FINIR AU PROPRE MERCI
-                
-                
-                String geoPoint  = (String)infos.get("geom_x_y");
-                
-                System.out.println(geoPoint + "   "+ Arrays.toString(geoPoint.split(",")));
-                
-                String numBV = infos.get("num_bv").toString();
-               
-                AdresseEJB.create(a);
-                
-            }
-            
+            AdresseEJB.create();
             out.println("<h1>Servlet LoadAdresse at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
