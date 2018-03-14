@@ -25,20 +25,13 @@ public class VoteOfficeEJB extends ConcretEJB<VoteOffices> {
                 .setParameter("number", arr+"-"+numBV)
                 .getResultList();
         if(! result.isEmpty()) {
-            System.out.println("Count LIST" + result.size());
             return result.get(0);
         }
         return null;
     }
     
     public Map<String, List<VoteOffices>> getVoteOfficesByArrondissement() {
-        List<VoteOffices> voteOfficeses = findNamedQuery("VoteOffices.findAll");
-        Map<String, List<VoteOffices>> mapVoteOffices = voteOfficeses.stream().collect(Collectors.groupingBy((VoteOffices vo) -> {
-            return vo.getNumber().split("-")[0];
-        }));
-        mapVoteOffices.forEach((k, v) -> {
-            v.stream().distinct().collect(Collectors.toList());
-        });
-        return mapVoteOffices;
+        List<VoteOffices> voteOffices = findNamedQuery("VoteOffices.findAll");
+        return voteOffices.stream().collect(Collectors.groupingBy(VoteOffices::extractArr));  
     }
 }

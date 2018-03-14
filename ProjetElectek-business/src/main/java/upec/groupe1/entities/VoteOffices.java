@@ -110,6 +110,14 @@ public class VoteOffices implements Serializable {
         }
         return true;
     }
+    
+    public String extractBvNum(){
+        return number.split("-")[1];
+    }
+    
+    public String extractArr(){
+        return number.split("-")[0];
+    }
 
     @Override
     public String toString() {
