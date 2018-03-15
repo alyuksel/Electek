@@ -11,12 +11,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author adam
  */
 @Entity
+@NamedQueries({@NamedQuery(name = "Results.listCandidates", query = "SELECT distinct r.candidateFN,r.candidateLN FROM Results r ORDER BY r.candidateFN "),
+        @NamedQuery(name= "Results.getResults" ,query = "SELECT r FROM Results r" ),
+        @NamedQuery(name= "Results.getResultsByID" , query = "SELECT r FROM Results r WHERE r.idResults = :id")
+})
 public class Results implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,7 +30,7 @@ public class Results implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idResults;
 
- 
+    
     
     @Column
     private String caption;

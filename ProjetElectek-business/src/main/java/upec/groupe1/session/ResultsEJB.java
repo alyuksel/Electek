@@ -19,6 +19,36 @@ import upec.groupe1.tools.Tools;
 @Stateless
 public class ResultsEJB extends ConcretEJB<Results>{
     
+    public List<Results> getCandidates(){
+        return  em.createNamedQuery("Results.listCandidates",Results.class)
+                .getResultList();
+    };
+    
+    public List<Results> getResults(){
+        return  em.createNamedQuery("Results.getResults",Results.class)
+                .getResultList();
+    };
+    
+    
+    public int count() {
+        javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+        javax.persistence.criteria.Root<Results> rt = cq.from(Results.class);
+        cq.select(em.getCriteriaBuilder().count(rt));
+        javax.persistence.Query q = em.createQuery(cq);
+        return ((Long) q.getSingleResult()).intValue();
+    }
+    
+    
+     public List<Results> findRange(int[] range) {
+        javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+        cq.select(cq.from(Results.class));
+        javax.persistence.Query q = em.createQuery(cq);
+        q.setMaxResults(range[1] - range[0] + 1);
+        q.setFirstResult(range[0]);
+        return q.getResultList();
+    }
+
+    
     public void create(){
         System.out.println("Begin");
             String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=resultats_electoraux&rows=-1&facet=libelle_du_scrutin&facet=numero_d_arrondissement_01_a_20&facet=numero_de_bureau_de_vote_000_a_999&facet=nom_du_candidat_ou_liste");

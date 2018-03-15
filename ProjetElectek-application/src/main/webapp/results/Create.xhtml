@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateResultsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateResultsLabel_idResults}" for="idResults" />
+                    <h:inputText id="idResults" value="#{resultsController.selected.idResults}" title="#{bundle.CreateResultsTitle_idResults}" />
+                    <h:outputLabel value="#{bundle.CreateResultsLabel_caption}" for="caption" />
+                    <h:inputText id="caption" value="#{resultsController.selected.caption}" title="#{bundle.CreateResultsTitle_caption}" />
+                    <h:outputLabel value="#{bundle.CreateResultsLabel_candidateFN}" for="candidateFN" />
+                    <h:inputText id="candidateFN" value="#{resultsController.selected.candidateFN}" title="#{bundle.CreateResultsTitle_candidateFN}" />
+                    <h:outputLabel value="#{bundle.CreateResultsLabel_candidateLN}" for="candidateLN" />
+                    <h:inputText id="candidateLN" value="#{resultsController.selected.candidateLN}" title="#{bundle.CreateResultsTitle_candidateLN}" />
+                    <h:outputLabel value="#{bundle.CreateResultsLabel_yearEl}" for="yearEl" />
+                    <h:inputText id="yearEl" value="#{resultsController.selected.yearEl}" title="#{bundle.CreateResultsTitle_yearEl}" />
+                    <h:outputLabel value="#{bundle.CreateResultsLabel_turn}" for="turn" />
+                    <h:inputText id="turn" value="#{resultsController.selected.turn}" title="#{bundle.CreateResultsTitle_turn}" />
+                    <h:outputLabel value="#{bundle.CreateResultsLabel_nbVotants}" for="nbVotants" />
+                    <h:inputText id="nbVotants" value="#{resultsController.selected.nbVotants}" title="#{bundle.CreateResultsTitle_nbVotants}" />
+                    <h:outputLabel value="#{bundle.CreateResultsLabel_nbExprime}" for="nbExprime" />
+                    <h:inputText id="nbExprime" value="#{resultsController.selected.nbExprime}" title="#{bundle.CreateResultsTitle_nbExprime}" />
+                    <h:outputLabel value="#{bundle.CreateResultsLabel_nbVoie}" for="nbVoie" />
+                    <h:inputText id="nbVoie" value="#{resultsController.selected.nbVoie}" title="#{bundle.CreateResultsTitle_nbVoie}" />
+                    <h:outputLabel value="#{bundle.CreateResultsLabel_numBV}" for="numBV" />
+                    <h:inputText id="numBV" value="#{resultsController.selected.numBV}" title="#{bundle.CreateResultsTitle_numBV}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{resultsController.create}" value="#{bundle.CreateResultsSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{resultsController.prepareList}" value="#{bundle.CreateResultsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateResultsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
