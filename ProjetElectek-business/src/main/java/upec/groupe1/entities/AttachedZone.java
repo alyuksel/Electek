@@ -5,8 +5,7 @@
  */
 package upec.groupe1.entities;
 
-import java.awt.Point;
-import java.awt.Polygon;
+import java.awt.geom.Path2D;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +25,7 @@ import javax.persistence.OneToOne;
 
 @NamedQueries({@NamedQuery(name = "AttachedZone.findByNumber", query = "SELECT a FROM AttachedZone a WHERE a.number = :number"),
                @NamedQuery(name = "AttachedZone.findAll", query = "SELECT a FROM AttachedZone a"),
-               @NamedQuery(name = "AttachedZone.findByArrondissement", query = "SELECT a FROM AttachedZone a WHERE a.arr = :arr")
+               @NamedQuery(name = "AttachedZone.findByArrondissement", query = "SELECT a FROM AttachedZone a WHERE a.arr = :arr ")
 })
 public class AttachedZone implements Serializable {
 
@@ -44,11 +43,9 @@ public class AttachedZone implements Serializable {
     
     @Column
     private Integer arr;
-    @Column(name="geo_point",length = 1000)
-    private Point geoPoint;
-    
-    @Column(length = 1000)
-    private Polygon coodinate;
+ 
+    @Column(length = 10000)
+    private Double[][][] coodinate;
 
     public Long getIdAttachedVoteOffices() {
         return idAttachedVoteOffices;
@@ -67,12 +64,21 @@ public class AttachedZone implements Serializable {
         return arr;
     }
     
-    public Point getGeoPoint() {
-        return geoPoint;
-    }
+  
 
-    public Polygon getCoodinate() {
-        return coodinate;
+    public Path2D getCoodinate() {
+        boolean first = true;
+        Path2D a = new Path2D.Double();
+        for (Double[][] ll : coodinate){
+            for (Double[] l : ll){
+                if (first){
+                    a.moveTo(l[0],l[1]);
+                    first=false;
+                }else
+                    a.lineTo(l[0],l[1]);
+            }
+        }
+        return a;
     }
 
     public void setIdAttachedVoteOffices(Long idAttachedVoteOffices) {
@@ -90,11 +96,7 @@ public class AttachedZone implements Serializable {
         this.number = number;
     }
 
-    public void setGeoPoint(Point geoPoint) {
-        this.geoPoint = geoPoint;
-    }
-
-    public void setCoodinate(Polygon coodinate) {
+    public void setCoodinate(Double [][][] coodinate) {
         this.coodinate = coodinate;
     }
     

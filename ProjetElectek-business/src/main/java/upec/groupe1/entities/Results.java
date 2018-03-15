@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -26,59 +24,124 @@ public class Results implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idResults;
 
-    @OneToOne
-    @JoinColumn(name="idVoteOffice")
-    private VoteOffices voteOffice;
+ 
     
     @Column
     private String caption;
     
     @Column
-    private String candidate;
+    private String candidateFN;
+   
+     
+    @Column
+    private String candidateLN;
+
+    @Column
+    private String yearEl;
     
     @Column
-    private Long numberOfVotes;
+    private String turn;
+    
+    @Column
+    private Long nbVotants;
+    
+    @Column
+    private Long nbExprime;
+    
+    @Column 
+    private Long nbVoie;
+
+    @Column 
+    private Long numBV;
+    
+    
 
     public Long getIdResults() {
         return idResults;
     }
 
-    public VoteOffices getIdVoteOffice() {
-        return voteOffice;
-    }
+
 
 
     public String getCaption() {
         return caption;
     }
 
-    public String getCandidate() {
-        return candidate;
+    public String getCandidateFN() {
+        return candidateFN;
     }
 
-    public Long getNumberOfVotes() {
-        return numberOfVotes;
+     public String getCandidateLN() {
+        return candidateLN;
     }
 
+    public String getYearEl() {
+        return yearEl;
+    }
+
+    public String getTurn() {
+        return turn;
+    }
+
+    public Long getNbVotants() {
+        return nbVotants;
+    }
+
+    public Long getNbExprime() {
+        return nbExprime;
+    }
+
+    public Long getNbVoie() {
+        return nbVoie;
+    }
+
+    public Long getNumBV() {
+        return numBV;
+    }
+
+    public void setYearEl(String yearEl) {
+        this.yearEl = yearEl;
+    }
+
+    public void setTurn(String turn) {
+        this.turn = turn;
+    }
+
+    public void setNbVotants(Long nbVotants) {
+        this.nbVotants = nbVotants;
+    }
+
+    public void setNbExprime(Long nbExprime) {
+        this.nbExprime = nbExprime;
+    }
+
+    public void setNbVoie(Long nbVoie) {
+        this.nbVoie = nbVoie;
+    }
+     
+     
+     
     public void setIdResults(Long idResults) {
         this.idResults = idResults;
     }
 
-    public void setIdVoteOffice(VoteOffices VoteOffice) {
-        this.voteOffice = VoteOffice;
-    }
 
     public void setCaption(String caption) {
         this.caption = caption;
     }
 
-    public void setCandidate(String candidate) {
-        this.candidate = candidate;
+    public void setCandidateFN(String candidateFN) {
+        this.candidateFN = candidateFN;
     }
 
-    public void setNumberOfVotes(Long numberOfVotes) {
-        this.numberOfVotes = numberOfVotes;
+    public void setCandidateLN(String candidateLN) {
+        this.candidateLN = candidateLN;
     }
+
+    public void setNumBV(Long numBV) {
+        this.numBV = numBV;
+    }
+    
    
     
     @Override
