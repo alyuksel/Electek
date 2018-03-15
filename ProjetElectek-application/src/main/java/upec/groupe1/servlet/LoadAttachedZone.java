@@ -16,7 +16,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import upec.groupe1.entities.AttachedZone;
 import upec.groupe1.session.AttachedZoneEJB;
 
 

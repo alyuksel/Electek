@@ -37,7 +37,7 @@ public class Adresse implements Serializable {
 
     
     @Column
-    private Integer bvNum;
+    private Integer streetNum;
 
     @Column
     private String streetName;
@@ -89,12 +89,12 @@ public class Adresse implements Serializable {
         this.idAdresses = idAdresses;
     }    
     
-    public Integer getBvNum(){
-        return bvNum;
+    public Integer getStreetNum(){
+        return streetNum;
     }
     
-    public void setBvNum(Integer streetNum){
-        this.bvNum = streetNum;
+    public void setStreetNum(Integer streetNum){
+        this.streetNum = streetNum;
     }
     
    

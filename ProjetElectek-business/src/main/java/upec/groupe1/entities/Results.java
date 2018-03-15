@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -26,9 +24,7 @@ public class Results implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idResults;
 
-    @OneToOne
-    @JoinColumn(name="idVoteOffice")
-    private VoteOffices voteOffice;
+ 
     
     @Column
     private String caption;
@@ -55,14 +51,16 @@ public class Results implements Serializable {
     @Column 
     private Long nbVoie;
 
+    @Column 
+    private Long numBV;
+    
+    
 
     public Long getIdResults() {
         return idResults;
     }
 
-    public VoteOffices getIdVoteOffice() {
-        return voteOffice;
-    }
+
 
 
     public String getCaption() {
@@ -97,6 +95,10 @@ public class Results implements Serializable {
         return nbVoie;
     }
 
+    public Long getNumBV() {
+        return numBV;
+    }
+
     public void setYearEl(String yearEl) {
         this.yearEl = yearEl;
     }
@@ -123,9 +125,6 @@ public class Results implements Serializable {
         this.idResults = idResults;
     }
 
-    public void setIdVoteOffice(VoteOffices VoteOffice) {
-        this.voteOffice = VoteOffice;
-    }
 
     public void setCaption(String caption) {
         this.caption = caption;
@@ -139,6 +138,10 @@ public class Results implements Serializable {
         this.candidateLN = candidateLN;
     }
 
+    public void setNumBV(Long numBV) {
+        this.numBV = numBV;
+    }
+    
    
     
     @Override

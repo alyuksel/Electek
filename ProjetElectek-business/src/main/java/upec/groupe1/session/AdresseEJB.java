@@ -41,9 +41,9 @@ public class AdresseEJB extends ConcretEJB<Adresse>{
                 String address = (String)ms.get("l_adr");
 
                 a.setStreetName(address);
-                Double num_b = (Double) ms.get("n_sq_vo");
+                Double streetnum = (Double) ms.get("n_voie");
 
-                a.setBvNum(num_b.intValue());
+                a.setStreetNum(streetnum.intValue());
                 Map<String,Object> geo = (Map<String,Object>) ms.get("geom");
                 List<Double> li = (List<Double>) geo.get("coordinates");
          

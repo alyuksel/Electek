@@ -42,7 +42,7 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
         return polyArea.contains(x);
     }
     public AttachedZone findAttachedZone(Adresse adress,Point2D point) throws NotFoundException{
-        System.out.println(adress.getArr() + "  " + adress.getBvNum());
+        System.out.println(adress.getArr() + "  " + adress.getStreetNum());
         List<AttachedZone> result = em.createNamedQuery("AttachedZone.findByArrondissement",AttachedZone.class)
                 .setParameter("arr",adress.getArr())
                 .getResultList();

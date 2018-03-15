@@ -43,7 +43,8 @@ public class ResultsEJB extends ConcretEJB<Results>{
                     String tour = libelle.split("-")[1].split(" ")[1];
                     res.setCandidateFN(nom);
                     res.setCandidateLN(prenom);
-                    
+                    res.setNumBV(num_bv.longValue());
+                    System.out.println(num_bv.longValue());
                     res.setNbExprime(nb_exprime.longValue());
                     res.setNbVotants(nb_votant.longValue());
                     res.setNbVoie(nb_voie.longValue());
