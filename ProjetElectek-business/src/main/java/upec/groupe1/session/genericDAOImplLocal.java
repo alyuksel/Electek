@@ -29,4 +29,5 @@ public interface genericDAOImplLocal<T> {
     public List<T> findNamedQuery(String namedQuery, Class<T> clazz);
     public List<T> findNamedQuery(String namedQuery, Map<String, Object> params);
     public List<T> findNamedQuery(String namedQuery, Map<String, Object> params, Class<T> clazz);
+    public int count(String namedQuery, Map<String, Object> params);
 }

@@ -18,8 +18,14 @@ import javax.persistence.NamedQuery;
  *
  * @author adam
  */
+
 @Entity
-    @NamedQueries({@NamedQuery(name = "Results.findByCandidate", query = "SELECT r FROM Results r WHERE r.candidateFN = :name AND yearel = '2012' AND turn = :turn")
+@NamedQueries({
+    @NamedQuery(name = "Results.findByCandidate", query = "SELECT r FROM Results r WHERE r.candidateFN = :name AND r.yearEl = '2017' AND turn = :turn"),
+    @NamedQuery(name = "Results.findCandidatesByYearByCaption", query = "SELECT r FROM Results r WHERE r.yearEl =:year AND r.caption =:caption"),
+    @NamedQuery(name = "Results.findByYearByCaptionCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.turn =:turn"),
+    @NamedQuery(name = "Results.findByYearByCaption", query = "SELECT r FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.turn = :turn"),
+    @NamedQuery(name = "Results.findByYearByCaptionByCandidateCount", query = "SELECT r FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.candidateFN=:name AND r.candidateLN = :lastName AND r.turn =:turn")    
 })
 public class Results implements Serializable {
 

@@ -8,7 +8,10 @@
     <servlet-mapping>
         <servlet-name>ResultServlet</servlet-name>
         <url-pattern>/results</url-pattern>
-        <url-pattern>/results/candidat</url-pattern>
+        <url-pattern>/results/presidentielle</url-pattern>
+        <url-pattern>/results/legislatives</url-pattern>
+        <url-pattern>/results/legislatives/candidat</url-pattern>
+        <url-pattern>/results/presidentielle/candidat</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -12,10 +12,11 @@ import java.util.List;
 import javax.ejb.EJB;
 import java.util.Map;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import upec.groupe1.dto.Candidate;
+import upec.groupe1.dto.Score;
 import upec.groupe1.session.ResultsEJB;
 
 /**
@@ -24,45 +25,62 @@ import upec.groupe1.session.ResultsEJB;
  */
 public class ResultServlet extends HttpServlet {
     private final String RESULTS = "/results";
-    private final String RESULTS_CANDIDAT = RESULTS + "/candidate";
+    private final String RESULTS_PRESIDENTIELLE = RESULTS + "/presidentielle";
+    private final String RESULTS_LEGISLATIVE =RESULTS + "/legislatives";
+    private final String RESULTS_PRESIDENTIELLE_CANDIDAT = RESULTS_PRESIDENTIELLE + "/candidat";
+    private final String RESULTS_LEGISLATIVE_CANDIDAT = RESULTS_LEGISLATIVE + "/candidat";
     
     @EJB
     ResultsEJB resultsEJB;
     
-    protected void processRequestGet(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String path = request.getServletPath();
-            String contexString = request.getContextPath();
-            Map<String, String[]> params = request.getParameterMap();
-            out.printf(contexString);
             switch(path){
-                case RESULTS : {
-                    List<String> attributes = new ArrayList<>();
-                    attributes.add("izo");
-                    attributes.add("izi");
-                    String message = "Transmission de variables : OK ! ";
-                    request.setAttribute( "test", attributes );
+                case RESULTS_PRESIDENTIELLE : {
+                    request.setAttribute("isScore", false);
+                    List<Candidate> candidates = resultsEJB.getCandidatesByCaption("Présidentielle");
+                    request.setAttribute("candidates", candidates);
+                    request.setAttribute("path", path);
                     this.getServletContext().getRequestDispatcher( "/WEB-INF/Results.jsp" ).forward( request, response );
                 }break;
-                case RESULTS_CANDIDAT : {
-                    resultsEJB.getCandidateResult("LE PEN", "1er");
+                case RESULTS_LEGISLATIVE : {
+                    request.setAttribute("isScore", false);
+                    List<Candidate> candidates = resultsEJB.getCandidatesByCaption("Législatives");
+                    request.setAttribute("candidates", candidates);
+                    request.setAttribute("path", path);
+                    this.getServletContext().getRequestDispatcher( "/WEB-INF/Results.jsp" ).forward( request, response );
                 }break;
             }
-            
         }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequestGet(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String path = request.getServletPath();
+            System.out.println(path);
+        switch(path){
+                case RESULTS_PRESIDENTIELLE_CANDIDAT : {
+                    String lastName = request.getParameter("lastName");
+                    String turn = request.getParameter("turn");
+                    String arrondissement = request.getParameter("place");
+                    Score score = null;
+                    score = resultsEJB.getScoreByCandidate(lastName, "François", turn, "Présidentielle");
+                    List<Candidate> candidates = resultsEJB.getCandidatesByCaption("Présidentielle");
+                    request.setAttribute("candidates", candidates);
+                    request.setAttribute("isScore", true);
+                    request.setAttribute("score", score);
+                    request.setAttribute("path", path);
+                    this.getServletContext().getRequestDispatcher( "/WEB-INF/Results.jsp" ).forward( request, response );
+                }break;
+            }
+        }
     }
 
     @Override

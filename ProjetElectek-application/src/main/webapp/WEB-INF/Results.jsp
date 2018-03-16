@@ -4,6 +4,10 @@
     Author     : alpi
 --%>
 
+<%@page import="upec.groupe1.dto.Score"%>
+<%@page import="upec.groupe1.dto.Candidate"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Map"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,16 +19,48 @@
     <body>
         <p>Ceci est une page générée depuis une JSP.</p>
         <p>
-            
+        <% 
+            String path = (String)(request.getContextPath()+request.getAttribute("path"));
+        %>
+        <%=path%>
+        <form action="<%=path%>/candidat" method="POST">
+            <select name="lastName">
+                <%
+                List<Candidate> candidates = (List<Candidate>) request.getAttribute("candidates");
+                for (Candidate cand : candidates)
+                {
+                        String item = (String) cand.getFullName();
+                        String lastName = (String) cand.getNom();
+                %>
+                   <option value="<%=lastName%>"><%=item%></option>
+                <%
+                }
+                %>
+            </select>
+            <select name="turn">
+                <option value="1er">1er</option>
+                <option value="2eme">2eme</option>
+            </select>
+            <select name="place">
+                <option>global</option>
+            </select>
+            <input type="submit" value="Submit" />
+        </form>
             <%
-            ArrayList<String> posts = (ArrayList<String>) request.getAttribute("test"); 
-            for (String str: posts) {   
-            %>
-            <tr>
-              <td><%=str%></td>
-              ....
-             </tr>
+                if((Boolean)request.getAttribute("isScore") == true){
+            %>        
+                 <p>
+                Score du candidat :<br>
+                <%
+                    Score score = (Score) request.getAttribute("score");
+                    String total = ""+score.getVoteNumber();
+                    String percent = ""+score.getPercent();
+                %>
+                <%=total%><br>
+                <%=percent%>
+                </p>
             <%}%>
+            
         </p>
     </body>
 </html>

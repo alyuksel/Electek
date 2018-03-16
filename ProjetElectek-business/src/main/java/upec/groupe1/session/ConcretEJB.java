@@ -89,4 +89,14 @@ public class ConcretEJB<T> implements genericDAOImplLocal<T>{
         }
         return q.getResultList();
     }
+
+    @Override
+    public int count(String namedQuery, Map<String, Object> params) {
+        Query q = em.createNamedQuery(namedQuery);
+        for(Entry<String, Object> entry: params.entrySet()){
+            q.setParameter(entry.getKey(), entry.getValue());
+        }
+        return q.getFirstResult();
+    }
+    
 }

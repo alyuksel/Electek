@@ -9,7 +9,11 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
+import org.hibernate.engine.spi.QueryParameters;
+import upec.groupe1.dto.Candidate;
+import upec.groupe1.dto.Score;
 import upec.groupe1.entities.Results;
 import upec.groupe1.tools.Tools;
 
@@ -60,10 +64,35 @@ public class ResultsEJB extends ConcretEJB<Results>{
         }
     }
     
+    public List<Candidate> getCandidatesByCaption(String caption){
+        Map<String,Object> params = new HashMap<>();
+        params.put("year", "2012");
+        params.put("caption", caption);
+        List<Results> results = findNamedQuery("Results.findCandidatesByYearByCaption", params);
+        
+        return results.stream()
+                .map(result -> new Candidate(result.getCandidateFN(), result.getCandidateLN(), result.getCaption()))
+                .distinct()
+                .collect(Collectors.toList());
+    }
+    
     public void getCandidateResult(String name, String turn){
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
         params.put("turn", turn);
         List<Results> results = findNamedQuery("Results.findByCandidate", params , Results.class);
     }
+
+    public Score getScoreByCandidate(String name, String lastName, String turn, String caption) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("year", "2017");
+        params.put("caption", caption);
+        params.put("turn", turn);
+        int totalVotes = count("Results.findByYearByCaptionCount", params);
+        params.put("name", name);
+        params.put("lastName", name);
+        int candidateVotes= count("Results.findByYearByCaptionByCandidateCount", params);
+        return new Score(candidateVotes, totalVotes);
+    }
+
 }
