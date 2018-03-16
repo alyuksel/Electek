@@ -6,8 +6,6 @@
 package JSPHandler;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -15,15 +13,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import upec.groupe1.entities.Results;
+import upec.groupe1.affine.AffineBV;
 import upec.groupe1.session.ResultsEJB;
 
 /**
  *
  * @author adam
  */
-@WebServlet("/Candidates")
-public class ResultsServlet extends HttpServlet {
+@WebServlet("/resultatBV")
+public class ResultsByBVServlet extends HttpServlet {
     @EJB
     private ResultsEJB results;
 
@@ -39,13 +37,7 @@ public class ResultsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Map<String,Long> res = results.getCandidates();
         
-        System.out.println(request.getParameter("user"));
-        System.out.println(res);
-        request.setAttribute("res", res);
-        
-        this.getServletContext().getRequestDispatcher("/WEB-INF/candidates.jsp").forward(request, response);
     }
 
     /**
@@ -59,7 +51,13 @@ public class ResultsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String election = request.getParameter("election");
+        String turn = request.getParameter("turn");
+        String year = request.getParameter("year");
+        Map<Long,AffineBV> map = results.getRankCandidateByBV(election, turn, year);
+        System.out.println(map);
+        request.setAttribute("results", map);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/resultsByBV.jsp").forward(request, response);
     }
 
     /**

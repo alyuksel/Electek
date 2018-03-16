@@ -15,7 +15,23 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Liste des candidats</h1>
+        <h1>Rang des Candidats par bureau</h1>
+        <form action="/ProjetElectek-application/resultatBV" method="POST">
+            Elections : <br>
+            <input type="radio" name="election" value="Présidentielle"/> Présidentielle <br>
+            <input type="radio" name="election" value="Législative"/> Législative <br>
+            Tour : <br>
+            <input type="radio" name="turn" value="1er"/>1er<br>
+            <input type="radio" name="turn" value="2ème"/>2ème<br>
+            Année :<br>
+            <input type="text" name="year">
+            <br> 
+            <input type="submit" value="valider" name="valide" />
+        </form>
+        
+        
+        
+        <%--
         <table border="1">    
 
         <%
@@ -31,6 +47,6 @@
         %>
 
         </table>
-        
+        --%>
     </body>
 </html>

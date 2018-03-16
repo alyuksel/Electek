@@ -26,7 +26,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "voteoffices")
 @NamedQueries({@NamedQuery(name = "VoteOffices.findByNumber", query = "SELECT v FROM VoteOffices v WHERE v.number = :number"),
-               @NamedQuery(name = "VoteOffices.findAll", query = "SELECT v FROM VoteOffices v")
+               @NamedQuery(name = "VoteOffices.findAll", query = "SELECT v FROM VoteOffices v"),
 })
 public class VoteOffices implements Serializable {
 

@@ -9,6 +9,7 @@ package upec.groupe1.session;
 import java.util.List;
 import javax.ejb.Stateless;
 import upec.groupe1.entities.VoteOffices;
+import upec.groupe1.session.Exceptions.NotFoundException;
 
 /**
  *
@@ -17,7 +18,8 @@ import upec.groupe1.entities.VoteOffices;
 @Stateless
 public class VoteOfficeEJB extends ConcretEJB<VoteOffices> {
     
-    public VoteOffices findVoteOffice(int numBV, int arr){
+    public VoteOffices findVoteOffice(int numBV, int arr) throws NotFoundException{
+        System.out.println(arr+"-"+numBV);
         List<VoteOffices> result = em.createNamedQuery("VoteOffices.findByNumber",VoteOffices.class)
                 .setParameter("number", arr+"-"+numBV)
                 .getResultList();
@@ -25,7 +27,13 @@ public class VoteOfficeEJB extends ConcretEJB<VoteOffices> {
             System.out.println("Count LIST" + result.size());
             return result.get(0);
         }
-        return null;
+        throw new NotFoundException("VoteOfficesNotFound");
+    }
+    
+    public List<VoteOffices> findVotesOfficesByNumber(int number){    
+        return em.createNamedQuery("VoteOffices.findByNV",VoteOffices.class)
+                .setParameter("number","%-"+number)
+                .getResultList();
     }
     
     public List<VoteOffices> getVoteOfficesByArrondissement() {

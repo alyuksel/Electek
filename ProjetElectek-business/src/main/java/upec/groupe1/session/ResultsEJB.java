@@ -6,9 +6,11 @@
 package upec.groupe1.session;
 
 import com.google.gson.Gson;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
+import upec.groupe1.affine.AffineBV;
 import upec.groupe1.entities.Results;
 import upec.groupe1.tools.Tools;
 import upec.groupe1.tools.VotesStats;
@@ -24,10 +26,33 @@ public class ResultsEJB extends ConcretEJB<Results>{
         return Tools.getMapCalculated( em.createNamedQuery("Results.listCandidates",Results.class).getResultList(), VotesStats.NOMBREVOIE);
     };
     
+    public Map<Long,AffineBV> getRankCandidateByBV(String caption, String turn,String year){
+        Map<Long,AffineBV> map = new HashMap<>();
+        caption = caption.replaceAll("Ã©", "é");
+        System.out.println(caption);
+        System.out.println(turn);
+        System.out.println(year);
+        List<Results> list = em.createNamedQuery("Results.getResultsByBV",Results.class).setParameter("caption", caption)
+                .setParameter("turn",turn).setParameter("year", year).getResultList();
+        for (Results r : list){
+            System.out.println(r.getCandidateFN());
+            Long key = r.getNumBV();
+            if (map.containsKey(key)){
+                map.get(key).addCandidate(r);
+            }else{
+                AffineBV aff = new AffineBV(r);
+                map.put(key, aff);
+            }
+        }
+        return map;
+    }
+    
     public List<Results> getResults(){
         return  em.createNamedQuery("Results.getResults",Results.class)
                 .getResultList();
     };
+    
+    
     
     
     public int count() {
@@ -51,7 +76,7 @@ public class ResultsEJB extends ConcretEJB<Results>{
     
     public void create(){
         System.out.println("Begin");
-            String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=resultats_electoraux&rows=-1&facet=libelle_du_scrutin&facet=numero_d_arrondissement_01_a_20&facet=numero_de_bureau_de_vote_000_a_999&facet=nom_du_candidat_ou_liste");
+            String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=resultats_electoraux&rows=-1&facet=libelle_du_scrutin&facet=numero_d_arrondissement_01_a_20&facet=numero_de_bureau_de_vote_000_a_999&facet=nom_du_candidat_ou_liste&refine.libelle_du_scrutin=Pr%C3%A9sidentielle+2017+-+1er+tour");
             System.out.println("API OK");
             Map<String,Object> bv = new Gson().fromJson(json, Map.class);
             List<Map<String,Object>> records = (List<Map<String,Object>>) bv.get("records");
@@ -67,6 +92,7 @@ public class ResultsEJB extends ConcretEJB<Results>{
                 Double nb_votant = (Double) ms.get("nombre_de_votants_du_bureau_de_vote");
                 Double nb_voie = (Double) ms.get("nombre_de_voix_du_candidat_ou_liste_obtenues_pour_le_bureau_de_vote");
                 if(libelle.contains("Présidentielle") || libelle.contains("Législatives")){
+                    System.out.println(libelle);
                     Results res = new Results();
                     String lib = libelle.split(" ")[0];
                     String annee = libelle.split(" ")[1];
@@ -74,7 +100,6 @@ public class ResultsEJB extends ConcretEJB<Results>{
                     res.setCandidateFN(nom);
                     res.setCandidateLN(prenom);
                     res.setNumBV(num_bv.longValue());
-                    System.out.println(num_bv.longValue());
                     res.setNbExprime(nb_exprime.longValue());
                     res.setNbVotants(nb_votant.longValue());
                     res.setNbVoie(nb_voie.longValue());

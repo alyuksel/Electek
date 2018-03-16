@@ -21,7 +21,8 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({@NamedQuery(name = "Results.listCandidates", query = "SELECT distinct r FROM Results r ORDER BY r.candidateFN "),
         @NamedQuery(name= "Results.getResults" ,query = "SELECT r FROM Results r" ),
-        @NamedQuery(name= "Results.getResultsByID" , query = "SELECT r FROM Results r WHERE r.idResults = :id")
+        @NamedQuery(name= "Results.getResultsByID" , query = "SELECT r FROM Results r WHERE r.idResults = :id"),
+        @NamedQuery(name= "Results.getResultsByBV" , query = "SELECT r FROM Results r WHERE r.caption = :caption and r.turn = :turn and r.yearEl = :year")
 })
 public class Results implements Serializable {
 
@@ -65,9 +66,6 @@ public class Results implements Serializable {
     public Long getIdResults() {
         return idResults;
     }
-
-
-
 
     public String getCaption() {
         return caption;
@@ -148,7 +146,9 @@ public class Results implements Serializable {
         this.numBV = numBV;
     }
     
-   
+    public Long getPurcent(){
+        return (nbVoie *100/nbExprime);
+    }
     
     @Override
     public int hashCode() {

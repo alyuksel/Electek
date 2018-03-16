@@ -31,7 +31,7 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
     @EJB
     protected VoteOfficeEJB voteOfficeEJB;
     
-    protected  VoteOffices getVoteOfficeFromAttachedZone(AttachedZone zone){
+    protected  VoteOffices getVoteOfficeFromAttachedZone(AttachedZone zone) throws NotFoundException{
         int numBV = zone.getNumber();
         int arr   = zone.getArr();
         return voteOfficeEJB.findVoteOffice(numBV,arr);
@@ -84,11 +84,12 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
                     }
                 }
                 zone.setCoodinate(tab);
+                
                 VoteOffices voteOffice = getVoteOfficeFromAttachedZone(zone);
                 zone.setVoteOffice(voteOffice);
                 System.out.println("DONE !!!");
                 super.create(zone); 
-                }catch(NullPointerException|ClassCastException np){
+                }catch(NullPointerException|ClassCastException|NotFoundException np){
                             
                 }
             }
