@@ -73,10 +73,9 @@ public class ResultsEJB extends ConcretEJB<Results>{
         return q.getResultList();
     }
 
-    
-    public void create(){
+    public void getFromAPI(String apiAddr){
         System.out.println("Begin");
-            String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=resultats_electoraux&rows=-1&facet=libelle_du_scrutin&facet=numero_d_arrondissement_01_a_20&facet=numero_de_bureau_de_vote_000_a_999&facet=nom_du_candidat_ou_liste&refine.libelle_du_scrutin=Pr%C3%A9sidentielle+2017+-+1er+tour");
+            String json = Tools.getResults(apiAddr);
             System.out.println("API OK");
             Map<String,Object> bv = new Gson().fromJson(json, Map.class);
             List<Map<String,Object>> records = (List<Map<String,Object>>) bv.get("records");
@@ -91,12 +90,11 @@ public class ResultsEJB extends ConcretEJB<Results>{
                 Double nb_exprime = (Double) ms.get("nombre_d_exprimes_du_bureau_de_vote");
                 Double nb_votant = (Double) ms.get("nombre_de_votants_du_bureau_de_vote");
                 Double nb_voie = (Double) ms.get("nombre_de_voix_du_candidat_ou_liste_obtenues_pour_le_bureau_de_vote");
-                if(libelle.contains("Présidentielle") || libelle.contains("Législatives")){
-                    System.out.println(libelle);
+                if(libelle.contains("Présidentielle") || libelle.contains("Législatives") ){
                     Results res = new Results();
-                    String lib = libelle.split(" ")[0];
+                    String lib = libelle.split(" ")[0].replaceAll("é", "e");
                     String annee = libelle.split(" ")[1];
-                    String tour = libelle.split("-")[1].split(" ")[1];
+                    String tour = libelle.split("-")[1].split(" ")[1].replaceAll("er", "").replaceAll("ème", "");
                     res.setCandidateFN(nom);
                     res.setCandidateLN(prenom);
                     res.setNumBV(num_bv.longValue());
@@ -111,6 +109,13 @@ public class ResultsEJB extends ConcretEJB<Results>{
                     
                 
                 }
-        }
+            }
+    }
+    public void create(){
+        getFromAPI("https://opendata.paris.fr/api/records/1.0/search/?dataset=resultats_electoraux&rows=-1&facet=libelle_du_scrutin&facet=numero_d_arrondissement_01_a_20&facet=numero_de_bureau_de_vote_000_a_999&facet=nom_du_candidat_ou_liste&refine.libelle_du_scrutin=Pr%C3%A9sidentielle+2017+-+1er+tour");
+        getFromAPI("https://opendata.paris.fr/api/records/1.0/search/?dataset=resultats_electoraux&rows=-1&facet=libelle_du_scrutin&facet=numero_d_arrondissement_01_a_20&facet=numero_de_bureau_de_vote_000_a_999&facet=nom_du_candidat_ou_liste&refine.libelle_du_scrutin=L%C3%A9gislatives+2017+-+1er+tour");
+        getFromAPI("https://opendata.paris.fr/api/records/1.0/search/?dataset=resultats_electoraux&rows=-1&facet=libelle_du_scrutin&facet=numero_d_arrondissement_01_a_20&facet=numero_de_bureau_de_vote_000_a_999&facet=nom_du_candidat_ou_liste&refine.libelle_du_scrutin=L%C3%A9gislatives+2017+-+2%C3%A8me+tour");
+        getFromAPI("https://opendata.paris.fr/api/records/1.0/search/?dataset=resultats_electoraux&rows=-1&facet=libelle_du_scrutin&facet=numero_d_arrondissement_01_a_20&facet=numero_de_bureau_de_vote_000_a_999&facet=nom_du_candidat_ou_liste&refine.libelle_du_scrutin=Pr%C3%A9sidentielle+2017+-+2eme+tour");
+        getFromAPI("https://opendata.paris.fr/api/records/1.0/search/?dataset=resultats_electoraux&rows=-1&facet=libelle_du_scrutin&facet=numero_d_arrondissement_01_a_20&facet=numero_de_bureau_de_vote_000_a_999&facet=nom_du_candidat_ou_liste");
     }
 }

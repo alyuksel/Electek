@@ -20,12 +20,11 @@
             Map<Long,AffineBV> map = (Map<Long,AffineBV>) request.getAttribute("results");
             out.println("<tr><th>BV n°</th><th>premier</th><th>dernier</th><th>scorePremier</th><th>scoreDernier</th></tr>");
             for(Long l : map.keySet()){
-                out.println(l);
                 String first = map.get(l).getFirst();
                 String last = map.get(l).getLast();
                 Long firstPurcent = map.get(l).purcent(first);
                 Long lastPurcent = map.get(l).purcent(last);
-                out.println("<tr><td>"+l+"</td><td>"+first+"</td><td>"+last+"</td><td>"+firstPurcent+"</td><td>"+lastPurcent+"</td></tr>");
+                out.println("<tr><td>"+l+"</td><td>"+first+"</td><td>"+last+"</td><td>"+firstPurcent+"%</td><td>"+lastPurcent+"%</td></tr>");
             }
         
         %>

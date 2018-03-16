@@ -18,11 +18,11 @@
         <h1>Rang des Candidats par bureau</h1>
         <form action="/ProjetElectek-application/resultatBV" method="POST">
             Elections : <br>
-            <input type="radio" name="election" value="Présidentielle"/> Présidentielle <br>
-            <input type="radio" name="election" value="Législative"/> Législative <br>
+            <input type="radio" name="election" value="Presidentielle"/> Presidentielle <br>
+            <input type="radio" name="election" value="Legislative"/> Legislative <br>
             Tour : <br>
-            <input type="radio" name="turn" value="1er"/>1er<br>
-            <input type="radio" name="turn" value="2ème"/>2ème<br>
+            <input type="radio" name="turn" value="1"/>1er<br>
+            <input type="radio" name="turn" value="2"/>2ème<br>
             Année :<br>
             <input type="text" name="year">
             <br> 

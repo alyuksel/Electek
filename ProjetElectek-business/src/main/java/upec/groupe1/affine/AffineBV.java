@@ -8,6 +8,7 @@ package upec.groupe1.affine;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 import upec.groupe1.entities.Results;
 
 /**
@@ -18,11 +19,9 @@ public class AffineBV {
     private Map<String,Long> candidateScore = new HashMap<>();
     private Long numberOfVote;
     public AffineBV(Results r) {
-        System.out.println("creation de affineBV");
         numberOfVote = r.getNbExprime();
     }
     public void addCandidate(Results r){
-        System.out.println("ajout d'un resultat dans l'affineBV");
         String key = r.getCandidateFN()+"_"+r.getCandidateLN();
         if(candidateScore.containsKey(key)){
             Long v = candidateScore.get(key);
@@ -35,23 +34,30 @@ public class AffineBV {
     }
     
     public Long purcent(String candidate){
-        return candidateScore.get(candidate)*100/numberOfVote;
+        if (candidateScore.containsKey(candidate)){
+            return candidateScore.get(candidate)*100/numberOfVote;
+        }else
+            return Long.valueOf(0);
     }
     public String getLast(){
+        if (candidateScore.isEmpty())
+            return "Aucun candidat pour ce bureau de vote";
         Long last = candidateScore.values().stream().sorted().findFirst().get();
         return shearchCandidatebyScore(last);
     }
     public String getFirst(){
+
+        if (candidateScore.isEmpty())
+            return "Aucun candidat pour ce bureau de vote";
         Long first = candidateScore.values().stream().sorted(Comparator.reverseOrder()).findFirst().get();
         return shearchCandidatebyScore(first);
     }
     
     private String shearchCandidatebyScore(Long score){
         for (String candidate : candidateScore.keySet()){
-            if (candidateScore.get(candidate).equals(score))
-                return candidate;
-       
-    }
+                if (candidateScore.get(candidate).equals(score))
+                    return candidate; 
+        }
         return "none";
     }
 
