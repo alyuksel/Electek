@@ -6,6 +6,7 @@
 package upec.groupe1.session;
 
 import com.google.gson.Gson;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
@@ -57,5 +58,12 @@ public class ResultsEJB extends ConcretEJB<Results>{
                 
                 }
         }
+    }
+    
+    public void getCandidateResult(String name, String turn){
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        params.put("turn", turn);
+        List<Results> results = findNamedQuery("Results.findByCandidate", params , Results.class);
     }
 }

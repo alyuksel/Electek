@@ -11,12 +11,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author adam
  */
 @Entity
+    @NamedQueries({@NamedQuery(name = "Results.findByCandidate", query = "SELECT r FROM Results r WHERE r.candidateFN = :name AND yearel = '2012' AND turn = :turn")
+})
 public class Results implements Serializable {
 
     private static final long serialVersionUID = 1L;
