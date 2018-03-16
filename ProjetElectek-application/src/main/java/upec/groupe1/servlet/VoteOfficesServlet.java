@@ -41,23 +41,15 @@ public class VoteOfficesServlet extends HttpServlet {
                 case VOTE_OFFICE : {
                     List<VoteOffices> liste = officesEJB.findNamedQuery("VoteOffices.findAll", VoteOffices.class);
                     request.setAttribute("ListeVoteOffices", liste);
-                    this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/AllData_VoteOffices.jsp" ).forward( request, response );
+                    this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/AllData.jsp" ).forward( request, response );
                     break;
                 }
                 
                 case VOTE_OFFICE_BY_ARR : {
                     
-                    System.out.println("NI2323232");
-                    Map<String, List<VoteOffices>> voteOfficesMap= officesEJB.getVoteOfficesByArrondissement();
-                    for(String key : voteOfficesMap.keySet()){
-                        out.println("Arrondissement : "+ key);
-                        out.println("<br>");
-                        for(VoteOffices vo: voteOfficesMap.get(key)){
-                            out.println("numéro bureau de vote : " + vo.extractBvNum()+"     Adresse : "+ vo.getAdress());
-                            out.println("<br>");
-                        }
-                        out.println("<br>");
-                    }
+                    Map<String, List<VoteOffices>> mapVoteOffices= officesEJB.getVoteOfficesByArrondissement();
+                    request.setAttribute("MapVoteOffices", mapVoteOffices);    
+                    this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/DataByArr.jsp" ).forward( request, response );
                     break;
                 }
                 default :  
