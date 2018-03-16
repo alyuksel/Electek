@@ -19,7 +19,7 @@ import javax.persistence.NamedQuery;
  * @author adam
  */
 @Entity
-@NamedQueries({@NamedQuery(name = "Results.listCandidates", query = "SELECT distinct r.candidateFN,r.candidateLN FROM Results r ORDER BY r.candidateFN "),
+@NamedQueries({@NamedQuery(name = "Results.listCandidates", query = "SELECT distinct r FROM Results r ORDER BY r.candidateFN "),
         @NamedQuery(name= "Results.getResults" ,query = "SELECT r FROM Results r" ),
         @NamedQuery(name= "Results.getResultsByID" , query = "SELECT r FROM Results r WHERE r.idResults = :id")
 })

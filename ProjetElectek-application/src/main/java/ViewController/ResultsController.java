@@ -36,7 +36,7 @@ public class ResultsController implements Serializable {
     public ResultsController() {
     }
 
-    public List<Results> getCandidates(){
+    public Map<String,Long> getCandidates(){
         return ejbFacade.getCandidates();
     }
     

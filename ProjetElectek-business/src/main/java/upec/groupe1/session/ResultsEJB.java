@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import upec.groupe1.entities.Results;
 import upec.groupe1.tools.Tools;
+import upec.groupe1.tools.VotesStats;
 
 /**
  *
@@ -19,9 +20,8 @@ import upec.groupe1.tools.Tools;
 @Stateless
 public class ResultsEJB extends ConcretEJB<Results>{
     
-    public List<Results> getCandidates(){
-        return  em.createNamedQuery("Results.listCandidates",Results.class)
-                .getResultList();
+    public  Map<String,Long> getCandidates(){
+        return Tools.getMapCalculated( em.createNamedQuery("Results.listCandidates",Results.class).getResultList(), VotesStats.NOMBREVOIE);
     };
     
     public List<Results> getResults(){
