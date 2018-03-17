@@ -17,6 +17,10 @@
         <servlet-name>ResultsByBVServlet</servlet-name>
         <servlet-class>JSPHandler.ResultsByBVServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DetailBVServlet</servlet-name>
+        <servlet-class>JSPHandler.DetailBVServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
@@ -28,6 +32,10 @@
     <servlet-mapping>
         <servlet-name>ResultsByBVServlet</servlet-name>
         <url-pattern>/ResultsByBVServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailBVServlet</servlet-name>
+        <url-pattern>/DetailBVServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

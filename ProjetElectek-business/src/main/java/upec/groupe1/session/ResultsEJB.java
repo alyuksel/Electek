@@ -21,14 +21,14 @@ import upec.groupe1.tools.VotesStats;
  */
 @Stateless
 public class ResultsEJB extends ConcretEJB<Results>{
+    private static Map<Long,AffineBV> map;
     
     public  Map<String,Long> getCandidates(){
         return Tools.getMapCalculated( em.createNamedQuery("Results.listCandidates",Results.class).getResultList(), VotesStats.NOMBREVOIE);
     };
     
     public Map<Long,AffineBV> getRankCandidateByBV(String caption, String turn,String year){
-        Map<Long,AffineBV> map = new HashMap<>();
-        caption = caption.replaceAll("Ã©", "é");
+        map = new HashMap<>();
         System.out.println(caption);
         System.out.println(turn);
         System.out.println(year);
@@ -46,7 +46,9 @@ public class ResultsEJB extends ConcretEJB<Results>{
         }
         return map;
     }
-    
+    public Map<Long,AffineBV> getMapAffined(){
+        return map;
+    }
     public List<Results> getResults(){
         return  em.createNamedQuery("Results.getResults",Results.class)
                 .getResultList();

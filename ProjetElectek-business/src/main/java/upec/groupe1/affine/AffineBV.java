@@ -8,7 +8,6 @@ package upec.groupe1.affine;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 import upec.groupe1.entities.Results;
 
 /**
@@ -33,11 +32,11 @@ public class AffineBV {
         }
     }
     
-    public Long purcent(String candidate){
+    public Double purcent(String candidate){
         if (candidateScore.containsKey(candidate)){
-            return candidateScore.get(candidate)*100/numberOfVote;
+            return (candidateScore.get(candidate)*100.0)/numberOfVote;
         }else
-            return Long.valueOf(0);
+            return Double.valueOf(0);
     }
     public String getLast(){
         if (candidateScore.isEmpty())
@@ -59,6 +58,10 @@ public class AffineBV {
                     return candidate; 
         }
         return "none";
+    }
+    
+    public Map<String,Long> getMapScores(){
+        return candidateScore;
     }
 
 }

@@ -23,6 +23,7 @@ import com.sun.jersey.api.client.WebResource;
 
 import upec.groupe1.entities.VoteOffices;
 import upec.groupe1.session.ConcretEJB;
+import upec.groupe1.session.VoteOfficeEJB;
 
 
 
@@ -35,7 +36,7 @@ import upec.groupe1.session.ConcretEJB;
 public class remoteDatasServlet extends HttpServlet {
     
     @EJB
-    private ConcretEJB<VoteOffices> concretEJB;
+    private VoteOfficeEJB concretEJB;
     
     private Client client;
     private ClientResponse clientResponse;

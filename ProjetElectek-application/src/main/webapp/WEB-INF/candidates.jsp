@@ -12,41 +12,24 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Choix pour le classement des candidats</title>
+        
     </head>
     <body>
-        <h1>Rang des Candidats par bureau</h1>
+        <h1>Choisissez les critères de recherches</h1>
         <form action="/ProjetElectek-application/resultatBV" method="POST">
             Elections : <br>
-            <input type="radio" name="election" value="Presidentielle"/> Presidentielle <br>
-            <input type="radio" name="election" value="Legislative"/> Legislative <br>
+            <input type="radio" name="election" value="Presidentielle" checked/> Présidentielles <br>
+            <input type="radio" name="election" value="Legislatives"/> Législatives <br>
             Tour : <br>
-            <input type="radio" name="turn" value="1"/>1er<br>
+            <input type="radio" name="turn" value="1" checked/>1er<br>
             <input type="radio" name="turn" value="2"/>2ème<br>
             Année :<br>
-            <input type="text" name="year">
-            <br> 
+            <input type="radio" name="year" value="2007" checked> 2007<br> 
+            <input type="radio" name="year" value="2012">2012<br> 
+            <input type="radio" name="year" value="2017">2017<br> 
+         
             <input type="submit" value="valider" name="valide" />
         </form>
-        
-        
-        
-        <%--
-        <table border="1">    
-
-        <%
-            
-            Map<String,Long> map = (Map<String,Long>) request.getAttribute("res");
-            out.println("<tr><th>Nom</th><th>Prenom</th></tr>");
-            for (String key : map.keySet()){
-                String nom = key.split("_")[0];
-                String prenom = key.split("_")[1];
-                if (!nom.equals("-"))
-                    out.println("<tr><td>"+nom+"</td><td>"+prenom+"</td><td>"+map.get(key)+"</td></tr>");
-            }
-        %>
-
-        </table>
-        --%>
     </body>
 </html>

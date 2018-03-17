@@ -22,12 +22,17 @@
             for(Long l : map.keySet()){
                 String first = map.get(l).getFirst();
                 String last = map.get(l).getLast();
-                Long firstPurcent = map.get(l).purcent(first);
-                Long lastPurcent = map.get(l).purcent(last);
-                out.println("<tr><td>"+l+"</td><td>"+first+"</td><td>"+last+"</td><td>"+firstPurcent+"%</td><td>"+lastPurcent+"%</td></tr>");
+                Double firstPurcent = map.get(l).purcent(first);
+                Double lastPurcent = map.get(l).purcent(last);
+                out.print("<tr><td>"+l+"</td><td>"+first+"</td><td>"+last+"</td><td>"+firstPurcent+"%</td><td>"+lastPurcent+"%</td><td>");
+                out.println("<form action=\"/ProjetElectek-application/DetailBV\" method=\"POST\">"
+                            +"<input type=\"hidden\" value=\""+l+"\" name=\"numero\">"
+                            +"<input type=\"submit\" value=\"détail\" name=\"detail\" />"
+                            +"</form></td></tr>");
+                
             }
-        
         %>
+        
         </table>
     </body>
 </html>
