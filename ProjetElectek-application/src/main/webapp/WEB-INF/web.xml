@@ -8,6 +8,7 @@
         <servlet-name>VoteOfficesServlet</servlet-name>
         <url-pattern>/voteoffices</url-pattern>
         <url-pattern>/voteoffices/arr</url-pattern>
+        <url-pattern>/voteoffices/searchAdress</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
