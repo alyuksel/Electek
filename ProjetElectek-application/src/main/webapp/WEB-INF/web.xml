@@ -11,7 +11,7 @@
     </servlet>
     <servlet>
         <servlet-name>ResultsServlet</servlet-name>
-        <servlet-class>JSPHandler.ResultsServlet</servlet-class>
+        <servlet-class>JSPHandler.CandidatesServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ResultsByBVServlet</servlet-name>
@@ -20,6 +20,10 @@
     <servlet>
         <servlet-name>DetailBVServlet</servlet-name>
         <servlet-class>JSPHandler.DetailBVServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortResultsServlet</servlet-name>
+        <servlet-class>JSPHandler.SortResultsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -36,6 +40,10 @@
     <servlet-mapping>
         <servlet-name>DetailBVServlet</servlet-name>
         <url-pattern>/DetailBVServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortResultsServlet</servlet-name>
+        <url-pattern>/SortResultsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

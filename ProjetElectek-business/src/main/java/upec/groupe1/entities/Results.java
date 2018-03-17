@@ -22,7 +22,8 @@ import javax.persistence.NamedQuery;
 @NamedQueries({@NamedQuery(name = "Results.listCandidates", query = "SELECT distinct r FROM Results r ORDER BY r.candidateFN "),
         @NamedQuery(name= "Results.getResults" ,query = "SELECT r FROM Results r" ),
         @NamedQuery(name= "Results.getResultsByID" , query = "SELECT r FROM Results r WHERE r.idResults = :id"),
-        @NamedQuery(name= "Results.getResultsByBV" , query = "SELECT r FROM Results r WHERE r.caption = :caption and r.turn = :turn and r.yearEl = :year")
+        @NamedQuery(name= "Results.getResultsByBV" , query = "SELECT r FROM Results r WHERE r.caption = :caption and r.turn = :turn and r.yearEl = :year"),
+        @NamedQuery(name= "Results.getResultsByOrder" , query = "SELECT r FROM Results r WHERE r.caption = :caption and r.yearEl = :year ")
 })
 public class Results implements Serializable {
 

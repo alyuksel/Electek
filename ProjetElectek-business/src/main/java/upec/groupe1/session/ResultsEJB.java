@@ -17,18 +17,18 @@ import upec.groupe1.tools.VotesStats;
 
 /**
  *
- * @author AMM
+ * @author adam
  */
 @Stateless
 public class ResultsEJB extends ConcretEJB<Results>{
-    private static Map<Long,AffineBV> map;
+    private static Map<Long,AffineBV> mapOfBV;
     
     public  Map<String,Long> getCandidates(){
         return Tools.getMapCalculated( em.createNamedQuery("Results.listCandidates",Results.class).getResultList(), VotesStats.NOMBREVOIE);
     };
     
     public Map<Long,AffineBV> getRankCandidateByBV(String caption, String turn,String year){
-        map = new HashMap<>();
+        mapOfBV = new HashMap<>();
         System.out.println(caption);
         System.out.println(turn);
         System.out.println(year);
@@ -37,23 +37,29 @@ public class ResultsEJB extends ConcretEJB<Results>{
         for (Results r : list){
             System.out.println(r.getCandidateFN());
             Long key = r.getNumBV();
-            if (map.containsKey(key)){
-                map.get(key).addCandidate(r);
+            if (mapOfBV.containsKey(key)){
+                mapOfBV.get(key).addCandidate(r);
             }else{
                 AffineBV aff = new AffineBV(r);
-                map.put(key, aff);
+                mapOfBV.put(key, aff);
             }
         }
-        return map;
+        return mapOfBV;
     }
     public Map<Long,AffineBV> getMapAffined(){
-        return map;
+        return mapOfBV;
     }
     public List<Results> getResults(){
         return  em.createNamedQuery("Results.getResults",Results.class)
                 .getResultList();
     };
     
+     public List<Results> getResultsByOrder(String election, String year,Object order){
+        return  em.createQuery("SELECT r FROM Results r WHERE r.caption = :caption and r.yearEl = :year ORDER BY "+order,Results.class)
+                .setParameter("caption", election)
+                .setParameter("year", year)
+                .getResultList();
+    };
     
     
     

@@ -15,20 +15,23 @@ import upec.groupe1.entities.Results;
  * @author AMM
  */
 public class AffineBV {
-    private Map<String,Long> candidateScore = new HashMap<>();
+    private Map<String,Long> candidateScore;
     private Long numberOfVote;
     public AffineBV(Results r) {
-        numberOfVote = r.getNbExprime();
+        candidateScore = new HashMap<>();
+        numberOfVote = r.getNbVotants();
+        String key = r.getCandidateFN()+"_"+r.getCandidateLN();
+        candidateScore.put(key, r.getNbVoie());
     }
     public void addCandidate(Results r){
         String key = r.getCandidateFN()+"_"+r.getCandidateLN();
         if(candidateScore.containsKey(key)){
             Long v = candidateScore.get(key);
             candidateScore.put(key, v+r.getNbVoie());
-            numberOfVote = numberOfVote + r.getNbExprime();
+            numberOfVote = numberOfVote + r.getNbVotants();
         }else{
             candidateScore.put(key, r.getNbVoie());
-            numberOfVote = numberOfVote + r.getNbExprime();
+            numberOfVote = numberOfVote + r.getNbVotants();
         }
     }
     
