@@ -8,22 +8,30 @@
 <%@page import="upec.groupe1.entities.VoteOffices"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
+
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.6/js/jquery.tablesorter.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
         <title>VoteOffice from AttachedZone</title>
     </head>
     <body>
         <h1>Hello World!</h1>
-        <table> 
-            <th>Arrondissment</th>
-            <th>IdVoteOffice</th>
-            <th>Numéro</th>
-            <th>Libélé</th>
-            <th>Adresse</th>
-            <th>Code Postale</th>
-            
+        <table id="myTable" class="tablesorter"> 
+            <thead>
+                <tr>
+                <th>Arrondissment</th>
+                <th>IdVoteOffice</th>
+                <th>Numéro</th>
+                <th>Libélé</th>
+                <th>Adresse</th>
+                <th>Code Postale</th>
+                </tr>
+            </thead>
+            <tbody>
             <%
             Map<String,List<VoteOffices>> posts = (Map<String,List<VoteOffices>>) request.getAttribute("MapVoteOffices"); 
            
@@ -47,7 +55,23 @@
              }
             %>  
             </tr>
+            </tbody>
         </table>      
-
+           
     </body>
 </html>
+
+<script>
+    
+    $(document).ready(function() 
+    { 
+        $("#myTable").tablesorter(); 
+    } 
+    ); 
+    
+    $(document).ready(function() 
+    { 
+        $("#myTable").tablesorter( {sortList: [[0,0], [1,0]]} ); 
+    } 
+    ); 
+</script>
