@@ -10,6 +10,8 @@ import com.google.gson.Gson;
 import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -31,7 +33,7 @@ public class AdresseEJB extends ConcretEJB<Adresse>{
     
     public void create() {
         
-        String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=adresse_paris&rows=20");
+        String json = Tools.getResults("https://opendata.paris.fr/api/records/1.0/search/?dataset=adresse_paris&rows=1000");
             Map<String,Object> bv = new Gson().fromJson(json, Map.class);
             List<Map<String,Object>> records = (List<Map<String,Object>>) bv.get("records");
             for(Map<String,Object> m : records){
@@ -58,25 +60,37 @@ public class AdresseEJB extends ConcretEJB<Adresse>{
                 try{
                     arrInt = arr.intValue();
                 }catch(NullPointerException e){ 
-                    }
-                a.setArr(arrInt);
-                try {
-                    AttachedZone aZ = getAttachedZoneFromAdress(a,point);
-
-                    a.setAttachedZone(aZ);
-                }catch(NotFoundException e){
-                    System.err.println(e.getMessage());
+                    arrInt = 0;
+                    System.out.println("ARRONDISSEMENT 0");
                 }
-                super.create(a);
-                System.err.println("Done !!!");
-                }catch(NullPointerException e){ 
-                    System.err.println("NUlL");
+                a.setArr(arrInt);
+                AttachedZone aZ = null;
+                try {
+                    aZ = getAttachedZoneFromAdress(a,point);
+                    a.setAttachedZone(aZ);
+                    super.create(a);
+                }catch(NotFoundException e){
+                    System.err.println("Pas de Attached Zone trouvé, donc on essaye default");
+                    try {
+                        aZ = getDefaultAttachedZone();
+                        a.setAttachedZone(aZ);
+                        super.create(a);
+                    } catch (NotFoundException ex) {
+                       System.err.println("Pas de Attached Zone DEFAULT trouvé");
                     }
+                    
+                }
+                System.out.println("OK !!!");
+                }catch(NullPointerException e){ 
+                    System.err.println("NUlL - PARSING ADRESSE EJB");
+                }
     }
     }
 
     private AttachedZone getAttachedZoneFromAdress(Adresse a,Point2D point) throws NotFoundException{
         return attachedZoneEJB.findAttachedZone(a,point);
     }
-    
+    protected AttachedZone getDefaultAttachedZone() throws NotFoundException{
+        return attachedZoneEJB.findDefault();
+    }
 }

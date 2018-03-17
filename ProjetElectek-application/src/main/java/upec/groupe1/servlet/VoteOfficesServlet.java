@@ -90,25 +90,21 @@ public class VoteOfficesServlet extends HttpServlet {
                     System.out.println(numero+rue+cp+pays);
                     Map<String, Integer> mapConvert = validate(numero,rue,cp,pays);
                     Map<String,Object> sqlPara = new HashMap<>();
-                    mapConvert.forEach((k,v)->{
-                        if(k.equalsIgnoreCase(numero)){
-                            sqlPara.put("streetNum", v);
-                        }else if (k.equalsIgnoreCase(rue)){
-                            sqlPara.put("streetName",v);
-                        }else if (k.equals(cp)){
-                            
-                        }
-                    });
-                    sqlPara.put("streetName",rue);
+                    if(mapConvert.containsKey(numero)){
+                        sqlPara.put("streetNum", mapConvert.get(numero));
+                    }
+                    
+                    sqlPara.put("streetName",mapConvert.get(numero)+" "+rue);
                     System.out.println("DILAN  -  " + sqlPara );
                     List<Adresse> a = adressEJB.findNamedQuery("Adresse.findNumberAndStreetName", sqlPara, Adresse.class);
+                    
                     if(!a.isEmpty()){
-                        request.setAttribute("adresse", a);
+                            request.setAttribute("adresse", a.get(0));
                     }else{
                         System.out.println("empty");
                     }
                     System.out.println(a);
-                    
+                    this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/ResultVoteOfficeFromAdress.jsp" ).forward( request, response );
                 }
                 catch(Exception e){
                     e.printStackTrace();

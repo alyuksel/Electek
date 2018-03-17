@@ -17,6 +17,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 /**
@@ -24,6 +26,10 @@ import javax.persistence.OneToOne;
  * @author adam
  */
 @Entity
+@NamedQueries({@NamedQuery(name = "Adresse.findId", query = "SELECT a FROM Adresse a WHERE a.idAdresses = :idAdresses"),
+               @NamedQuery(name = "Adresse.findAll", query = "SELECT a FROM Adresse a"),
+               @NamedQuery(name = "Adresse.findNumberAndStreetName", query = "SELECT a FROM Adresse a WHERE a.streetNum =:streetNum and a.streetName = UPPER(:streetName)")
+})
 public class Adresse implements Serializable {
 
     private static final long serialVersionUID = 1L;

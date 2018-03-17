@@ -97,4 +97,12 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
         
           
     }
+
+    public AttachedZone findDefault() throws NotFoundException{
+        AttachedZone a =em.createNamedQuery("AttachedZone.findAll",AttachedZone.class).setMaxResults(1).getSingleResult();
+        if(a==null){
+            throw new NotFoundException("AttachedZoneNotFound");
+        }
+        return a;
+    }
 }
