@@ -11,11 +11,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author adam
  */
+@NamedQueries({@NamedQuery(name = "Results.deleteAll", query = "delete from Results")
+})
 @Entity
 public class Results implements Serializable {
 

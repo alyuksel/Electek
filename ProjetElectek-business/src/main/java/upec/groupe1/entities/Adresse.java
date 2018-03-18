@@ -28,7 +28,8 @@ import javax.persistence.OneToOne;
 @Entity
 @NamedQueries({@NamedQuery(name = "Adresse.findId", query = "SELECT a FROM Adresse a WHERE a.idAdresses = :idAdresses"),
                @NamedQuery(name = "Adresse.findAll", query = "SELECT a FROM Adresse a"),
-               @NamedQuery(name = "Adresse.findNumberAndStreetName", query = "SELECT a FROM Adresse a WHERE a.streetNum =:streetNum and a.streetName = UPPER(:streetName)")
+               @NamedQuery(name = "Adresse.findNumberAndStreetName", query = "SELECT a FROM Adresse a WHERE a.streetNum =:streetNum and a.streetName = UPPER(:streetName)"),
+               @NamedQuery(name = "Adresse.deleteAll", query = "delete from Adresse")
 })
 public class Adresse implements Serializable {
 

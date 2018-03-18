@@ -25,7 +25,8 @@ import javax.persistence.OneToOne;
 
 @NamedQueries({@NamedQuery(name = "AttachedZone.findByNumber", query = "SELECT a FROM AttachedZone a WHERE a.number = :number"),
                @NamedQuery(name = "AttachedZone.findAll", query = "SELECT a FROM AttachedZone a"),
-               @NamedQuery(name = "AttachedZone.findByArrondissement", query = "SELECT a FROM AttachedZone a WHERE a.arr = :arr ")
+               @NamedQuery(name = "AttachedZone.findByArrondissement", query = "SELECT a FROM AttachedZone a WHERE a.arr = :arr "),
+               @NamedQuery(name = "AttachedZone.deleteAll", query = "delete from AttachedZone")
 })
 public class AttachedZone implements Serializable {
 
