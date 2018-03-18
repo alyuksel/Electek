@@ -37,16 +37,16 @@ public class VoteOffices implements Serializable {
     @Column(name = "idVoteOffices")
     @Basic(optional = false)
     private Long idVoteOffices;
-    
+
     @Column(name = "number")
     private String number;
-    
+
     @Column(name = "caption")
     private String caption;
-    
+
     @Column(name = "adress")
     private String adress;
-    
+
     @Column(name="cp")
     private String postalCode;
 
@@ -69,8 +69,8 @@ public class VoteOffices implements Serializable {
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
-    
-    
+
+
     public Long getIdVoteOffices() {
         return idVoteOffices;
     }
@@ -91,7 +91,7 @@ public class VoteOffices implements Serializable {
         return postalCode;
     }
 
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -111,11 +111,11 @@ public class VoteOffices implements Serializable {
         }
         return true;
     }
-    
+
     public String extractBvNum(){
         return number.split("-")[1];
     }
-    
+
     public String extractArr(){
         return number.split("-")[0];
     }
@@ -124,5 +124,5 @@ public class VoteOffices implements Serializable {
     public String toString() {
         return "upec.groupe1.electek.model.VoteOffices[ id=" + idVoteOffices + " ]";
     }
-    
+
 }

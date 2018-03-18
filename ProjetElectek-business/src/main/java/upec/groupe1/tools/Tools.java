@@ -5,30 +5,30 @@
  */
 package upec.groupe1.tools;
 
-
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 /**
  *
- * @author AMM
+ * @author adam
  */
 public class Tools {
-     public static String getResults(String URL){
+
+    public static String getResults(String URL) {
         Client client;
         ClientResponse clientResponse;
         WebResource webResource;
         client = Client.create();
         webResource = client.resource(URL);
         clientResponse = webResource.accept("application/json")
-                   .get(ClientResponse.class);
+                .get(ClientResponse.class);
         if (clientResponse.getStatus() != 200) {
-		   throw new RuntimeException("Failed : HTTP error code : "
-			+ clientResponse.getStatus());
-		}
-        
-        
-        return  clientResponse.getEntity(String.class);
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + clientResponse.getStatus());
+        }
+
+        return clientResponse.getEntity(String.class);
     }
+
 }

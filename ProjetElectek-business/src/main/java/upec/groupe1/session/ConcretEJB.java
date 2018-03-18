@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import java.lang.Class;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,15 +23,16 @@ import upec.groupe1.session.Exceptions.NotFoundException;
  * @author adam
  * @param <T>
  */
+
 @LocalBean
 public class ConcretEJB<T> implements genericDAOImplLocal<T>{
     @PersistenceContext(name="com.upec_ProjetElectek")
     protected EntityManager em ;
-    
-    
+
+
     /**
-     * insere un Resultat dans la table 
-     * @param t 
+     * insere un Resultat dans la table
+     * @param t
      */
     @Override
     public void create(T t) {
@@ -38,17 +40,17 @@ public class ConcretEJB<T> implements genericDAOImplLocal<T>{
         this.em.flush();
         this.em.refresh(t);
     }
-    
+
     @Override
-    public T find(Object id) throws NotFoundException{
-       T res =  (T) em.find(Object.class ,id);
+    public T find(Class<T> t, Object id) throws NotFoundException{
+       T res =  (T) em.find(t ,id);
        if(res==null) throw new NotFoundException("Result not found");
-       return res;     
+       return res;
     }
 
     @Override
-    public void delete( Object id) throws NotFoundException{
-       T ref = find(id);
+    public void delete(Class<T> t, Object id) throws NotFoundException{
+       T ref = find(t,id);
        em.remove(ref);
     }
 
@@ -63,7 +65,7 @@ public class ConcretEJB<T> implements genericDAOImplLocal<T>{
     public void update(T t) {
         em.merge(t);
     }
-    
+
     @Override
     public List<T> findNamedQuery(String namedQuery) {
          return em.createNamedQuery(namedQuery).getResultList();
@@ -92,10 +94,10 @@ public class ConcretEJB<T> implements genericDAOImplLocal<T>{
         return q.getResultList();
     }
     @Override
-    public long count(Class<T> clazz) { 
+    public long count(Class<T> clazz) {
         return em.createQuery("SELECT COUNT(e) FROM "+clazz.getSimpleName()+" e", Long.class).getSingleResult();
     }
-    
+
     public void delete(Class<T> clazz){
         em.createQuery("DELETE FROM "+clazz.getSimpleName()).executeUpdate();
     }

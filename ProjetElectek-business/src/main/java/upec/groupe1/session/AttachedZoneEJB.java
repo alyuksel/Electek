@@ -32,7 +32,7 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
     @EJB
     protected VoteOfficeEJB voteOfficeEJB;
 
-    protected VoteOffices getVoteOfficeFromAttachedZone(AttachedZone zone) throws NotFoundException {
+    protected  VoteOffices getVoteOfficeFromAttachedZone(AttachedZone zone) throws NotFoundException{
         int numBV = zone.getNumber();
         int arr = zone.getArr();
         return voteOfficeEJB.findVoteOffice(numBV, arr);
