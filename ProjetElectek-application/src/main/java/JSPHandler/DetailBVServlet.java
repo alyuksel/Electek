@@ -6,6 +6,7 @@
 package JSPHandler;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -52,7 +53,6 @@ public class DetailBVServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Map<Long,AffineBV> map = results.getMapAffined();
-        System.out.println(map);
         request.setAttribute("result", map);
          this.getServletContext().getRequestDispatcher("/WEB-INF/DetailBV.jsp").forward(request, response);
     }

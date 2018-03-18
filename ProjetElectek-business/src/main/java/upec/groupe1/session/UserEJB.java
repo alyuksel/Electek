@@ -3,14 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package upec.groupe1.tools;
+package upec.groupe1.session;
+
+import javax.ejb.Stateful;
+import upec.groupe1.entities.Users;
 
 /**
  *
- * @author AMM
+ * @author adam
  */
-public enum VotesStats {
-    NOMBREVOIE,
-    NOMBREEXPRIME,
-    NOMBREVOTES;
+@Stateful
+public class UserEJB extends ConcretEJB<Users>{
+    
+   
+    
 }

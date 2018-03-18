@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import upec.groupe1.affine.AffineBV;
 import upec.groupe1.entities.Results;
 import upec.groupe1.tools.Tools;
-import upec.groupe1.tools.VotesStats;
 
 /**
  *
@@ -23,9 +23,7 @@ import upec.groupe1.tools.VotesStats;
 public class ResultsEJB extends ConcretEJB<Results>{
     private static Map<Long,AffineBV> mapOfBV;
     
-    public  Map<String,Long> getCandidates(){
-        return Tools.getMapCalculated( em.createNamedQuery("Results.listCandidates",Results.class).getResultList(), VotesStats.NOMBREVOIE);
-    };
+    
     
     public Map<Long,AffineBV> getRankCandidateByBV(String caption, String turn,String year){
         mapOfBV = new HashMap<>();
@@ -126,4 +124,6 @@ public class ResultsEJB extends ConcretEJB<Results>{
         getFromAPI("https://opendata.paris.fr/api/records/1.0/search/?dataset=resultats_electoraux&rows=-1&facet=libelle_du_scrutin&facet=numero_d_arrondissement_01_a_20&facet=numero_de_bureau_de_vote_000_a_999&facet=nom_du_candidat_ou_liste&refine.libelle_du_scrutin=Pr%C3%A9sidentielle+2017+-+2eme+tour");
         getFromAPI("https://opendata.paris.fr/api/records/1.0/search/?dataset=resultats_electoraux&rows=-1&facet=libelle_du_scrutin&facet=numero_d_arrondissement_01_a_20&facet=numero_de_bureau_de_vote_000_a_999&facet=nom_du_candidat_ou_liste");
     }
+
+
 }

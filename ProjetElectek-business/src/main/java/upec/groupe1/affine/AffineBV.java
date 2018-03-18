@@ -16,28 +16,30 @@ import upec.groupe1.entities.Results;
  */
 public class AffineBV {
     private Map<String,Long> candidateScore;
-    private Long numberOfVote;
+    private Map<String,Long> candidateExprime;
     public AffineBV(Results r) {
         candidateScore = new HashMap<>();
-        numberOfVote = r.getNbVotants();
+        candidateExprime = new HashMap<>();
         String key = r.getCandidateFN()+"_"+r.getCandidateLN();
         candidateScore.put(key, r.getNbVoie());
+        candidateExprime.put(key,r.getNbExprime());
     }
     public void addCandidate(Results r){
         String key = r.getCandidateFN()+"_"+r.getCandidateLN();
         if(candidateScore.containsKey(key)){
             Long v = candidateScore.get(key);
+            Long e = candidateExprime.get(key);
             candidateScore.put(key, v+r.getNbVoie());
-            numberOfVote = numberOfVote + r.getNbVotants();
+            candidateExprime.put(key, e+r.getNbExprime());
         }else{
             candidateScore.put(key, r.getNbVoie());
-            numberOfVote = numberOfVote + r.getNbVotants();
+            candidateExprime.put(key, r.getNbExprime());
         }
     }
     
     public Double purcent(String candidate){
         if (candidateScore.containsKey(candidate)){
-            return (candidateScore.get(candidate)*100.0)/numberOfVote;
+            return (candidateScore.get(candidate)*100.0)/candidateExprime.get(candidate);
         }else
             return Double.valueOf(0);
     }

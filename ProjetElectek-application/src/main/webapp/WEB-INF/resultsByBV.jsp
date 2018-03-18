@@ -18,13 +18,11 @@
         <table border="2" width="1" cellspacing="1" cellpadding="1">
         <%
             Map<Long,AffineBV> map = (Map<Long,AffineBV>) request.getAttribute("results");
-            out.println("<tr><th>BV n°</th><th>premier</th><th>dernier</th><th>scorePremier</th><th>scoreDernier</th></tr>");
+            out.println("<tr><th>BV n°</th><th>premier</th><th>dernier</th><th>Plus ?</th></tr>");
             for(Long l : map.keySet()){
                 String first = map.get(l).getFirst();
                 String last = map.get(l).getLast();
-                Double firstPurcent = map.get(l).purcent(first);
-                Double lastPurcent = map.get(l).purcent(last);
-                out.print("<tr><td>"+l+"</td><td>"+first+"</td><td>"+last+"</td><td>"+firstPurcent+"%</td><td>"+lastPurcent+"%</td><td>");
+                out.print("<tr><td>"+l+"</td><td>"+first+"</td><td>"+last+"</td><td>");
                 out.println("<form action=\"/ProjetElectek-application/DetailBV\" method=\"POST\">"
                             +"<input type=\"hidden\" value=\""+l+"\" name=\"numero\">"
                             +"<input type=\"submit\" value=\"détail\" name=\"detail\" />"
