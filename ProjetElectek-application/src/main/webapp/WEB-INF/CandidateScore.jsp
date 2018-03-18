@@ -36,8 +36,8 @@
                 %>
             </select>
             <select name="turn">
-                <option value="1er">1er</option>
-                <option value="2ème">2ème</option>
+                <option value="1">1er</option>
+                <option value="2">2ème</option>
             </select>
             <select name="place">
                 <option>global</option>

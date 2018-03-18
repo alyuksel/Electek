@@ -11,11 +11,11 @@ package upec.groupe1.dto;
  */
 public class Score {
     private Candidate candidate;
-    private int voteNumber;
+    private long voteNumber;
     private final double percent;
-    private int total;
+    private long total;
 
-    public Score(Candidate candidate, int voteNumber,int total) {
+    public Score(Candidate candidate, long voteNumber,long total) {
         this.candidate = candidate;
         this.voteNumber = voteNumber;
         this.total = total;
@@ -23,7 +23,7 @@ public class Score {
         this.percent = (voteNumber * 100) / total;
     }
 
-    public int getVoteNumber() {
+    public long getVoteNumber() {
         return voteNumber;
     }
 
@@ -35,7 +35,7 @@ public class Score {
         return percent;
     }
 
-    public int getTotal() {
+    public long getTotal() {
         return total;
     }
 

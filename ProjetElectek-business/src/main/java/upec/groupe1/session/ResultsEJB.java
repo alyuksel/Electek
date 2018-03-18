@@ -23,7 +23,6 @@ import upec.groupe1.tools.Tools;
  * @author adam
  */
 @Stateless
-
 public class ResultsEJB extends ConcretEJB<Results>{
     private static Map<Long,AffineBV> mapOfBV;
 
@@ -56,7 +55,7 @@ public class ResultsEJB extends ConcretEJB<Results>{
             }
         }
         return mapOfBV;
-
+    }
         public void getCandidateResult(String name, String turn){
             Map<String, Object> params = new HashMap<>();
             params.put("name", name);
@@ -81,49 +80,32 @@ public class ResultsEJB extends ConcretEJB<Results>{
 }
 
     public Score getScoreByCandidate(String lastName, String name , String turn, String caption, String year) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("year", year);
-        params.put("caption", caption);
-        params.put("turn", turn);
-        int totalVotes = count("Results.findByYearByCaptionCount", params);
-        params.put("name", name);
-        params.put("lastName", lastName);
-        int candidateVotes= count("Results.findByYearByCaptionByCandidateCount", params);
-        return new Score( new Candidate(lastName, name, caption), candidateVotes, totalVotes);
+        Object[] results = (Object[]) em.createQuery("SELECT SUM(r.nbVoie), SUM(r.nbExprime), r.candidateFN FROM Results r WHERE "
+                + "r.caption =:caption AND r.candidateFN =:lastName AND r.candidateLN =:name AND r.turn =:turn "
+                + "AND r.yearEl =:year GROUP BY r.candidateFN", Object[].class)
+            .setParameter("year", year)
+            .setParameter("caption", caption)
+            .setParameter("turn", turn)
+            .setParameter("name", name)
+            .setParameter("lastName", lastName)
+                .getSingleResult();
+        return new Score( new Candidate(lastName, name, caption), (long)results[0], (long)results[1]);
     }
 
     public Score getScoreByCandidateByArrondisse(String lastName, String name , String turn, String caption, String arr, String year) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("year", year);
-        params.put("caption", caption);
-        params.put("turn", turn);
-        params.put("arr",  Double.valueOf(arr));
-        int totalVotes = count("Results.findByYearByCaptionCount", params);
-        params.put("name", name);
-        params.put("lastName", lastName);
-        int candidateVotes= count("Results.findByYearByCaptionByCandidateByArrondisseCount", params);
-        return new Score(new Candidate(lastName, name, caption), candidateVotes, totalVotes);
+        Object[] results = (Object[]) em.createQuery("SELECT SUM(r.nbVoie), SUM(r.nbExprime), r.candidateFN FROM Results r WHERE "
+                + "r.caption =:caption AND r.candidateFN =:lastName AND r.candidateLN =:name AND r.turn =:turn "
+                + "AND r.yearEl =:year GROUP BY r.candidateFN", Object[].class)
+            .setParameter("year", year)
+            .setParameter("arr", arr)
+            .setParameter("caption", caption)
+            .setParameter("turn", turn)
+            .setParameter("name", name)
+            .setParameter("lastName", lastName)
+                .getSingleResult();
+        return new Score(new Candidate(lastName, name, caption), (long)results[0], (long)results[1]);
     }
-        return new Score(candidateVotes, totalVotes);
-      }
-      public void getCandidateResult(String name, String turn){
-          Map<String, Object> params = new HashMap<>();
-          params.put("name", name);
-          params.put("turn", turn);
-          List<Results> results = findNamedQuery("Results.findByCandidate", params , Results.class);
-      }
 
-    public Score getScoreByCandidate(String lastName, String name , String turn, String caption) {
-          Map<String, Object> params = new HashMap<>();
-          params.put("year", "2012");
-          params.put("caption", caption);
-          params.put("turn", turn);
-          int totalVotes = count("Results.findByYearByCaptionCount", params);
-          params.put("name", name);
-          params.put("lastName", lastName);
-          int candidateVotes= count("Results.findByYearByCaptionByCandidateCount", params);
-          return new Score(candidateVotes, totalVotes);
-      }
     public int count() {
         javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         javax.persistence.criteria.Root<Results> rt = cq.from(Results.class);
