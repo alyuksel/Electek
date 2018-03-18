@@ -42,7 +42,7 @@
             <input type="radio" name="year" value="2012">2012<br> 
             <input type="radio" name="year" value="2017">2017<br> 
          
-            <input type="submit" value="valider" name="valide" />
+            <input class="btn btn-success" type="submit" value="valider" name="valide" />
         </form>
     </body>
 </html>

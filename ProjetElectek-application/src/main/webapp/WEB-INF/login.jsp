@@ -39,7 +39,7 @@
             <input type="text" name="username" /> 
             <p>mot de passe</p>
             <input type="password" name="password" /> 
-            <input type="submit" name="Se Connecter" /> 
+            <input class="btn btn-success" type="submit" name="Se Connecter" /> 
         </form>
         <p>Vous ne posséder pas de compte ? <a href="/ProjetElectek-application/SignIn" >Par ici ! </a>
     </body>

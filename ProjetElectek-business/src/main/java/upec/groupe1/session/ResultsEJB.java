@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
-import javax.persistence.Query;
 import upec.groupe1.affine.AffineBV;
 import upec.groupe1.entities.Results;
 import upec.groupe1.tools.Tools;
@@ -100,7 +99,7 @@ public class ResultsEJB extends ConcretEJB<Results>{
                     Results res = new Results();
                     String lib = libelle.split(" ")[0].replaceAll("é", "e");
                     String annee = libelle.split(" ")[1];
-                    String tour = libelle.split("-")[1].split(" ")[1].replaceAll("er", "").replaceAll("ème", "");
+                    String tour = libelle.split("-")[1].split(" ")[1].replaceAll("er", "").replaceAll("eme", "").replaceAll("ème", "");
                     res.setCandidateFN(nom);
                     res.setCandidateLN(prenom);
                     res.setNumBV(num_bv.longValue());

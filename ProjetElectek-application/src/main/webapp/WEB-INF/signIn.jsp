@@ -46,7 +46,7 @@
             <p>Verification du mot de pass</p>
             <input type="password" name="password2"/>
             
-            <input type="submit" name="S'inscire !" /> 
+            <input class="btn btn-success" type="submit" name="S'inscire !" /> 
         </form>
     </body>
 </html>
