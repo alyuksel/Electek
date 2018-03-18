@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import upec.groupe1.entities.VoteOffices;
 import upec.groupe1.session.Exceptions.NotFoundException;
 import upec.groupe1.tools.Tools;
@@ -45,7 +46,14 @@ public class VoteOfficeEJB extends ConcretEJB<VoteOffices> {
         
          //To change body of generated methods, choose Tools | Templates.
     }
-    
+    public List<VoteOffices> filtredVoteOffices (Map<String,Object> para){
+        Query q = em.createQuery("SELECT v FROM VoteOffices v WHERE v.adress LIKE UPPER(:adress) and v.number LIKE :number AND v.caption LIKE :caption");
+        para.forEach((parat,value)->{
+            if(value == null)value="";
+            q.setParameter(parat,"%"+value+"%");
+        });
+        return q.getResultList();
+    }
     public VoteOffices findVoteOffice(int numBV, int arr) throws NotFoundException{
         List<VoteOffices> result = em.createNamedQuery("VoteOffices.findByNumber",VoteOffices.class)
                 .setParameter("number", arr+"-"+numBV)
