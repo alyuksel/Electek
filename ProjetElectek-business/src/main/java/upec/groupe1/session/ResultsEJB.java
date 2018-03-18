@@ -29,9 +29,8 @@ public class ResultsEJB extends ConcretEJB<Results>{
 
     public List<Candidate> getCandidatesByCaption(String caption){
         Map<String,Object> params = new HashMap<>();
-        params.put("year", "2012");
         params.put("caption", caption);
-        List<Results> results = findNamedQuery("Results.findCandidatesByYearByCaption", params);
+        List<Results> results = findNamedQuery("Results.findCandidatesByCaption", params);
 
         return results.stream()
                 .map(result -> new Candidate(result.getCandidateFN(), result.getCandidateLN(), result.getCaption()))
@@ -57,7 +56,14 @@ public class ResultsEJB extends ConcretEJB<Results>{
             }
         }
         return mapOfBV;
-    }
+
+        public void getCandidateResult(String name, String turn){
+            Map<String, Object> params = new HashMap<>();
+            params.put("name", name);
+            params.put("turn", turn);
+            List<Results> results = findNamedQuery("Results.findByCandidate", params , Results.class);
+          }
+
     public Map<Long,AffineBV> getMapAffined(){
         return mapOfBV;
     }
@@ -66,18 +72,29 @@ public class ResultsEJB extends ConcretEJB<Results>{
                 .getResultList();
     };
 
-     public List<Results> getResultsByOrder(String election, String year,Object order){
-        return  em.createQuery("SELECT r FROM Results r WHERE r.caption = :caption and r.yearEl = :year ORDER BY "+order,Results.class)
-                .setParameter("caption", election)
-                .setParameter("year", year)
-                .getResultList();
+
+    public List<Results> getResultsByOrder(String election, String year,Object order){
+    return  em.createQuery("SELECT r FROM Results r WHERE r.caption = :caption and r.yearEl = :year ORDER BY "+order,Results.class)
+           .setParameter("caption", election)
+           .setParameter("year", year)
+           .getResultList();
+}
+
+    public Score getScoreByCandidate(String lastName, String name , String turn, String caption, String year) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("year", year);
+        params.put("caption", caption);
+        params.put("turn", turn);
+        int totalVotes = count("Results.findByYearByCaptionCount", params);
+        params.put("name", name);
+        params.put("lastName", lastName);
+        int candidateVotes= count("Results.findByYearByCaptionByCandidateCount", params);
+        return new Score( new Candidate(lastName, name, caption), candidateVotes, totalVotes);
     }
 
-
-
-    public Score getScoreByCandidateByArrondisse(String lastName, String name , String turn, String caption, String arr) {
+    public Score getScoreByCandidateByArrondisse(String lastName, String name , String turn, String caption, String arr, String year) {
         Map<String, Object> params = new HashMap<>();
-        params.put("year", "2012");
+        params.put("year", year);
         params.put("caption", caption);
         params.put("turn", turn);
         params.put("arr",  Double.valueOf(arr));
@@ -85,6 +102,8 @@ public class ResultsEJB extends ConcretEJB<Results>{
         params.put("name", name);
         params.put("lastName", lastName);
         int candidateVotes= count("Results.findByYearByCaptionByCandidateByArrondisseCount", params);
+        return new Score(new Candidate(lastName, name, caption), candidateVotes, totalVotes);
+    }
         return new Score(candidateVotes, totalVotes);
       }
       public void getCandidateResult(String name, String turn){

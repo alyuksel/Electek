@@ -23,7 +23,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     @NamedQuery(name = "Results.deleteAll", query = "delete from Results"),
     @NamedQuery(name = "Results.findByCandidate", query = "SELECT r FROM Results r WHERE r.candidateFN = :name AND r.yearEl = '2017' AND turn = :turn"),
-    @NamedQuery(name = "Results.findCandidatesByYearByCaption", query = "SELECT r FROM Results r WHERE r.yearEl =:year AND r.caption =:caption"),
+    @NamedQuery(name = "Results.findCandidatesByCaption", query = "SELECT r FROM Results r WHERE r.caption =:caption"),
     @NamedQuery(name = "Results.findByYearByCaptionCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.turn =:turn"),
     @NamedQuery(name = "Results.findByYearByCaption", query = "SELECT r FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.turn = :turn"),
     @NamedQuery(name = "Results.findByYearByCaptionByCandidateCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.candidateFN=:lastName AND r.candidateLN = :name AND r.turn =:turn"),
@@ -33,7 +33,6 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name= "Results.getResultsByID" , query = "SELECT r FROM Results r WHERE r.idResults = :id"),
     @NamedQuery(name= "Results.getResultsByBV" , query = "SELECT r FROM Results r WHERE r.caption = :caption and r.turn = :turn and r.yearEl = :year"),
     @NamedQuery(name= "Results.getResultsByOrder" , query = "SELECT r FROM Results r WHERE r.caption = :caption and r.yearEl = :year ")
-
 })
 public class Results implements Serializable {
 

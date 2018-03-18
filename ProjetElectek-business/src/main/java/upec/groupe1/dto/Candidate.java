@@ -45,7 +45,7 @@ public class Candidate {
     }
     
     public String getFullName (){
-        return nom+" "+prenom;
+        return nom+"_"+prenom;
     }
 
     @Override
