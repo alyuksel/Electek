@@ -25,6 +25,22 @@
         <servlet-name>SortResultsServlet</servlet-name>
         <servlet-class>JSPHandler.SortResultsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyResultsServlet</servlet-name>
+        <servlet-class>JSPHandler.MyResultsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>JSPHandler.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignInServlet</servlet-name>
+        <servlet-class>JSPHandler.SignInServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>JSPHandler.LogoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
@@ -45,12 +61,28 @@
         <servlet-name>SortResultsServlet</servlet-name>
         <url-pattern>/SortResultsServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyResultsServlet</servlet-name>
+        <url-pattern>/MyResults</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignInServlet</servlet-name>
+        <url-pattern>/SignIn</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.html</welcome-file>
+        <welcome-file>faces/index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

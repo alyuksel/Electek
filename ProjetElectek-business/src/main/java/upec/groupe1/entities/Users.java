@@ -52,9 +52,6 @@ public class Users implements Serializable {
         }
         return false;
     }
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -82,10 +79,6 @@ public class Users implements Serializable {
         this.type = type;
     }
 
-    
-    public String getLogin() {
-        return login;
-    }
 
     public String getName() {
         return name;

@@ -6,52 +6,48 @@
 package JSPHandler;
 
 import java.io.IOException;
-import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import upec.groupe1.affine.AffineBV;
-import upec.groupe1.session.ResultsEJB;
+import javax.servlet.http.HttpSession;
+import upec.groupe1.session.UserEJB;
 
 /**
  *
  * @author adam
  */
-@WebServlet("/resultatBV")
-public class ResultsByBVServlet extends HttpServlet {
+@WebServlet("/MyResults")
+public class MyResultsServlet extends HttpServlet {
     @EJB
-    private ResultsEJB results;
-
+    private UserEJB user;
+ 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user") == null){
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        }else{
+            this.getServletContext().getRequestDispatcher("/WEB-INF/myResults.jsp").forward(request, response);
+        }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String election = request.getParameter("election");
-        String turn = request.getParameter("turn");
-        String year = request.getParameter("year");
-        Map<Long,AffineBV> map = results.getRankCandidateByBV(election, turn, year);
-        System.out.println(map);
-        request.setAttribute("results", map);
-        this.getServletContext().getRequestDispatcher("/WEB-INF/resultsByBV.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user")==null)
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

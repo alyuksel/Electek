@@ -5,16 +5,15 @@
  */
 package upec.groupe1.session;
 
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import upec.groupe1.entities.Users;
 
 /**
  *
  * @author adam
  */
-@Stateful
+@Stateless
 public class UserEJB extends ConcretEJB<Users>{
-    
    
     
 }

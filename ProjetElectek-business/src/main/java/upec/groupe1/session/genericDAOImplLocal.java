@@ -20,8 +20,8 @@ import upec.groupe1.session.Exceptions.NotFoundException;
 @Local
 public interface genericDAOImplLocal<T> {
     public void create(T t);
-    public  T find(Object id) throws NotFoundException; 
-    public void delete(Object id) throws NotFoundException; 
+    public  T find(Class<T>t,Object id) throws NotFoundException; 
+    public void delete(Class<T>t,Object id) throws NotFoundException; 
     public void update(T t);
     public List<T> getAllData(String query,int returnlimit);
     

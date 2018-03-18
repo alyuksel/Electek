@@ -1,21 +1,17 @@
 <%-- 
-    Document   : candidates
-    Created on : 16 mars 2018, 10:25:36
-    Author     : AMM
+    Document   : login
+    Created on : 18 mars 2018, 12:24:40
+    Author     : adam
 --%>
 
-<%@page import="java.util.Map"%>
-<%@page import="upec.groupe1.entities.Results"%>
-<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Choix pour le classement des candidats</title>
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-       
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Login</title>
     </head>
     <body>
         <nav class="navbar navbar-dark bg-primary">
@@ -29,20 +25,22 @@
                }
             %>
         </nav>
-        <h1>Choisissez les critères de recherches</h1>
-        <form action="/ProjetElectek-application/resultatBV" method="POST">
-            Elections : <br>
-            <input type="radio" name="election" value="Presidentielle" checked/> Présidentielles <br>
-            <input type="radio" name="election" value="Legislatives"/> Législatives <br>
-            Tour : <br>
-            <input type="radio" name="turn" value="1" checked/>1er<br>
-            <input type="radio" name="turn" value="2"/>2ème<br>
-            Année :<br>
-            <input type="radio" name="year" value="2007" checked> 2007<br> 
-            <input type="radio" name="year" value="2012">2012<br> 
-            <input type="radio" name="year" value="2017">2017<br> 
-         
-            <input type="submit" value="valider" name="valide" />
+        <% 
+            if(request.getAttribute("error")!=null){
+                out.println("<font color=red>"+request.getAttribute("error")+"</font>");
+            }
+            if(request.getAttribute("signin")!=null){
+                out.println("<font color=green>"+request.getAttribute("signin")+"</font>");
+            }
+        %>
+        <h1>Login</h1>
+        <form name="login" action="/ProjetElectek-application/Login" method="POST">
+            <p>login</p>
+            <input type="text" name="username" /> 
+            <p>mot de passe</p>
+            <input type="password" name="password" /> 
+            <input type="submit" name="Se Connecter" /> 
         </form>
+        <p>Vous ne posséder pas de compte ? <a href="/ProjetElectek-application/SignIn" >Par ici ! </a>
     </body>
 </html>

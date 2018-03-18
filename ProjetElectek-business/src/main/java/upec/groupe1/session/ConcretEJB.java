@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import java.lang.Class;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -39,15 +40,15 @@ public class ConcretEJB<T> implements genericDAOImplLocal<T>{
     }
     
     @Override
-    public T find(Object id) throws NotFoundException{
-       T res =  (T) em.find(Object.class ,id);
+    public T find(Class<T> t, Object id) throws NotFoundException{
+       T res =  (T) em.find(t ,id);
        if(res==null) throw new NotFoundException("Result not found");
        return res;     
     }
 
     @Override
-    public void delete( Object id) throws NotFoundException{
-       T ref = find(id);
+    public void delete(Class<T> t, Object id) throws NotFoundException{
+       T ref = find(t,id);
        em.remove(ref);
     }
 
