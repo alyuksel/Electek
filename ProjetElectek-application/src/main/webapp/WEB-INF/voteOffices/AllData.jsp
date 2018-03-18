@@ -11,15 +11,33 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.6/js/jquery.tablesorter.js"></script>
 
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        
+        <h1>Bureaux de votes de Paris !</h1>
+        <%
+                ArrayList<VoteOffices> posts = (ArrayList<VoteOffices>) request.getAttribute("ListeVoteOffices");
+                String erreur = (String) request.getAttribute("erreur");
+                if(erreur!=null){
+                    %><p>Erreur mauvais Filtrage : <%=erreur%></p><%
+                }
+                
+        %>
+        <form id="form" method="post" action="/ProjetElectek-application/voteoffices">
         <table id="myTable" class="tablesorter"> 
+            <p><button type="submit" form="form" value="Submit">Submit</button></p>
+            <tr>
+                <td></td>
+                <td><input name="number" type="text" /></td>
+                <td><input name="caption" type="text" /></td>
+                <td><input name="adress" type="text" /></td>
+                <td></td>
+            </tr>
             <thead>
                 <tr>
                     <th>Id Bureau de Vote</th>
@@ -29,33 +47,48 @@
                     <th>Code Postale</th>
                 </tr>
             </thead>
-            <%
-            ArrayList<VoteOffices> posts = (ArrayList<VoteOffices>) request.getAttribute("ListeVoteOffices"); 
-            for (VoteOffices vO: posts) {   
+            <%  
+                for (VoteOffices vO : posts) {
             %>
             <tr>
-            <td><%=vO.getIdVoteOffices()%></td>
-            <td><%=vO.getNumber()%></td>
-            <td><%=vO.getCaption()%></td>
-            <td><%=vO.getAdress()%></td>
-            <td><%=vO.getPostalCode()%></td>  
+                <td><%=vO.getIdVoteOffices()%></td>
+                <td><%=vO.getNumber()%></td>
+                <td><%=vO.getCaption()%></td>
+                <td><%=vO.getAdress()%></td>
+                <td><%=vO.getPostalCode()%></td>  
             </tr>
             <%}%>
         </table>      
-
+        </form>
     </body>
 </html>
 <script>
+
+    $(document).ready(function ()
+    {
+        $("#myTable").tablesorter();
+    }
+    );
+
+    $(document).ready(function ()
+    {
+        $("#myTable").tablesorter({sortList: [[0, 0], [1, 0]]});
+    }
+    );
+    $(document).ready(function(){
+    $('#numberFilter').click(function(){
+        $.ajax({
+            type: 'POST',
+            url: "/ProjetElectek-application/voteoffices",
+            async: false,
+             data: { 
+                 'foo': 'bar', 
+                 'ca$libri': 'no$libri'
+             },
+            success: function(result){
+            $("div").html(result);
+        }});
+    });
+});
     
-    $(document).ready(function() 
-    { 
-        $("#myTable").tablesorter(); 
-    } 
-    ); 
-    
-    $(document).ready(function() 
-    { 
-        $("#myTable").tablesorter( {sortList: [[0,0], [1,0]]} ); 
-    } 
-    ); 
 </script>

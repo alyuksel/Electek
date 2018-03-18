@@ -12,7 +12,18 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        
+        <h1>Trouver votre bureau de vote!</h1>
+        
+        <%String message = (String)request.getAttribute("message");
+         
+            if(message!=null){
+            %>
+            <div style="color: red;"><%=message%></div>
+            <%
+            }
+        
+        %>
         <form method="post" action="/ProjetElectek-application/voteoffices/searchAdress">
             <fieldset>
                 <legend>Adresse</legend>
@@ -22,15 +33,15 @@
                 <br />
 
                 <label for="rue">Rue <span class="requis">*</span></label>
-                <input type="text" id="rue" name="rue" value="77" size="20" maxlength="300" />
+                <input type="text" id="rue" name="rue" value="" size="20" maxlength="300" />
                 <br />
 
                 <label for="cp">Code Postale <span class="requis">*</span></label>
-                <input type="text" id="cp" name="cp" value="" size="20" maxlength="5" />
+                <input type="text" id="cp" name="cp" value="750" size="20" maxlength="5" />
                 <br />
 
                 <label for="pays">Pays</label>
-                <input type="text" id="pays" name="pays" value="FRANCE" size="20" maxlength="20" />
+                <input type="text" id="pays" name="pays" value="FRANCE" size="20" maxlength="20" readonly/>
                 <br />
 
                 <input type="submit" value="Trouver" class="sansLabel" />

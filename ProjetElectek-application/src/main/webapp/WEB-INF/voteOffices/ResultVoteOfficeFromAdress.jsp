@@ -35,8 +35,8 @@
                     <td style="width: 141px;"><%=posts.getStreetName()%></td>
                 </tr>
                 <tr>
-                    <td style="width: 140px;"><strong><span style="text-decoration: underline;">Code Postale :</span></strong></td>
-                    <td style="width: 141px;">750<%=posts.getArr()%></td>
+                    <td style="width: 140px;"><strong><span style="text-decoration: underline;">Arrondissement :</span></strong></td>
+                    <td style="width: 141px;"><%=posts.getArr()%></td>
                 </tr>
                 <tr>
                     <td style="width: 140px;"><strong><span style="text-decoration: underline;">Pays :&nbsp;</span></strong></td>

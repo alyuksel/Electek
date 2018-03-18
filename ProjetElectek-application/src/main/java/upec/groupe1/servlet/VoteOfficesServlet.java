@@ -80,6 +80,24 @@ public class VoteOfficesServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String path = request.getServletPath();
         switch(path){
+             case VOTE_OFFICE : {
+                String idVO =   (String)    request.getParameter("idVoteOffices");
+                String num  =   (String)    request.getParameter("number");
+                String capt =   (String)    request.getParameter("caption");
+                String adre =   (String)    request.getParameter("adress");
+                String cp   =   (String)    request.getParameter("cp" );
+                Map<String,Object> map = new HashMap<>();
+                map.put("adress",adre);
+                map.put("number",num);
+                map.put("caption",capt);
+                    
+                System.out.println("MAP AVANT - " + map);
+                
+                List<VoteOffices> liste = officesEJB.filtredVoteOffices(map);
+                request.setAttribute("ListeVoteOffices", liste);
+                this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/AllData.jsp" ).forward( request, response );
+                break;
+            }
             case VOTE_OFFICE_BY_ADRESS : {
                 
                 String numero = request.getParameter( CHAMP_NUMERO );
@@ -100,15 +118,15 @@ public class VoteOfficesServlet extends HttpServlet {
                     
                     if(!a.isEmpty()){
                             request.setAttribute("adresse", a.get(0));
+                            this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/ResultVoteOfficeFromAdress.jsp" ).forward( request, response );
                     }else{
-                        System.out.println("empty");
+                        request.setAttribute("message", "Erreur : Merci de vérifier les informations saisies.");
+                        this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/SearchVoteOfficeFromAdress.jsp" ).forward( request, response );
                     }
-                    System.out.println(a);
-                    this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/ResultVoteOfficeFromAdress.jsp" ).forward( request, response );
                 }
                 catch(Exception e){
-                    e.printStackTrace();
                     request.setAttribute("message", "Erreur : Merci de vérifier les informations saisies.");
+                    this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/SearchVoteOfficeFromAdress.jsp" ).forward( request, response );
                 }
             break;
             }
