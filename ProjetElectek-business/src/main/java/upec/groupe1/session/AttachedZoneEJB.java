@@ -90,7 +90,6 @@ public class AttachedZoneEJB extends ConcretEJB<AttachedZone> {
                     VoteOffices voteOffice = getVoteOfficeFromAttachedZone(zone);
                     zone.setVoteOffice(voteOffice);
                     super.create(zone);
-                    System.out.println("DONE !!!");
                 } catch (NotFoundException ex) {
                     System.err.println("Vote Office pas trouvé pour Attached zone" + zone);
                 }

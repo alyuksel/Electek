@@ -68,7 +68,6 @@ public class AdresseEJB extends ConcretEJB<Adresse> {
                     aZ = getAttachedZoneFromAdress(a, point);
                     a.setAttachedZone(aZ);
                     super.create(a);
-                    System.out.println("OK !!!");
                 } catch (NotFoundException e) {
                     System.err.println("Pas de Attached Zone trouvé, donc on essaye default");
                     try {
