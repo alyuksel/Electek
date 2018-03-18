@@ -88,7 +88,7 @@ public class LoadData extends HttpServlet {
             officeEJB.importFromAPI();
             attachezEJB.importFromAPI();
             adresseEJB.importFromAPI(amountInt);
-            resultsEJB.importFromAPI();
+            resultsEJB.create();
             
             Long numberOffices = officeEJB.count(VoteOffices.class);
             Long numberZones = attachezEJB.count(AttachedZone.class);

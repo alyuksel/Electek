@@ -27,7 +27,7 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name = "Results.findByYearByCaptionCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.turn =:turn"),
     @NamedQuery(name = "Results.findByYearByCaption", query = "SELECT r FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.turn = :turn"),
     @NamedQuery(name = "Results.findByYearByCaptionByCandidateCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.candidateFN=:lastName AND r.candidateLN = :name AND r.turn =:turn"),
-    @NamedQuery(name = "Results.findByYearByCaptionByCandidateByArrondisseCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.candidateFN=:lastName AND r.candidateLN = :name AND r.turn =:turn AND r.arr =:arr")
+    @NamedQuery(name = "Results.findByYearByCaptionByCandidateByArrondisseCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.candidateFN=:lastName AND r.candidateLN = :name AND r.turn =:turn AND r.arr =:arr"),
     @NamedQuery(name = "Results.listCandidates", query = "SELECT distinct r FROM Results r ORDER BY r.candidateFN "),
     @NamedQuery(name= "Results.getResults" ,query = "SELECT r FROM Results r" ),
     @NamedQuery(name= "Results.getResultsByID" , query = "SELECT r FROM Results r WHERE r.idResults = :id"),

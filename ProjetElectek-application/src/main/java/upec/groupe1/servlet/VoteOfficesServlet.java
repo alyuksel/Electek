@@ -44,8 +44,6 @@ public class VoteOfficesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
             
         Map<String, String[]> params = request.getParameterMap();
         String path = request.getServletPath();
@@ -77,7 +75,6 @@ public class VoteOfficesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         String path = request.getServletPath();
         switch(path){
              case VOTE_OFFICE : {

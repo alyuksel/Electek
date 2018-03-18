@@ -10,9 +10,13 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
-        <servlet-name>ResultsServlet</servlet-name>
-        <servlet-class>JSPHandler.CandidatesServlet</servlet-class>
+        <servlet-name>ResultServlet</servlet-name>
+        <servlet-class>upec.groupe1.servlet.ResultServlet</servlet-class>
     </servlet>
+    <servlet>
+       <servlet-name>VoteOfficesServlet</servlet-name>
+        <servlet-class>upec.groupe1.servlet.VoteOfficesServlet</servlet-class>
+    </servlet>  
     <servlet>
         <servlet-name>ResultsByBVServlet</servlet-name>
         <servlet-class>JSPHandler.ResultsByBVServlet</servlet-class>
@@ -46,10 +50,6 @@
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ResultsServlet</servlet-name>
-        <url-pattern>/ResultsServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ResultsByBVServlet</servlet-name>
         <url-pattern>/ResultsByBVServlet</url-pattern>
     </servlet-mapping>
@@ -77,9 +77,28 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>ResultServlet</servlet-name>
+        <url-pattern>/results</url-pattern>
+        <url-pattern>/results/presidentielle</url-pattern>
+        <url-pattern>/results/legislatives</url-pattern>
+        <url-pattern>/results/legislatives/candidat</url-pattern>
+        <url-pattern>/results/presidentielle/candidat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VoteOfficesServlet</servlet-name>
+        <url-pattern>/voteoffices</url-pattern>
+        <url-pattern>/voteoffices/arr</url-pattern>
+        <url-pattern>/voteoffices/searchAdress</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+     <welcome-file-list>
+        <welcome-file>faces/index.jsp</welcome-file>
+    </welcome-file-list>
+
 </web-app>

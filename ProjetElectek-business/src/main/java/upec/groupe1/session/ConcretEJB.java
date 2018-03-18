@@ -37,8 +37,8 @@ public class ConcretEJB<T> implements genericDAOImplLocal<T>{
     @Override
     public void create(T t) {
         em.persist(t);
-        this.em.flush();
-        this.em.refresh(t);
+        //this.em.flush();
+        //this.em.refresh(t);
     }
 
     @Override
