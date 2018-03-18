@@ -7,10 +7,8 @@ package upec.groupe1.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +25,6 @@ public class ResultServlet extends HttpServlet {
     private final String RESULTS = "/results";
     private final String RESULTS_PRESIDENTIELLE = RESULTS + "/presidentielle";
     private final String RESULTS_LEGISLATIVE =RESULTS + "/legislatives";
-    private final String RESULTS_PRESIDENTIELLE_CANDIDAT = RESULTS_PRESIDENTIELLE + "/candidat";
-    private final String RESULTS_LEGISLATIVE_CANDIDAT = RESULTS_LEGISLATIVE + "/candidat";
     
     @EJB
     ResultsEJB resultsEJB;
@@ -66,13 +62,28 @@ public class ResultServlet extends HttpServlet {
             String path = request.getServletPath();
             System.out.println(path);
         switch(path){
-                case RESULTS_PRESIDENTIELLE_CANDIDAT : {
-                    String lastName = request.getParameter("lastName");
+                case RESULTS_PRESIDENTIELLE : {
+                    String[] fullName = request.getParameter("fullName").split(" ");
                     String turn = request.getParameter("turn");
                     String arrondissement = request.getParameter("place");
                     Score score = null;
-                    score = resultsEJB.getScoreByCandidate(lastName, "François", turn, "Présidentielle");
+                    if("global".equals(arrondissement))
+                        score = resultsEJB.getScoreByCandidate(new String(fullName[0].getBytes("UTF-8"), "UTF8"), new String(fullName[1].getBytes("UTF-8"), "UTF8"), turn, "Présidentielle");
+                    else
+                        score = resultsEJB.getScoreByCandidateByArrondisse(new String(fullName[0].getBytes("UTF-8"), "UTF8"), new String(fullName[1].getBytes("UTF-8"), "UTF8"), turn, "Présidentielle", arrondissement);
                     List<Candidate> candidates = resultsEJB.getCandidatesByCaption("Présidentielle");
+                    request.setAttribute("candidates", candidates);
+                    request.setAttribute("isScore", true);
+                    request.setAttribute("score", score);
+                    request.setAttribute("path", path);
+                    this.getServletContext().getRequestDispatcher( "/WEB-INF/Results.jsp" ).forward( request, response );
+                }break;
+                case RESULTS_LEGISLATIVE : {
+                    String[] fullName = request.getParameter("fullName").split(" ");
+                    String turn = request.getParameter("turn");
+                    String arrondissement = request.getParameter("place");
+                    Score score = resultsEJB.getScoreByCandidate(new String(fullName[0].getBytes("UTF-8"), "UTF8"), new String(fullName[1].getBytes("UTF-8"), "UTF8"), turn, "Législatives");
+                    List<Candidate> candidates = resultsEJB.getCandidatesByCaption("Législatives");
                     request.setAttribute("candidates", candidates);
                     request.setAttribute("isScore", true);
                     request.setAttribute("score", score);

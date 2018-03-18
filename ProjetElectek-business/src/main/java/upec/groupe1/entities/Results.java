@@ -25,7 +25,8 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name = "Results.findCandidatesByYearByCaption", query = "SELECT r FROM Results r WHERE r.yearEl =:year AND r.caption =:caption"),
     @NamedQuery(name = "Results.findByYearByCaptionCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.turn =:turn"),
     @NamedQuery(name = "Results.findByYearByCaption", query = "SELECT r FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.turn = :turn"),
-    @NamedQuery(name = "Results.findByYearByCaptionByCandidateCount", query = "SELECT r FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.candidateFN=:name AND r.candidateLN = :lastName AND r.turn =:turn")    
+    @NamedQuery(name = "Results.findByYearByCaptionByCandidateCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.candidateFN=:lastName AND r.candidateLN = :name AND r.turn =:turn"),
+    @NamedQuery(name = "Results.findByYearByCaptionByCandidateByArrondisseCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.candidateFN=:lastName AND r.candidateLN = :name AND r.turn =:turn AND r.arr =:arr") 
 })
 public class Results implements Serializable {
 
@@ -42,7 +43,9 @@ public class Results implements Serializable {
     @Column
     private String candidateFN;
    
-     
+    @Column
+    private Double arr;
+   
     @Column
     private String candidateLN;
 
@@ -70,8 +73,13 @@ public class Results implements Serializable {
         return idResults;
     }
 
+    public Double getArr() {
+        return arr;
+    }
 
-
+    public void setArr(Double arr) {
+        this.arr = arr;
+    }
 
     public String getCaption() {
         return caption;

@@ -96,7 +96,8 @@ public class ConcretEJB<T> implements genericDAOImplLocal<T>{
         for(Entry<String, Object> entry: params.entrySet()){
             q.setParameter(entry.getKey(), entry.getValue());
         }
-        return q.getFirstResult();
+        int count = ((Number) q.getSingleResult()).intValue();
+        return count;
     }
     
 }

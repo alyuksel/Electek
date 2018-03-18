@@ -37,6 +37,7 @@ public class ResultsEJB extends ConcretEJB<Results>{
                 String prenom = (String) ms.get("prenom_du_candidat_ou_liste");
                 String nom = (String) ms.get("nom_du_candidat_ou_liste");
                 Double num_bv = (Double) ms.get("numero_de_bureau_de_vote_000_a_999");
+                Double arr = (Double) ms.get("numero_d_arrondissement_01_a_20");
                 String libelle = (String) ms.get("libelle_du_scrutin");
                 Double nb_exprime = (Double) ms.get("nombre_d_exprimes_du_bureau_de_vote");
                 Double nb_votant = (Double) ms.get("nombre_de_votants_du_bureau_de_vote");
@@ -83,15 +84,28 @@ public class ResultsEJB extends ConcretEJB<Results>{
         List<Results> results = findNamedQuery("Results.findByCandidate", params , Results.class);
     }
 
-    public Score getScoreByCandidate(String name, String lastName, String turn, String caption) {
+    public Score getScoreByCandidate(String lastName, String name , String turn, String caption) {
         Map<String, Object> params = new HashMap<>();
-        params.put("year", "2017");
+        params.put("year", "2012");
         params.put("caption", caption);
         params.put("turn", turn);
         int totalVotes = count("Results.findByYearByCaptionCount", params);
         params.put("name", name);
-        params.put("lastName", name);
+        params.put("lastName", lastName);
         int candidateVotes= count("Results.findByYearByCaptionByCandidateCount", params);
+        return new Score(candidateVotes, totalVotes);
+    }
+    
+    public Score getScoreByCandidateByArrondisse(String lastName, String name , String turn, String caption, String arr) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("year", "2012");
+        params.put("caption", caption);
+        params.put("turn", turn);
+        params.put("arr",  Double.valueOf(arr));
+        int totalVotes = count("Results.findByYearByCaptionCount", params);
+        params.put("name", name);
+        params.put("lastName", lastName);
+        int candidateVotes= count("Results.findByYearByCaptionByCandidateByArrondisseCount", params);
         return new Score(candidateVotes, totalVotes);
     }
 

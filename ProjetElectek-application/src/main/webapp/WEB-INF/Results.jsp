@@ -4,6 +4,7 @@
     Author     : alpi
 --%>
 
+<%@page import="java.util.stream.Collectors"%>
 <%@page import="upec.groupe1.dto.Score"%>
 <%@page import="upec.groupe1.dto.Candidate"%>
 <%@page import="java.util.List"%>
@@ -23,16 +24,15 @@
             String path = (String)(request.getContextPath()+request.getAttribute("path"));
         %>
         <%=path%>
-        <form action="<%=path%>/candidat" method="POST">
-            <select name="lastName">
+        <form action="<%=path%>" method="POST">
+            <select name="fullName">
                 <%
                 List<Candidate> candidates = (List<Candidate>) request.getAttribute("candidates");
                 for (Candidate cand : candidates)
                 {
                         String item = (String) cand.getFullName();
-                        String lastName = (String) cand.getNom();
                 %>
-                   <option value="<%=lastName%>"><%=item%></option>
+                   <option value="<%=item%>"><%=item%></option>
                 <%
                 }
                 %>
