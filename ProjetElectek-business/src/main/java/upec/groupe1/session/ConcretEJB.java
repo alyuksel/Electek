@@ -91,7 +91,6 @@ public class ConcretEJB<T> implements genericDAOImplLocal<T>{
         }
         return q.getResultList();
     }
-    
     @Override
     public long count(Class<T> clazz) { 
         return em.createQuery("SELECT COUNT(e) FROM "+clazz.getSimpleName()+" e", Long.class).getSingleResult();
@@ -99,5 +98,14 @@ public class ConcretEJB<T> implements genericDAOImplLocal<T>{
     
     public void delete(Class<T> clazz){
         em.createQuery("DELETE FROM "+clazz.getSimpleName()).executeUpdate();
+    }
+    @Override
+    public int count(String namedQuery, Map<String, Object> params) {
+        Query q = em.createNamedQuery(namedQuery);
+        for(Entry<String, Object> entry: params.entrySet()){
+            q.setParameter(entry.getKey(), entry.getValue());
+        }
+        int count = ((Number) q.getSingleResult()).intValue();
+        return count;
     }
 }

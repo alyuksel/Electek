@@ -5,10 +5,8 @@
  */
 package upec.groupe1.entities;
 
-import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.persistence.Column;

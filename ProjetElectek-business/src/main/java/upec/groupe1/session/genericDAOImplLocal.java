@@ -24,12 +24,10 @@ public interface genericDAOImplLocal<T> {
     public void delete(Object id) throws NotFoundException; 
     public void update(T t);
     public List<T> getAllData(String query,int returnlimit);
-    
     public List<T> findNamedQuery(String namedQuery);
     public List<T> findNamedQuery(String namedQuery, Class<T> clazz);
     public List<T> findNamedQuery(String namedQuery, Map<String, Object> params);
     public List<T> findNamedQuery(String namedQuery, Map<String, Object> params, Class<T> clazz);
-    
-    
     public long count(Class<T> clazz);
+    public int count(String namedQuery, Map<String, Object> params);
 }

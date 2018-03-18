@@ -6,9 +6,14 @@
 package upec.groupe1.session;
 
 import com.google.gson.Gson;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
+import org.hibernate.engine.spi.QueryParameters;
+import upec.groupe1.dto.Candidate;
+import upec.groupe1.dto.Score;
 import upec.groupe1.entities.Results;
 import upec.groupe1.tools.Tools;
 
@@ -36,6 +41,7 @@ public class ResultsEJB extends ConcretEJB<Results> {
             Double nb_exprime = (Double) ms.get("nombre_d_exprimes_du_bureau_de_vote");
             Double nb_votant = (Double) ms.get("nombre_de_votants_du_bureau_de_vote");
             Double nb_voie = (Double) ms.get("nombre_de_voix_du_candidat_ou_liste_obtenues_pour_le_bureau_de_vote");
+            Double arr = (Double) ms.get("numero_d_arrondissement_01_a_20");
             if (libelle.contains("Présidentielle") || libelle.contains("Législatives")) {
                 Results res = new Results();
                 String lib = libelle.split(" ")[0];
@@ -44,6 +50,7 @@ public class ResultsEJB extends ConcretEJB<Results> {
                 res.setCandidateFN(nom);
                 res.setCandidateLN(prenom);
                 res.setNumBV(num_bv.longValue());
+                res.setArr(arr);
                 res.setNbExprime(nb_exprime.longValue());
                 res.setNbVotants(nb_votant.longValue());
                 res.setNbVoie(nb_voie.longValue());
@@ -54,8 +61,50 @@ public class ResultsEJB extends ConcretEJB<Results> {
                 super.create(res);
 
             }
-        }
-        System.out.println("DEBUG - Sortie Import Results");
+        }}
+    
+    public List<Candidate> getCandidatesByCaption(String caption){
+        Map<String,Object> params = new HashMap<>();
+        params.put("year", "2012");
+        params.put("caption", caption);
+        List<Results> results = findNamedQuery("Results.findCandidatesByYearByCaption", params);
+        
+        return results.stream()
+                .map(result -> new Candidate(result.getCandidateFN(), result.getCandidateLN(), result.getCaption()))
+                .distinct()
+                .collect(Collectors.toList());
+    }
+    
+    public void getCandidateResult(String name, String turn){
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        params.put("turn", turn);
+        List<Results> results = findNamedQuery("Results.findByCandidate", params , Results.class);
+    }
 
+    public Score getScoreByCandidate(String lastName, String name , String turn, String caption) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("year", "2012");
+        params.put("caption", caption);
+        params.put("turn", turn);
+        int totalVotes = count("Results.findByYearByCaptionCount", params);
+        params.put("name", name);
+        params.put("lastName", lastName);
+        int candidateVotes= count("Results.findByYearByCaptionByCandidateCount", params);
+        return new Score(candidateVotes, totalVotes);
+    }
+    
+    public Score getScoreByCandidateByArrondisse(String lastName, String name , String turn, String caption, String arr) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("year", "2012");
+        params.put("caption", caption);
+        params.put("turn", turn);
+        params.put("arr",  Double.valueOf(arr));
+        int totalVotes = count("Results.findByYearByCaptionCount", params);
+        params.put("name", name);
+        params.put("lastName", lastName);
+        int candidateVotes= count("Results.findByYearByCaptionByCandidateByArrondisseCount", params);
+        return new Score(candidateVotes, totalVotes);
     }
 }
+
