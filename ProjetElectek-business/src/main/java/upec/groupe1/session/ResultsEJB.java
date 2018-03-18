@@ -62,19 +62,18 @@ public class ResultsEJB extends ConcretEJB<Results> {
 
             }
         }}
-    
+
     public List<Candidate> getCandidatesByCaption(String caption){
         Map<String,Object> params = new HashMap<>();
-        params.put("year", "2012");
         params.put("caption", caption);
-        List<Results> results = findNamedQuery("Results.findCandidatesByYearByCaption", params);
-        
+        List<Results> results = findNamedQuery("Results.findCandidatesByCaption", params);
+
         return results.stream()
                 .map(result -> new Candidate(result.getCandidateFN(), result.getCandidateLN(), result.getCaption()))
                 .distinct()
                 .collect(Collectors.toList());
     }
-    
+
     public void getCandidateResult(String name, String turn){
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
@@ -82,21 +81,21 @@ public class ResultsEJB extends ConcretEJB<Results> {
         List<Results> results = findNamedQuery("Results.findByCandidate", params , Results.class);
     }
 
-    public Score getScoreByCandidate(String lastName, String name , String turn, String caption) {
+    public Score getScoreByCandidate(String lastName, String name , String turn, String caption, String year) {
         Map<String, Object> params = new HashMap<>();
-        params.put("year", "2012");
+        params.put("year", year);
         params.put("caption", caption);
         params.put("turn", turn);
         int totalVotes = count("Results.findByYearByCaptionCount", params);
         params.put("name", name);
         params.put("lastName", lastName);
         int candidateVotes= count("Results.findByYearByCaptionByCandidateCount", params);
-        return new Score(candidateVotes, totalVotes);
+        return new Score( new Candidate(lastName, name, caption), candidateVotes, totalVotes);
     }
-    
-    public Score getScoreByCandidateByArrondisse(String lastName, String name , String turn, String caption, String arr) {
+
+    public Score getScoreByCandidateByArrondisse(String lastName, String name , String turn, String caption, String arr, String year) {
         Map<String, Object> params = new HashMap<>();
-        params.put("year", "2012");
+        params.put("year", year);
         params.put("caption", caption);
         params.put("turn", turn);
         params.put("arr",  Double.valueOf(arr));
@@ -104,7 +103,6 @@ public class ResultsEJB extends ConcretEJB<Results> {
         params.put("name", name);
         params.put("lastName", lastName);
         int candidateVotes= count("Results.findByYearByCaptionByCandidateByArrondisseCount", params);
-        return new Score(candidateVotes, totalVotes);
+        return new Score(new Candidate(lastName, name, caption), candidateVotes, totalVotes);
     }
 }
-

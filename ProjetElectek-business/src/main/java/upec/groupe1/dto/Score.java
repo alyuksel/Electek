@@ -10,14 +10,17 @@ package upec.groupe1.dto;
  * @author alpi
  */
 public class Score {
+    private Candidate candidate;
     private int voteNumber;
-    private final int percent;
+    private final double percent;
     private int total;
 
-    public Score(int voteNumber,int total) {
+    public Score(Candidate candidate, int voteNumber,int total) {
+        this.candidate = candidate;
         this.voteNumber = voteNumber;
         this.total = total;
-        this.percent = (voteNumber * total) / 100;
+        System.out.println("total : " + total + " vote : " +voteNumber);
+        this.percent = (voteNumber * 100) / total;
     }
 
     public int getVoteNumber() {
@@ -28,8 +31,16 @@ public class Score {
         this.voteNumber = voteNumber;
     }
 
-    public int getPercent() {
+    public double getPercent() {
         return percent;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public Candidate getCandidate(){
+        return candidate;
     }
 
 }

@@ -25,31 +25,30 @@ public class ResultServlet extends HttpServlet {
     private final String RESULTS = "/results";
     private final String RESULTS_PRESIDENTIELLE = RESULTS + "/presidentielle";
     private final String RESULTS_LEGISLATIVE =RESULTS + "/legislatives";
-    
+
     @EJB
     ResultsEJB resultsEJB;
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String path = request.getServletPath();
-            switch(path){
-                case RESULTS_PRESIDENTIELLE : {
-                    request.setAttribute("isScore", false);
-                    List<Candidate> candidates = resultsEJB.getCandidatesByCaption("Présidentielle");
-                    request.setAttribute("candidates", candidates);
-                    request.setAttribute("path", path);
-                    this.getServletContext().getRequestDispatcher( "/WEB-INF/Results.jsp" ).forward( request, response );
-                }break;
-                case RESULTS_LEGISLATIVE : {
-                    request.setAttribute("isScore", false);
-                    List<Candidate> candidates = resultsEJB.getCandidatesByCaption("Législatives");
-                    request.setAttribute("candidates", candidates);
-                    request.setAttribute("path", path);
-                    this.getServletContext().getRequestDispatcher( "/WEB-INF/Results.jsp" ).forward( request, response );
-                }break;
+            if(RESULTS_PRESIDENTIELLE.equals(path) || RESULTS_LEGISLATIVE.equals(path)){
+               List<Candidate> candidates = null;
+              switch(path){
+                  case RESULTS_PRESIDENTIELLE : {
+                      candidates = resultsEJB.getCandidatesByCaption("Présidentielle");
+                  }break;
+                  case RESULTS_LEGISLATIVE : {
+                      candidates = resultsEJB.getCandidatesByCaption("Législatives");
+                  }break;
+              }
+              request.setAttribute("isScore", false);
+              request.setAttribute("candidates", candidates);
+              request.setAttribute("path", path);
+              this.getServletContext().getRequestDispatcher( "/WEB-INF/CandidateScore.jsp" ).forward( request, response );
             }
         }
     }
@@ -60,35 +59,42 @@ public class ResultServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String path = request.getServletPath();
-            System.out.println(path);
         switch(path){
                 case RESULTS_PRESIDENTIELLE : {
-                    String[] fullName = request.getParameter("fullName").split(" ");
+                    String[] fullName = request.getParameter("fullName").split("_");
                     String turn = request.getParameter("turn");
                     String arrondissement = request.getParameter("place");
+                    String year = request.getParameter("year");
                     Score score = null;
                     if("global".equals(arrondissement))
-                        score = resultsEJB.getScoreByCandidate(new String(fullName[0].getBytes("UTF-8"), "UTF8"), new String(fullName[1].getBytes("UTF-8"), "UTF8"), turn, "Présidentielle");
+                        score = resultsEJB.getScoreByCandidate(fullName[0], fullName[1], turn, "Présidentielle", year);
                     else
-                        score = resultsEJB.getScoreByCandidateByArrondisse(new String(fullName[0].getBytes("UTF-8"), "UTF8"), new String(fullName[1].getBytes("UTF-8"), "UTF8"), turn, "Présidentielle", arrondissement);
+                        score = resultsEJB.getScoreByCandidateByArrondisse(fullName[0], fullName[1], turn, "Présidentielle", arrondissement, year);
                     List<Candidate> candidates = resultsEJB.getCandidatesByCaption("Présidentielle");
                     request.setAttribute("candidates", candidates);
                     request.setAttribute("isScore", true);
                     request.setAttribute("score", score);
                     request.setAttribute("path", path);
-                    this.getServletContext().getRequestDispatcher( "/WEB-INF/Results.jsp" ).forward( request, response );
+                    request.setAttribute("candidatFullName", request.getParameter("fullName"));
+                    this.getServletContext().getRequestDispatcher( "/WEB-INF/CandidateScore.jsp" ).forward( request, response );
                 }break;
                 case RESULTS_LEGISLATIVE : {
-                    String[] fullName = request.getParameter("fullName").split(" ");
+                    String[] fullName = request.getParameter("fullName").split("_");
                     String turn = request.getParameter("turn");
                     String arrondissement = request.getParameter("place");
-                    Score score = resultsEJB.getScoreByCandidate(new String(fullName[0].getBytes("UTF-8"), "UTF8"), new String(fullName[1].getBytes("UTF-8"), "UTF8"), turn, "Législatives");
+                    String year = request.getParameter("year");
+                    Score score = null;
+                    if("global".equals(arrondissement))
+                        score = resultsEJB.getScoreByCandidate(fullName[0], fullName[1], turn, "Législatives", year);
+                    else
+                        score = resultsEJB.getScoreByCandidateByArrondisse(fullName[0], fullName[1], turn, "Législatives", arrondissement, year);
                     List<Candidate> candidates = resultsEJB.getCandidatesByCaption("Législatives");
                     request.setAttribute("candidates", candidates);
                     request.setAttribute("isScore", true);
                     request.setAttribute("score", score);
                     request.setAttribute("path", path);
-                    this.getServletContext().getRequestDispatcher( "/WEB-INF/Results.jsp" ).forward( request, response );
+                    request.setAttribute("candidatFullName", request.getParameter("fullName"));
+                    this.getServletContext().getRequestDispatcher( "/WEB-INF/CandidateScore.jsp" ).forward( request, response );
                 }break;
             }
         }

@@ -2,7 +2,7 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>VoteOfficesServlet</servlet-name>
-        <servlet-class>upec.groupe1.servlet.VoteOfficesServlet</servlet-class>       
+        <servlet-class>upec.groupe1.servlet.VoteOfficesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>VoteOfficesServlet</servlet-name>
@@ -10,13 +10,13 @@
         <url-pattern>/voteoffices/arr</url-pattern>
         <url-pattern>/voteoffices/searchAdress</url-pattern>
     </servlet-mapping>
-    
-    
+
+
     <servlet>
         <servlet-name>ResultServlet</servlet-name>
-        <servlet-class>upec.groupe1.servlet.ResultServlet</servlet-class>    
+        <servlet-class>upec.groupe1.servlet.ResultServlet</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>ResultServlet</servlet-name>
         <url-pattern>/results</url-pattern>

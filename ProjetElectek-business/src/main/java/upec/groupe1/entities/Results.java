@@ -22,11 +22,11 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     @NamedQuery(name = "Results.deleteAll", query = "delete from Results"),
     @NamedQuery(name = "Results.findByCandidate", query = "SELECT r FROM Results r WHERE r.candidateFN = :name AND r.yearEl = '2017' AND turn = :turn"),
-    @NamedQuery(name = "Results.findCandidatesByYearByCaption", query = "SELECT r FROM Results r WHERE r.yearEl =:year AND r.caption =:caption"),
+    @NamedQuery(name = "Results.findCandidatesByCaption", query = "SELECT r FROM Results r WHERE r.caption =:caption"),
     @NamedQuery(name = "Results.findByYearByCaptionCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.turn =:turn"),
     @NamedQuery(name = "Results.findByYearByCaption", query = "SELECT r FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.turn = :turn"),
     @NamedQuery(name = "Results.findByYearByCaptionByCandidateCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.candidateFN=:lastName AND r.candidateLN = :name AND r.turn =:turn"),
-    @NamedQuery(name = "Results.findByYearByCaptionByCandidateByArrondisseCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.candidateFN=:lastName AND r.candidateLN = :name AND r.turn =:turn AND r.arr =:arr") 
+    @NamedQuery(name = "Results.findByYearByCaptionByCandidateByArrondisseCount", query = "SELECT count(r) FROM Results r WHERE r.yearEl =:year AND r.caption =:caption AND r.candidateFN=:lastName AND r.candidateLN = :name AND r.turn =:turn AND r.arr =:arr")
 })
 public class Results implements Serializable {
 
@@ -35,39 +35,39 @@ public class Results implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idResults;
 
- 
-    
+
+
     @Column
     private String caption;
-    
+
     @Column
     private String candidateFN;
-   
+
     @Column
     private Double arr;
-   
+
     @Column
     private String candidateLN;
 
     @Column
     private String yearEl;
-    
+
     @Column
     private String turn;
-    
+
     @Column
     private Long nbVotants;
-    
+
     @Column
     private Long nbExprime;
-    
-    @Column 
+
+    @Column
     private Long nbVoie;
 
-    @Column 
+    @Column
     private Long numBV;
-    
-    
+
+
 
     public Long getIdResults() {
         return idResults;
@@ -136,9 +136,9 @@ public class Results implements Serializable {
     public void setNbVoie(Long nbVoie) {
         this.nbVoie = nbVoie;
     }
-     
-     
-     
+
+
+
     public void setIdResults(Long idResults) {
         this.idResults = idResults;
     }
@@ -159,9 +159,9 @@ public class Results implements Serializable {
     public void setNumBV(Long numBV) {
         this.numBV = numBV;
     }
-    
-   
-    
+
+
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -186,5 +186,5 @@ public class Results implements Serializable {
     public String toString() {
         return "upec.groupe1.electek.model.Results[ id=" + idResults + " ]";
     }
-    
+
 }
