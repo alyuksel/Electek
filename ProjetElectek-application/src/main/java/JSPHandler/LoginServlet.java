@@ -5,7 +5,6 @@
  */
 package JSPHandler;
 
-import com.helger.photon.security.user.User;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

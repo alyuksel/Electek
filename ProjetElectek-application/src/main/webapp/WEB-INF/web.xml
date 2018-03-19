@@ -14,9 +14,9 @@
         <servlet-class>upec.groupe1.servlet.ResultServlet</servlet-class>
     </servlet>
     <servlet>
-       <servlet-name>VoteOfficesServlet</servlet-name>
+        <servlet-name>VoteOfficesServlet</servlet-name>
         <servlet-class>upec.groupe1.servlet.VoteOfficesServlet</servlet-class>
-    </servlet>  
+    </servlet>
     <servlet>
         <servlet-name>ResultsByBVServlet</servlet-name>
         <servlet-class>JSPHandler.ResultsByBVServlet</servlet-class>
@@ -44,6 +44,10 @@
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>JSPHandler.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MailServlet</servlet-name>
+        <servlet-class>upec.groupe1.servlet.MailServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -77,7 +81,7 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ResultServlet</servlet-name>
         <url-pattern>/results</url-pattern>
         <url-pattern>/results/presidentielle</url-pattern>
@@ -91,14 +95,16 @@
         <url-pattern>/voteoffices/arr</url-pattern>
         <url-pattern>/voteoffices/searchAdress</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>MailServlet</servlet-name>
+        <url-pattern>/SendMail</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-     <welcome-file-list>
+    <welcome-file-list>
         <welcome-file>faces/index.jsp</welcome-file>
     </welcome-file-list>
-
 </web-app>
