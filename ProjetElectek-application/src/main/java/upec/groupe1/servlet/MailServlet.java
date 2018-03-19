@@ -104,6 +104,7 @@ public class MailServlet extends HttpServlet {
                 System.err.println("PRINT mail"+emails+object+message);
 
             try {
+                email.setSession();
                 email.send(emails, object, message);
             } catch (MessagingException ex) {
                 Logger.getLogger(MailServlet.class.getName()).log(Level.SEVERE, null, ex);

@@ -27,7 +27,6 @@ import javax.naming.NamingException;
 @Stateless
 public class Email {
  
-    @Resource(name = "java:/jboss/mail/gmail")
     private Session session;
 
     public void setSession() {
