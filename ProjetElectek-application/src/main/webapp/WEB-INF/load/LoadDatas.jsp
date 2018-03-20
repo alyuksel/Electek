@@ -64,7 +64,10 @@
                     <tr style="height: 67px;">
                         <td style="min-width: 140px; height: 67px; text-align: center;"><b>Adresses</b></td>
                         <td style="height: 67px;"><a href="https://opendata.paris.fr/api/records/1.0/search/?dataset=adresse_paris">https://opendata.paris.fr/api/records/1.0/search/?dataset=adresse_paris</a></td>
-                        <td style="height: 67px; text-align: left;"><input name="amount" type="radio" value="100" />100 <br /> <input checked="checked" name="amount" type="radio" value="500" />500<br /><input type="radio" name="amount" value="" /><input type="number" name="amount" /></td>
+                        <td style="height: 67px; text-align: left;">
+                            <input name="amount" type="radio" value="100" />100 <br />
+                            <input name="amount" type="radio" value="500" />500<br />
+                            <input name="amount" type="radio" value="-1" checked="checked"/>Toutes les adresses</td>
                     
                         <% 
                             if(countAdresse!=null){
