@@ -6,6 +6,8 @@
 package JSPHandler;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.omg.CORBA.DomainManager;
 import upec.groupe1.entities.Users;
 import upec.groupe1.session.Exceptions.NotFoundException;
 import upec.groupe1.session.UserEJB;
@@ -55,9 +58,16 @@ public class LoginServlet extends HttpServlet {
                 if(user.isGoodPassword(password)){
                     session.setAttribute("user", login);
                     session.setMaxInactiveInterval(15*60);
-                    Cookie cookie = new Cookie("right", user.getType());
-                    cookie.setMaxAge(15*60);
-                    response.addCookie(cookie);
+                    String type = user.getType();
+                    try {
+                        MessageDigest md = MessageDigest.getInstance("SHA-256");
+                        md.update(type.getBytes("UTF-8"));
+                        type = new String(md.digest());
+                        System.out.println(type);
+                    } catch (NoSuchAlgorithmException ex) {
+                        Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    session.setAttribute("right", type);
                     this.getServletContext().getRequestDispatcher("/WEB-INF/myResults.jsp").forward(request, response);
                 }else{
                     request.setAttribute("error", "login ou mot de passe incorrects");

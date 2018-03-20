@@ -6,12 +6,17 @@
 package upec.groupe1.imports;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import upec.groupe1.entities.Adresse;
 import upec.groupe1.entities.AttachedZone;
 import upec.groupe1.entities.Results;
@@ -27,7 +32,7 @@ import upec.groupe1.session.VoteOfficeEJB;
  */
 @WebServlet(name = "LoadData", urlPatterns = {"/LoadData"})
 public class LoadData extends HttpServlet {
-    
+
     @EJB
     private VoteOfficeEJB officeEJB;
     @EJB
@@ -36,73 +41,99 @@ public class LoadData extends HttpServlet {
     private AdresseEJB adresseEJB;
     @EJB
     private ResultsEJB resultsEJB;
-    
-   
-   
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        this.getServletContext().getRequestDispatcher( "/WEB-INF/load/LoadDatas.jsp" ).forward( request, response );
+        boolean access = false;
+        HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        } else {
+            try {
+
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                md.update("admin".getBytes("UTF-8"));
+                String type = new String(md.digest());
+                if (session.getAttribute("right") != null) {
+                    if (session.getAttribute("right").equals(type)) {
+                        access = true;
+                    }
+                }
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(LoadData.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (access) {
+                this.getServletContext().getRequestDispatcher("/WEB-INF/load/LoadDatas.jsp").forward(request, response);
+            } else {
+                this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            }
+
+        }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //TODO : NOTION DE SESSION ET DE USER A RAJOUTER
-        
-        String amount = request.getParameter("amount");
-        int amountInt;
-        try{
-            amountInt = Integer.parseInt(amount);
-            if(amountInt<-1 || amountInt ==0){
-                throw new NumberFormatException("Invalid Number");
+        boolean access = false;
+        HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        } else {
+            try {
+
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                md.update("admin".getBytes("UTF-8"));
+                String type = new String(md.digest());
+                if (session.getAttribute("right") != null) {
+                    if (session.getAttribute("right").equals(type)) {
+                        access = true;
+                    }
+                }
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(LoadData.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }catch(NumberFormatException e){
-            amountInt=1000;
-        }
-        try{
-            
-            resultsEJB.delete(Results.class);
-            adresseEJB.delete(Adresse.class);
-            attachezEJB.delete(AttachedZone.class);
-            officeEJB.delete(VoteOffices.class);
-            
-            officeEJB.importFromAPI();
-            attachezEJB.importFromAPI();
-            adresseEJB.importFromAPI(amountInt);
-            resultsEJB.create();
-            
-            Long numberOffices = officeEJB.count(VoteOffices.class);
-            Long numberZones = attachezEJB.count(AttachedZone.class);
-            Long numberAdresses = adresseEJB.count(Adresse.class);
-            Long numberResults = resultsEJB.count(Results.class);
-            
-            request.setAttribute("countVoteOffices", numberOffices);
-            request.setAttribute("countAttachedZones", numberZones);
-            request.setAttribute("countAdresses", numberAdresses);
-            request.setAttribute("countResults", numberResults);
-            this.getServletContext().getRequestDispatcher( "/WEB-INF/load/LoadDatas.jsp" ).forward( request, response );
-        }catch(Exception e){
-            request.setAttribute("error", e.getMessage());
-            this.getServletContext().getRequestDispatcher( "/WEB-INF/load/LoadDatas.jsp" ).forward( request, response );
+            if (!access) {
+                this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            } else {
+
+                String amount = request.getParameter("amount");
+                int amountInt;
+                try {
+                    amountInt = Integer.parseInt(amount);
+                    if (amountInt < -1 || amountInt == 0) {
+                        throw new NumberFormatException("Invalid Number");
+                    }
+                } catch (NumberFormatException e) {
+                    amountInt = 1000;
+                }
+                try {
+
+                    resultsEJB.delete(Results.class);
+                    adresseEJB.delete(Adresse.class);
+                    attachezEJB.delete(AttachedZone.class);
+                    officeEJB.delete(VoteOffices.class);
+
+                    officeEJB.importFromAPI();
+                    attachezEJB.importFromAPI();
+                    adresseEJB.importFromAPI(amountInt);
+                    resultsEJB.create();
+
+                    Long numberOffices = officeEJB.count(VoteOffices.class);
+                    Long numberZones = attachezEJB.count(AttachedZone.class);
+                    Long numberAdresses = adresseEJB.count(Adresse.class);
+                    Long numberResults = resultsEJB.count(Results.class);
+
+                    request.setAttribute("countVoteOffices", numberOffices);
+                    request.setAttribute("countAttachedZones", numberZones);
+                    request.setAttribute("countAdresses", numberAdresses);
+                    request.setAttribute("countResults", numberResults);
+                    this.getServletContext().getRequestDispatcher("/WEB-INF/load/LoadDatas.jsp").forward(request, response);
+                } catch (Exception e) {
+                    request.setAttribute("error", e.getMessage());
+                    this.getServletContext().getRequestDispatcher("/WEB-INF/load/LoadDatas.jsp").forward(request, response);
+                }
+            }
         }
     }
 
@@ -115,4 +146,4 @@ public class LoadData extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
- }
+}

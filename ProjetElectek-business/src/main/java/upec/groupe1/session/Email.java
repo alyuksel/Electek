@@ -82,12 +82,7 @@ public class Email implements Serializable {
         this.body = body;
     }
 
-    /**
-     * Method to send the email based upon values entered in the JSF view. Exception should be handled in a production usage but
-     * is not handled in this example.
-     *
-     * @throws Exception
-     */
+    
     public void send() throws MessagingException {
         Message message = new MimeMessage(mySession);
         Address toAddress = new InternetAddress(to);
