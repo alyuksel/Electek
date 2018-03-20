@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +29,8 @@ public class MailServlet extends HttpServlet {
     private final String MAIL = "/SendMail";
     private final String MAILRESPONSE = MAIL+"/response";
     @EJB
-    private Email email;
+    Email email;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -104,8 +107,11 @@ public class MailServlet extends HttpServlet {
                 System.err.println("PRINT mail"+emails+object+message);
 
             try {
-                email.setSession();
-                email.send(emails, object, message);
+                email.setBody(message);
+                email.setTo(emails);
+                email.setFrom(emails);
+                email.setSubject(object);
+                email.send(); 
             } catch (MessagingException ex) {
                 Logger.getLogger(MailServlet.class.getName()).log(Level.SEVERE, null, ex);
                 System.err.println("Impossible d'envoyer le mail"+emails+object+message);
