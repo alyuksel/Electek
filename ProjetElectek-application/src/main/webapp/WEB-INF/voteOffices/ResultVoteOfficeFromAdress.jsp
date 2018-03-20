@@ -13,11 +13,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-       
+        <style>
+        #map {
+          height: 400px;
+          width: 70%;
+         }
+        </style>
     </head>
     <body>
         <nav class="navbar navbar-dark bg-primary">
@@ -37,35 +38,32 @@
             <%
                 Adresse posts = (Adresse) request.getAttribute("adresse");
             %>
-        <!-- #######  YAY, I AM THE SOURCE EDITOR! #########-->
-        <h1 style="color: #5e9ca0;">Bureau de vote pour votre adresse:</h1>
-        <h2 style="color: #2e6c80;"><span style="text-decoration: underline;">Adresse:</span></h2>
-        <p>&nbsp;</p>
+        <h1 >Bureau de vote pour votre adresse:</h1>
+        <h2><span >Adresse:</span></h2>
         <p>Vous avez sasie:</p>
-        <table style="height: 138px;" width="297">
+        <table>
             <tbody>
                 <tr>
-                    <td style="width: 140px;"><strong><span style="text-decoration: underline;">Num&eacute;ro :</span></strong></td>
-                    <td style="width: 141px;"><%=posts.getStreetNum()%></td>
+                    <td ><strong><span>Numéro :</span></strong></td>
+                    <td ><%=posts.getStreetNum()%></td>
                 </tr>
                 <tr>
-                    <td style="width: 140px;"><strong><span style="text-decoration: underline;">Rue :</span></strong></td>
-                    <td style="width: 141px;"><%=posts.getStreetName()%></td>
+                    <td >Rue :</span></strong></td>
+                    <td ><%=posts.getStreetName()%></td>
                 </tr>
                 <tr>
-                    <td style="width: 140px;"><strong><span style="text-decoration: underline;">Arrondissement :</span></strong></td>
-                    <td style="width: 141px;"><%=posts.getArr()%></td>
+                    <td >Arrondissement :</span></strong></td>
+                    <td ><%=posts.getArr()%></td>
                 </tr>
                 <tr>
-                    <td style="width: 140px;"><strong><span style="text-decoration: underline;">Pays :&nbsp;</span></strong></td>
-                    <td style="width: 141px;">FRANCE</td>
+                    <td >Pays :</span></strong></td>
+                    <td >FRANCE</td>
                 </tr>
             </tbody>
         </table>
-        <p>&nbsp;L'adresse saisie n'est pas pr&eacute;cise. Voici la liste des adresse se rattachant a l'adresse saisie. PAS FINIS</p>
-        <h2 style="color: #2e6c80;">Bureau de vote :</h2>
-        <p>&nbsp;</p>
-        <table class="editorDemoTable">
+        <p>L'adresse saisie n'est pas pr&eacute;cise. Voici la liste des adresse se rattachant a l'adresse saisie. PAS FINIS</p>
+        <h2 >Bureau de vote :</h2>
+        <table>
             <thead>
                 <tr>
                     <td>Id Bureau</td>
@@ -85,5 +83,41 @@
                 </tr>
             </tbody>
         </table>
+          <div id="map"></div>
+    <script>
+      function initMap() {
+        var depart = {lat: <%=posts.getGeoPoint().getY()%>, lng:<%=posts.getGeoPoint().getX()%>};
+        var arrive = {lat: <%=vo.getGeoPoint().getY()%>, lng: <%=vo.getGeoPoint().getX()%>};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: depart,
+          zoom: 7
+        });
+
+        var directionsDisplay = new google.maps.DirectionsRenderer({
+          map: map
+        });
+
+        // Set destination, origin and travel mode.
+        var request = {
+          destination: arrive,
+          origin: depart,
+          travelMode: 'WALKING'
+        };
+
+        // Pass the directions request to the directions service.
+        var directionsService = new google.maps.DirectionsService();
+        directionsService.route(request, function(response, status) {
+          if (status == 'OK') {
+            // Display the route on the map.
+            directionsDisplay.setDirections(response);
+          }
+        });
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ86xz8TOlbA3hYecJD9OgzrhCY3qGUxw&callback=initMap"
+            async defer>
+    </script>
     </body>
 </html>

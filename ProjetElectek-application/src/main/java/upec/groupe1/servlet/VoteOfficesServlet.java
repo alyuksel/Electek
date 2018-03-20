@@ -28,7 +28,8 @@ public class VoteOfficesServlet extends HttpServlet {
     private final String VOTE_OFFICE = "/voteoffices";
     private final String VOTE_OFFICE_BY_ARR = VOTE_OFFICE+"/arr";
     private final String VOTE_OFFICE_BY_ADRESS = VOTE_OFFICE+"/searchAdress";
-
+    private final String VOTE_OFFICE_DETAIL = VOTE_OFFICE+"/detail";
+    
     public static final String CHAMP_NUMERO = "numero";
     public static final String CHAMP_RUE = "rue";
     public static final String CHAMP_CP = "cp";
@@ -65,6 +66,12 @@ public class VoteOfficesServlet extends HttpServlet {
 
             case VOTE_OFFICE_BY_ADRESS : {
                 this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/SearchVoteOfficeFromAdress.jsp" ).forward( request, response );
+                break;
+            }
+            //TODO a finir
+            case VOTE_OFFICE_DETAIL : {
+                System.out.println("param"+params);
+                this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/VoteOfficeDetail.jsp" ).forward( request, response );
                 break;
             }
             default :  

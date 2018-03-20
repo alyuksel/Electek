@@ -7,7 +7,10 @@
  */
 
 package upec.groupe1.entities;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,7 +52,19 @@ public class VoteOffices implements Serializable {
 
     @Column(name="cp")
     private String postalCode;
+    
+    @Column(name="geo_point",length = 1000)
+    private Double[] geoPoint;
 
+    public Point2D getGeoPoint() {
+        List<Double> l = Arrays.asList(geoPoint);
+        return new Point2D.Double(l.get(0),l.get(1));
+    }
+
+    public void setGeoPoint(Double[] geoPoint) {
+        this.geoPoint = geoPoint;
+    }
+    
     public void setIdVoteOffices(Long idVoteOffices) {
         this.idVoteOffices = idVoteOffices;
     }
