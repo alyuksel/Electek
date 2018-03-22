@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.ejb.Stateless;
-import org.hibernate.engine.spi.QueryParameters;
 import upec.groupe1.dto.Candidate;
 import upec.groupe1.dto.Score;
 import upec.groupe1.affine.AffineBV;
@@ -24,7 +23,7 @@ import upec.groupe1.tools.Tools;
  */
 @Stateless
 public class ResultsEJB extends ConcretEJB<Results>{
-    private static Map<Long,AffineBV> mapOfBV;
+    private static Map<String,AffineBV> mapOfBV;
 
     public List<Candidate> getCandidatesByCaption(String caption){
         Map<String,Object> params = new HashMap<>();
@@ -37,7 +36,7 @@ public class ResultsEJB extends ConcretEJB<Results>{
                 .collect(Collectors.toList());
     }
 
-    public Map<Long,AffineBV> getRankCandidateByBV(String caption, String turn,String year){
+    public Map<String,AffineBV> getRankCandidateByBV(String caption, String turn,String year){
         mapOfBV = new HashMap<>();
         System.out.println(caption);
         System.out.println(turn);
@@ -46,7 +45,7 @@ public class ResultsEJB extends ConcretEJB<Results>{
                 .setParameter("turn",turn).setParameter("year", year).getResultList();
         for (Results r : list){
             System.out.println(r.getCandidateFN());
-            Long key = r.getNumBV();
+            String key = r.getNumBV().intValue()+"-"+r.getArr().intValue();
             if (mapOfBV.containsKey(key)){
                 mapOfBV.get(key).addCandidate(r);
             }else{
@@ -63,7 +62,7 @@ public class ResultsEJB extends ConcretEJB<Results>{
             List<Results> results = findNamedQuery("Results.findByCandidate", params , Results.class);
           }
 
-    public Map<Long,AffineBV> getMapAffined(){
+    public Map<String,AffineBV> getMapAffined(){
         return mapOfBV;
     }
     public List<Results> getResults(){

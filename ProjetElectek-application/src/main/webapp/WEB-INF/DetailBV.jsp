@@ -33,11 +33,11 @@
         <h1>Détail du bureau de vote n° ${param.numero}</h1>
         <table border="2" width="2" cellspacing="2">
         <%
-            Map<Long,AffineBV> results = (Map<Long,AffineBV>) request.getAttribute("result");
+            Map<String,AffineBV> results = (Map<String,AffineBV>) request.getAttribute("result");
             if(results.isEmpty())
                 out.println("pas de détail pour ce bureau de vote");
             else{
-                AffineBV affineBV = results.get(Long.valueOf(request.getParameter("numero")));
+                AffineBV affineBV = results.get(request.getParameter("numero"));
                 
                 if(affineBV.getMapScores().isEmpty()){
                     out.println("<h4>Pas de résultats pour ce bureau de vote</h4>");

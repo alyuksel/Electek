@@ -33,9 +33,9 @@
         <h1>Rangs par bureaux de votes</h1>
         <table border="2" width="1" cellspacing="1" cellpadding="1">
         <%
-            Map<Long,AffineBV> map = (Map<Long,AffineBV>) request.getAttribute("results");
+            Map<String,AffineBV> map = (Map<String,AffineBV>) request.getAttribute("results");
             out.println("<tr><th>BV n°</th><th>premier</th><th>dernier</th><th>Plus ?</th></tr>");
-            for(Long l : map.keySet()){
+            for(String l : map.keySet()){
                 String first = map.get(l).getFirst();
                 String last = map.get(l).getLast();
                 out.print("<tr><td>"+l+"</td><td>"+first+"</td><td>"+last+"</td><td>");
