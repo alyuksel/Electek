@@ -12,6 +12,11 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%
+            if(request.getAttribute("error")!=null){
+                out.println("<font color=red>"+request.getAttribute("error")+"</font>");
+            }
+        %>
         <h1>Recevoir les résultats par email</h1>
 
         <form action="/ProjetElectek-application/SendMail" method="post" >

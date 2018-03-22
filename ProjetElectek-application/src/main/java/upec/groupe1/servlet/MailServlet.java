@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
@@ -103,11 +104,14 @@ public class MailServlet extends HttpServlet {
                 System.out.println(pcandidat+" "+ncandidat+" "+turn+" "+caption+" "+num+" "+Double.valueOf(arr)+" "+year);
                 List<Results> lr = resultsEJB.getResults();
                 System.out.println(lr);
-                Results result =  lr.stream().filter(r -> (r.getCandidateFN().equals(ncandidat)&&r.getCandidateLN().equals(pcandidat)&&r.getTurn().equals(turn)&&r.getYearEl().equals(year))).findAny().get();
+                Results result =  lr.stream().filter(r -> (r.getCandidateFN().equalsIgnoreCase(ncandidat)&&r.getCandidateLN().equalsIgnoreCase(pcandidat)&&r.getTurn().equalsIgnoreCase(turn)&&r.getYearEl().equalsIgnoreCase(year)&&r.getNumBV().equals(Long.valueOf(num))&&r.getArr().equals(Double.valueOf(arr)))).findFirst().get();
                 System.out.println(result.getNbVoie()+" "+result.getNbExprime());
                 score = result.getNbVoie()*100/result.getNbExprime();
-            } catch (NotFoundException ex) {
+    
+            } catch (NotFoundException | NullPointerException ex) {
                 Logger.getLogger(MailServlet.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute("error", "Mauvaise saisie des données ou résultat non disponibles, veuillez réessayer");
+                this.getServletContext().getRequestDispatcher("/WEB-INF/mail/MailForm.jsp").forward(request, response);
             }
             String path = request.getServletPath();
             switch (path) {
@@ -128,6 +132,7 @@ public class MailServlet extends HttpServlet {
                     } catch (MessagingException ex) {
                         Logger.getLogger(MailServlet.class.getName()).log(Level.SEVERE, null, ex);
                         System.err.println("Impossible d'envoyer le mail" );
+                        request.setAttribute("error", "l'envoie du mail a échoué");
                     }
                     this.getServletContext().getRequestDispatcher("/WEB-INF/mail/MailForm.jsp").forward(request, response);
                     break;
