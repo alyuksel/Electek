@@ -12,17 +12,25 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <h2>Recevoir les résultats par email</h2>
+        <h1>Recevoir les résultats par email</h1>
 
         <form action="/ProjetElectek-application/SendMail" method="post" >
 
-        E-mail:<br>
-        <input id="emailAddress" name="emailAddress" type="email" multiple><br>
-        Object:<br>
-        <input type="text" name="object"><br>
-        Comment:<br>
-        <input type="text" name="message" size="50" style="height:200px"><br><br>
+        Nom du candidat<br>
+        <input type="text" name="ncandidat"><br>
+        Prenom du candidat<br>
+        <input type="text" name="pcandidat"><br>
+        Election<br>
+        <input type="text" name="caption"><br>
+        Annee<br>
+        <input type="text" name="year"><br>
+        Tour<br>
+        <input type="text" name="turn"><br>
+        votre adress:<br>
+        N ° de Rue:
+        <input type="text" name="snum" ><br>
+        nom Rue : 
+        <input type="text" name="adress" ><br>
         <input type="submit" value="Send">
         <input type="reset" value="Reset">
         </form>

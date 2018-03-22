@@ -91,6 +91,19 @@ public class ResultsEJB extends ConcretEJB<Results>{
         return new Score( new Candidate(lastName, name, caption), (long)results[0], (long)results[1]);
     }
 
+    public Double getResultByMail(String lastName, String name , String turn, String caption, String num,String arr, String year){
+        Results r = em.createQuery("SELECT r FROM Results r WHERE r.caption =:caption AND r.candidateFN =:lastName AND r.candidateLN =:name AND r.turn =:turn "
+                + "AND r.yearEl =:year AND r.numBV = :numbv AND r.arr = :arr",Results.class)
+                .setParameter("lastName", lastName)
+                .setParameter("name", name)
+                .setParameter("turn",turn)
+                .setParameter("caption", caption)
+                .setParameter("year",year)
+                .setParameter("numbv", num)
+                .setParameter("arr", arr)
+                .getSingleResult();
+        return (r.getNbVoie()/r.getNbVotants())*100.0;
+    }
     public Score getScoreByCandidateByArrondisse(String lastName, String name , String turn, String caption, String arr, String year) {
         Object[] results = (Object[]) em.createQuery("SELECT SUM(r.nbVoie), SUM(r.nbExprime), r.candidateFN FROM Results r WHERE "
                 + "r.caption =:caption AND r.candidateFN =:lastName AND r.candidateLN =:name AND r.turn =:turn "

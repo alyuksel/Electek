@@ -6,6 +6,8 @@
 package upec.groupe1.servlet;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +18,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import upec.groupe1.entities.Users;
+import upec.groupe1.entities.Adresse;
+import upec.groupe1.entities.Results;
+import upec.groupe1.session.AdresseEJB;
 import upec.groupe1.session.Email;
+import upec.groupe1.session.Exceptions.NotFoundException;
+import upec.groupe1.session.ResultsEJB;
+import upec.groupe1.session.UserEJB;
 
 /**
  *
@@ -28,6 +37,12 @@ public class MailServlet extends HttpServlet {
     private final String MAILRESPONSE = MAIL + "/response";
     @EJB
     Email email;
+    @EJB
+    UserEJB userEJB;
+    @EJB
+    AdresseEJB adresseEJB;
+    @EJB
+    ResultsEJB resultsEJB;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +52,6 @@ public class MailServlet extends HttpServlet {
             this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } else {
 
-            Map<String, String[]> params = request.getParameterMap();
             String path = request.getServletPath();
             switch (path) {
                 case MAIL: {
@@ -62,24 +76,58 @@ public class MailServlet extends HttpServlet {
         if (session.getAttribute("user") == null) {
             this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } else {
-
+            String login = (String) session.getAttribute("user");
+            String mail = "";
+            String ncandidat = (String) request.getParameter("ncandidat");
+            String pcandidat = (String) request.getParameter("pcandidat");
+            String caption = (String) request.getParameter("caption");
+            String year = (String) request.getParameter("year");
+            String turn = (String) request.getParameter("turn");
+            String numAdress = (String) request.getParameter("snum");
+            String adress = (String) request.getParameter("adress");
+            Users user = null;
+            Long score=Long.valueOf(0);
+            Adresse addr = new Adresse();
+            try {
+                user = userEJB.find(Users.class, login);
+                mail = user.getMail();
+                Map<String,Object> mapParam = new HashMap<>();
+                mapParam.put("streetNum", Integer.valueOf(numAdress));
+                mapParam.put("streetName", numAdress+" "+adress);
+                List<Adresse> list = adresseEJB.findNamedQuery("Adresse.findNumberAndStreetName",mapParam,Adresse.class);
+                if (!list.isEmpty())
+                    addr = list.get(0);
+                System.out.println(addr);
+                String arr = addr.getAttachedZone().getVoteOffice().getNumber().split("-")[0];
+                String num = addr.getAttachedZone().getVoteOffice().getNumber().split("-")[1];
+                System.out.println(pcandidat+" "+ncandidat+" "+turn+" "+caption+" "+num+" "+Double.valueOf(arr)+" "+year);
+                List<Results> lr = resultsEJB.getResults();
+                System.out.println(lr);
+                Results result =  lr.stream().filter(r -> (r.getCandidateFN().equals(ncandidat)&&r.getCandidateLN().equals(pcandidat)&&r.getTurn().equals(turn)&&r.getYearEl().equals(year))).findAny().get();
+                System.out.println(result.getNbVoie()+" "+result.getNbExprime());
+                score = result.getNbVoie()*100/result.getNbExprime();
+            } catch (NotFoundException ex) {
+                Logger.getLogger(MailServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
             String path = request.getServletPath();
             switch (path) {
                 case MAIL: {
-                    String emails = (String) request.getParameter("emailAddress");
-                    String object = (String) request.getParameter("object");
-                    String message = (String) request.getParameter("message");
-                    System.err.println("PRINT mail" + emails + object + message);
+                    
+                    System.err.println("PRINT mail" + ncandidat + pcandidat + adress);
+                    
+                    String message = "Bonjour Mr. "+user.getName() + " "+user.getLastName()+
+                            "\n voici vos résultat pour le candidat "+ncandidat+" "+pcandidat+" \n son score est de : \n"
+                            +score+"% au tour n° "+turn+" des élections "+caption+" de "+year ;
 
-                    try {
+                    try{
                         email.setBody(message);
-                        email.setTo(emails);
-                        email.setFrom(emails);
-                        email.setSubject(object);
+                        email.setTo(mail);
+                        email.setFrom(mail);
+                        email.setSubject("Resultat de "+ncandidat+" "+pcandidat);
                         email.send();
                     } catch (MessagingException ex) {
                         Logger.getLogger(MailServlet.class.getName()).log(Level.SEVERE, null, ex);
-                        System.err.println("Impossible d'envoyer le mail" + emails + object + message);
+                        System.err.println("Impossible d'envoyer le mail" );
                     }
                     this.getServletContext().getRequestDispatcher("/WEB-INF/mail/MailForm.jsp").forward(request, response);
                     break;
