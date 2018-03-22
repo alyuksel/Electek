@@ -69,19 +69,19 @@ public class AdresseEJB extends ConcretEJB<Adresse> {
                     a.setAttachedZone(aZ);
                     super.create(a);
                 } catch (NotFoundException e) {
-                    System.err.println("Pas de Attached Zone trouvé, donc on essaye default");
+                    System.out.println("Pas de Attached Zone trouvé, donc on essaye default datsetid: "+m.get("recordid") );
                     try {
                         aZ = getDefaultAttachedZone();
                         a.setAttachedZone(aZ);
                         super.create(a);
                         System.out.println("OK ATTENTION DEFAULT!!!");
                     } catch (NotFoundException ex) {
-                        System.err.println("Pas de Attached Zone DEFAULT trouvé");
+                        System.err.println("Pas de Attached Zone DEFAULT trouvé datsetid: "+m.get("recordid"));
                     }
                 }
                 
             } catch (NullPointerException e) {
-                System.err.println("NUlL - PARSING ADRESSE EJB");
+                System.err.println("NULL - PARSING ADRESSE EJB");
             }
         }
         System.out.println("DEBUG - Sortie Import Adresse");
