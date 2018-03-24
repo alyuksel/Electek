@@ -6,10 +6,6 @@
 package upec.groupe1.imports;
 
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +21,7 @@ import upec.groupe1.session.AdresseEJB;
 import upec.groupe1.session.AttachedZoneEJB;
 import upec.groupe1.session.ResultsEJB;
 import upec.groupe1.session.VoteOfficeEJB;
+import upec.groupe1.tools.Tools;
 
 /**
  *
@@ -45,105 +42,63 @@ public class LoadData extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        boolean access = false;
+        
         HttpSession session = request.getSession();
-        if (session.getAttribute("user") == null) {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        boolean access = Tools.checkAccess(session);
+        if (access) {
+            this.getServletContext().getRequestDispatcher("/WEB-INF/load/LoadDatas.jsp").forward(request, response);
         } else {
-            try {
-
-                MessageDigest md = MessageDigest.getInstance("SHA-256");
-                md.update("admin".getBytes("UTF-8"));
-                String type = new String(md.digest());
-                if (session.getAttribute("right") != null) {
-                    if (session.getAttribute("right").equals(type)) {
-                        access = true;
-                    }
-                }
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(LoadData.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (access) {
-                this.getServletContext().getRequestDispatcher("/WEB-INF/load/LoadDatas.jsp").forward(request, response);
-            } else {
-                this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-            }
-
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        boolean access = false;
+        
         HttpSession session = request.getSession();
-        if (session.getAttribute("user") == null) {
+        boolean access = Tools.checkAccess(session);
+        if (!access) {
             this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } else {
+
+            String amount = request.getParameter("amount");
+            int amountInt;
+            try {
+                amountInt = Integer.parseInt(amount);
+                if (amountInt < -1 || amountInt == 0) {
+                    throw new NumberFormatException("Invalid Number");
+                }
+            } catch (NumberFormatException e) {
+                amountInt = 1000;
+            }
             try {
 
-                MessageDigest md = MessageDigest.getInstance("SHA-256");
-                md.update("admin".getBytes("UTF-8"));
-                String type = new String(md.digest());
-                if (session.getAttribute("right") != null) {
-                    if (session.getAttribute("right").equals(type)) {
-                        access = true;
-                    }
-                }
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(LoadData.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (!access) {
-                this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-            } else {
+                resultsEJB.delete(Results.class);
+                adresseEJB.delete(Adresse.class);
+                attachezEJB.delete(AttachedZone.class);
+                officeEJB.delete(VoteOffices.class);
 
-                String amount = request.getParameter("amount");
-                int amountInt;
-                try {
-                    amountInt = Integer.parseInt(amount);
-                    if (amountInt < -1 || amountInt == 0) {
-                        throw new NumberFormatException("Invalid Number");
-                    }
-                } catch (NumberFormatException e) {
-                    amountInt = 1000;
-                }
-                try {
+                officeEJB.importFromAPI();
+                attachezEJB.importFromAPI();
+                adresseEJB.importFromAPI(amountInt);
+                resultsEJB.create();
 
-                    resultsEJB.delete(Results.class);
-                    adresseEJB.delete(Adresse.class);
-                    attachezEJB.delete(AttachedZone.class);
-                    officeEJB.delete(VoteOffices.class);
+                Long numberOffices = officeEJB.count(VoteOffices.class);
+                Long numberZones = attachezEJB.count(AttachedZone.class);
+                Long numberAdresses = adresseEJB.count(Adresse.class);
+                Long numberResults = resultsEJB.count(Results.class);
 
-                    officeEJB.importFromAPI();
-                    attachezEJB.importFromAPI();
-                    adresseEJB.importFromAPI(amountInt);
-                    resultsEJB.create();
-
-                    Long numberOffices = officeEJB.count(VoteOffices.class);
-                    Long numberZones = attachezEJB.count(AttachedZone.class);
-                    Long numberAdresses = adresseEJB.count(Adresse.class);
-                    Long numberResults = resultsEJB.count(Results.class);
-
-                    request.setAttribute("countVoteOffices", numberOffices);
-                    request.setAttribute("countAttachedZones", numberZones);
-                    request.setAttribute("countAdresses", numberAdresses);
-                    request.setAttribute("countResults", numberResults);
-                    this.getServletContext().getRequestDispatcher("/WEB-INF/load/LoadDatas.jsp").forward(request, response);
-                } catch (Exception e) {
-                    request.setAttribute("error", e.getMessage());
-                    this.getServletContext().getRequestDispatcher("/WEB-INF/load/LoadDatas.jsp").forward(request, response);
-                }
+                request.setAttribute("countVoteOffices", numberOffices);
+                request.setAttribute("countAttachedZones", numberZones);
+                request.setAttribute("countAdresses", numberAdresses);
+                request.setAttribute("countResults", numberResults);
+                this.getServletContext().getRequestDispatcher("/WEB-INF/load/LoadDatas.jsp").forward(request, response);
+            } catch (Exception e) {
+                request.setAttribute("error", e.getMessage());
+                this.getServletContext().getRequestDispatcher("/WEB-INF/load/LoadDatas.jsp").forward(request, response);
             }
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }

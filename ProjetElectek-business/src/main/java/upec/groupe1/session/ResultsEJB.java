@@ -106,7 +106,7 @@ public class ResultsEJB extends ConcretEJB<Results>{
     }
     public Score getScoreByCandidateByArrondisse(String lastName, String name , String turn, String caption, String arr, String year) {
         Object[] results = (Object[]) em.createQuery("SELECT SUM(r.nbVoie), SUM(r.nbExprime), r.candidateFN FROM Results r WHERE "
-                + "r.caption =:caption AND r.candidateFN =:lastName AND r.candidateLN =:name AND r.turn =:turn "
+                + "r.caption =:caption AND r.candidateFN =:lastName AND r.candidateLN =:name AND r.turn =:turn AND r.arr=:arr"
                 + "AND r.yearEl =:year GROUP BY r.candidateFN", Object[].class)
             .setParameter("year", year)
             .setParameter("arr", arr)
