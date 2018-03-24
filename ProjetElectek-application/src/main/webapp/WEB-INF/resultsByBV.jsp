@@ -17,19 +17,8 @@
         <title>Rangs par bureaux de votes</title>
     </head>
     <body>
-        <nav class="navbar navbar-dark bg-primary">
-            <a class="navbar-brand" href="/ProjetElectek-application/index.html">Accueil</a>
-            <a class="navbar-brand" href="/ProjetElectek-application/Candidates">Classement</a>
-            <a class="navbar-brand" href="/ProjetElectek-application/SortResults">Resultats</a>
-            <a class="navbar-brand" href="/ProjetElectek-application/MyResults">Mes Résultats</a>
-            <a class="navbar-brand" href="/ProjetElectek-application/results/presidentielle">Resultats</a>
-            <a class="navbar-brand" href="/ProjetElectek-application/voteoffices">Bureaux</a>
-            <%
-               if(session.getAttribute("user")!=null){
-                   out.println("<a class=\"navbar-brand\" href=\"/ProjetElectek-application/Logout\">Logout</a>");
-               }
-            %>
-        </nav>
+        <%@include  file="WEB-INF/TopMenu.jsp"%>
+        
         <h1>Rangs par bureaux de votes</h1>
         <table border="2" width="1" cellspacing="1" cellpadding="1">
         <%
