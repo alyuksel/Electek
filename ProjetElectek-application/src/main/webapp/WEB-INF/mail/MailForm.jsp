@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%@include  file="../TopMenu.jsp"%>
         <%
             if(request.getAttribute("error")!=null){
                 out.println("<font color=red>"+request.getAttribute("error")+"</font>");
