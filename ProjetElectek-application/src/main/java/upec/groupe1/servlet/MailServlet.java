@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +33,8 @@ import upec.groupe1.session.UserEJB;
  *
  * @author drajasin
  */
+@WebServlet(name = "MailServlet", 
+        urlPatterns = {"/SendMail"})
 public class MailServlet extends HttpServlet {
 
     private final String MAIL = "/SendMail";

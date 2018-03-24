@@ -21,7 +21,7 @@
         </style>
     </head>
     <body>
-        <%@include  file="WEB-INF/TopMenu.jsp"%>
+        <%@include  file="../TopMenu.jsp"%>
         
             <%
                 Adresse posts = (Adresse) request.getAttribute("adresse");

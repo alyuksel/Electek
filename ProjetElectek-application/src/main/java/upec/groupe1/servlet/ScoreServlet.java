@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,8 +22,10 @@ import upec.groupe1.session.ResultsEJB;
  *
  * @author alpi
  */
-public class ResultServlet extends HttpServlet {
-    private final String RESULTS = "/results";
+@WebServlet(name = "ScoreServlet", 
+        urlPatterns = {"/scores", "/scores/presidentielle", "/scores/legislatives"})
+public class ScoreServlet extends HttpServlet {
+    private final String RESULTS = "/scores";
     private final String RESULTS_PRESIDENTIELLE = RESULTS + "/presidentielle";
     private final String RESULTS_LEGISLATIVE =RESULTS + "/legislatives";
 

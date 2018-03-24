@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,8 @@ import upec.groupe1.session.VoteOfficeEJB;
  *
  * @author alpi
  */
+@WebServlet(name = "VoteOfficesServlet", 
+        urlPatterns = {"/voteoffices", "/voteoffices/arr", "/voteoffices/searchAdress", "/voteoffices/detail"})
 public class VoteOfficesServlet extends HttpServlet {
     private final String VOTE_OFFICE = "/voteoffices";
     private final String VOTE_OFFICE_BY_ARR = VOTE_OFFICE+"/arr";
