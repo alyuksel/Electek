@@ -12,23 +12,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.6/js/jquery.tablesorter.js"></script>
-        
-       
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
-        <title>VoteOffice from AttachedZone</title>
+        <title>Bureaux de vote par Arrondissement</title>
     </head>
     <body>
         <%@include  file="../TopMenu.jsp"%>
         
-        <h1>Hello World!</h1>
-        <table id="myTable" class="tablesorter"> 
+        <h1>Bureaux de vote par Arrondissement !</h1>
+        <table> 
             <thead>
                 <tr>
                 <th>Arrondissment</th>
-                <th>IdVoteOffice</th>
                 <th>Numéro</th>
                 <th>Libélé</th>
                 <th>Adresse</th>
@@ -44,10 +38,9 @@
                 %>
                 <tr>
                     <td><%=key%></td>
-                    <td><%=vo.getIdVoteOffices()%></td>
                     <td><%=vo.getNumber()%></td>
                     <td><%=vo.getCaption()%></td>
-                    <td><%=vo.getAdress()%></td>
+                    <td><a href="<%=request.getContextPath()%>/voteoffices/detail?number=<%=vo.getNumber()%>" ><%=vo.getAdress()%></a></td>
                     <td><%=vo.getPostalCode()%></td>  
                     
                 </tr>
@@ -64,18 +57,3 @@
            
     </body>
 </html>
-
-<script>
-    
-    $(document).ready(function() 
-    { 
-        $("#myTable").tablesorter(); 
-    } 
-    ); 
-    
-    $(document).ready(function() 
-    { 
-        $("#myTable").tablesorter( {sortList: [[0,0], [1,0]]} ); 
-    } 
-    ); 
-</script>

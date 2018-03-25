@@ -25,9 +25,8 @@
             <div style="color: red;"><%=message%></div>
             <%
             }
-        
         %>
-        <form method="post" action="/ProjetElectek-application/voteoffices/searchAdress">
+        <form method="post" action="<%=request.getContextPath()%>/voteoffices/searchAdress">
             <fieldset>
                 <legend>Adresse</legend>
                 <p>Entrez votre adresse.</p>
