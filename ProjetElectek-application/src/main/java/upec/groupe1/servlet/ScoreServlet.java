@@ -45,37 +45,51 @@ public class ScoreServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String path = request.getServletPath();
-
+        request.setCharacterEncoding("UTF-8");    
+        String path = request.getServletPath();
         String turn = request.getParameter("turn");
-        String arrondissement = request.getParameter("place");
-        String year = request.getParameter("year");    
-        if(turn !=null && arrondissement!=null && year!=null)
+        String year = request.getParameter("year"); 
+        String arr = request.getParameter("place");
+        String fullName = request.getParameter("fullName"); 
+        if(turn !=null && year!=null )
         {
-            List<Candidate> candidates =null;
             String election = "";
-            switch(path){
-                case RESULTS_PRESIDENTIELLE : {
-                    election = "Presidentielle";
-                }break;
-                case RESULTS_LEGISLATIVE : {
-                    election = "Legislatives";            
-                }break;
+                switch(path){
+                    case RESULTS_PRESIDENTIELLE : {
+                        election = "Presidentielle";
+                    }break;
+                    case RESULTS_LEGISLATIVE : {
+                        election = "Legislatives";            
+                    }break;
             }
-            
-            if("global".equals(arrondissement))
-                candidates = resultsEJB.getCandidatesFiltred(election,year,turn);
-            else
-                candidates = resultsEJB.getCandidatesFiltred(election,year,turn, Double.valueOf(arrondissement));
-            
-            request.setAttribute("candidates", candidates);
-            request.setAttribute("isScore", false);
-            request.setAttribute("year", path);
-            request.setAttribute("turn", path);
-            request.setAttribute("place", path);
-            request.setAttribute("path", path);
+                System.out.println(turn + " "+ election + " "+year + " "+arr + " "+fullName  );
+            List<Candidate> candidates = resultsEJB.getCandidatesFiltred(election,year,turn);
+            if(arr!=null && fullName!=null){
+                
+                //Cas pour recuperer les resultats d'un candidat
+                String []splitfullName=fullName.split("_");
+                Score score ;
+                
+                if("global".equals(arr))
+                    score = resultsEJB.getScoreByCandidate(splitfullName[0], splitfullName[1], turn, election, year);
+                else
+                    score= resultsEJB.getScoreByCandidateByArrondisse(splitfullName[0], splitfullName[1], turn, election, arr, year);
+
+                
+                request.setAttribute("isScore", true);
+                request.setAttribute("score", score);
+            }else{
+                //Cas pour recuperer les candidats
+                request.setAttribute("isScore", false);
+                request.setAttribute("place", turn);
+            }
+                request.setAttribute("candidates", candidates);
+                
+                request.setAttribute("year", year);
+                request.setAttribute("turn", turn);
+                request.setAttribute("path", path);
             this.getServletContext().getRequestDispatcher( "/WEB-INF/CandidateScore.jsp" ).forward( request, response );
-                    
+            
         }    
     }
 
