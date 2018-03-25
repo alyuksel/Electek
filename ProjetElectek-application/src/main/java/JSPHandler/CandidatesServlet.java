@@ -27,7 +27,7 @@ public class CandidatesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/WEB-INF/candidates.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/candidates.jsp").forward(request, response);
     }
 
 

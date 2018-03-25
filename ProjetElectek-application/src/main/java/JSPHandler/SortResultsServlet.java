@@ -29,7 +29,7 @@ public class SortResultsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/WEB-INF/resultsOrder.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/sort/resultsOrder.jsp").forward(request, response);
     }
 
    
@@ -44,7 +44,7 @@ public class SortResultsServlet extends HttpServlet {
         System.out.println(sort);
         List<Results> resultList = results.getResultsByOrder(election, year, sort);
         request.setAttribute("results", resultList);
-        this.getServletContext().getRequestDispatcher("/WEB-INF/resultsOrder.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/sort/resultsOrder.jsp").forward(request, response);
     }
 
     @Override

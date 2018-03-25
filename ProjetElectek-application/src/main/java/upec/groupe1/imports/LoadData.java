@@ -48,7 +48,7 @@ public class LoadData extends HttpServlet {
         if (access) {
             this.getServletContext().getRequestDispatcher("/WEB-INF/load/LoadDatas.jsp").forward(request, response);
         } else {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
         }
 
     }
@@ -60,7 +60,7 @@ public class LoadData extends HttpServlet {
         HttpSession session = request.getSession();
         boolean access = Tools.checkAccess(session);
         if (!access) {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
         } else {
 
             String amount = request.getParameter("amount");

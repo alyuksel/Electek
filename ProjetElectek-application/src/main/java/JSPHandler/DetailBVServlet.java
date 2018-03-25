@@ -36,7 +36,7 @@ public class DetailBVServlet extends HttpServlet {
             throws ServletException, IOException {
         Map<String,AffineBV> map = results.getMapAffined();
         request.setAttribute("result", map);
-         this.getServletContext().getRequestDispatcher("/WEB-INF/DetailBV.jsp").forward(request, response);
+         this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/DetailBV.jsp").forward(request, response);
     }
 
     /**

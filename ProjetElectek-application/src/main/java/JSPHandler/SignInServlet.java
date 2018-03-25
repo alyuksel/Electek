@@ -31,9 +31,9 @@ public class SignInServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute("user") != null) {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/myResults.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/myResults.jsp").forward(request, response);
         } else {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/signIn.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login/signIn.jsp").forward(request, response);
         }
     }
 
@@ -48,7 +48,7 @@ public class SignInServlet extends HttpServlet {
         String confirmation;
         String mail;
         if (session.getAttribute("user") != null) {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/myResults.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/myResults.jsp").forward(request, response);
         } else {
                 login = request.getParameter("username");
             try {
@@ -73,7 +73,7 @@ public class SignInServlet extends HttpServlet {
                                 user.setType("user");
                                 userEJB.create(user);
                                 request.setAttribute("signin", "Vous avez été correctement enregistré");
-                                request.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+                                request.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
                             }else{
                                 redirectWithError("les noms et prenoms vides ne sont pas accéptés", request, response);
                             }
@@ -120,7 +120,7 @@ public class SignInServlet extends HttpServlet {
     
     private void redirectWithError(String error,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
         request.setAttribute("error", error);
-                this.getServletContext().getRequestDispatcher("/WEB-INF/signIn.jsp").forward(request, response);
+                this.getServletContext().getRequestDispatcher("/WEB-INF/login/signIn.jsp").forward(request, response);
     }
 
     @Override
