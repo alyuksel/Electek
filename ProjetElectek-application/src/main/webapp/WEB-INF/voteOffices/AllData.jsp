@@ -19,7 +19,7 @@
     </head>
     <body>
         <%@include  file="../TopMenu.jsp"%>
-        
+        <div class="container">
         <h1>Bureaux de votes de Paris !</h1>
         <%
                 ArrayList<VoteOffices> posts = (ArrayList<VoteOffices>) request.getAttribute("ListeVoteOffices");
@@ -61,6 +61,7 @@
             <%}%>
         </table>      
         </form>
+        </div>
     </body>
 </html>
 <script>

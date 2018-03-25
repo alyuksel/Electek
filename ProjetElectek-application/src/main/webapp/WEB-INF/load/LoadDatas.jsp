@@ -3,7 +3,6 @@
     Created on : 18 mars 2018, 00:39:45
     Author     : drajasin
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

@@ -13,26 +13,32 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Choix pour le classement des candidats</title>
-         
-       
+
+
     </head>
     <body>
         <%@include  file="TopMenu.jsp"%>
-        
-        <h1>Choisissez les critères de recherches</h1>
-        <form action="/ProjetElectek-application/resultatBV" method="POST">
-            Elections : <br>
-            <input type="radio" name="election" value="Presidentielle" checked/> Présidentielles <br>
-            <input type="radio" name="election" value="Legislatives"/> Législatives <br>
-            Tour : <br>
-            <input type="radio" name="turn" value="1" checked/>1er<br>
-            <input type="radio" name="turn" value="2"/>2ème<br>
-            Année :<br>
-            <input type="radio" name="year" value="2007" checked> 2007<br> 
-            <input type="radio" name="year" value="2012">2012<br> 
-            <input type="radio" name="year" value="2017">2017<br> 
-         
-            <input class="btn btn-success" type="submit" value="valider" name="valide" />
-        </form>
+        <div class="container">
+            <h1>Choisissez les critères de recherches</h1>
+            <form action="/ProjetElectek-application/resultatBV" method="POST">
+                <div class="form-check">
+                    <label> Elections :</label> <br>
+                    <input type="radio" name="election" value="Presidentielle" checked/> Présidentielles <br>
+                    <input type="radio" name="election" value="Legislatives"/> Législatives <br>
+                </div>
+                <div class="form-check">
+                    <label> Tour : </label><br>
+                    <input type="radio" name="turn" value="1" checked/>1er<br>
+                    <input type="radio" name="turn" value="2"/>2ème<br>
+                </div>
+                <div class="form-check">
+                    <label>Année : </label><br>
+                    <input type="radio" name="year" value="2007" checked> 2007<br> 
+                    <input type="radio" name="year" value="2012">2012<br> 
+                    <input type="radio" name="year" value="2017">2017<br> 
+                </div>
+                <input class="btn btn-success" type="submit" value="valider" name="valide" />
+            </form>
+        </div>
     </body>
 </html>

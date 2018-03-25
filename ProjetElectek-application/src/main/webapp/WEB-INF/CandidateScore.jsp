@@ -24,18 +24,24 @@
             String path = (String)(request.getContextPath()+request.getAttribute("path"));
         %>
         <form action="<%=path%>" method="POST">
-            <select name="fullName">
                 <%
                 List<Candidate> candidates = (List<Candidate>) request.getAttribute("candidates");
-                for (Candidate cand : candidates)
-                {
+                if(candidates!=null){
+                    %>
+                    <select name="fullName">
+                    <%
+                    for (Candidate cand : candidates)
+                    {   
                         String item = (String) cand.getFullName();
-                %>
-                   <option value="<%=item%>"><%=item%></option>
-                <%
+                        %>
+                           <option value="<%=item%>"><%=item%></option>
+                        <%
+                    }
+                    %>
+                    </select>
+                    <%
                 }
                 %>
-            </select>
             <select name="turn">
                 <option value="1">1er</option>
                 <option value="2">2ème</option>
