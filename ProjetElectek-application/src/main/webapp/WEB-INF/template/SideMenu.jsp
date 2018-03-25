@@ -3,52 +3,50 @@
     Created on : 24 mars 2018, 23:56:56
     Author     : alpi9
 --%>
-    <div class="nav-side-menu">
+<div class="nav-side-menu">
     <div class="brand">Menu</div>
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
     <div class="menu-list">
         <ul id="menu-content" class="menu-content collapse out">
             <li data-toggle="collapse" data-target="#products" class="collapsed active">
-                <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a>
+                <a><i class="fa fa-gift fa-lg"></i> Scores Candidats <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="products">
-                <li class="active"><a href="#">CSS3 Animation</a></li>
-                <li><a href="#">General</a></li>
-                <li><a href="#">Buttons</a></li>
-                <li><a href="#">Tabs &amp; Accordions</a></li>
-                <li><a href="#">Typography</a></li>
-                <li><a href="#">FontAwesome</a></li>
-                <li><a href="#">Slider</a></li>
-                <li><a href="#">Panels</a></li>
-                <li><a href="#">Widgets</a></li>
-                <li><a href="#">Bootstrap Model</a></li>
+                <li data-toggle="collapse" data-target="#Presidentielles" class="collapsed active">
+                    Presidentielle
+                </li>
+                <ul class="sub-menu collapse" id="Presidentielles">
+                    <li><a> presidentielle 2017 - 1er Tour</a></li>
+                    <li><a> presidentielle 2017 - 2eme Tour</a></li>
+                    <li><a> presidentielle 2012 - 1er Tour</a></li>
+                    <li><a> presidentielle 2012 - 2eme Tour</a></li>
+                    <li><a> presidentielle 2007 - 1er Tour</a></li>
+                    <li><a> presidentielle 2007 - 2eme Tour</a></li>
+                </ul>
+                
+                <li data-toggle="collapse" data-target="#Legislatives" class="collapsed active">
+                    Législatives
+                </li>
+                <ul class="sub-menu collapse" id="Legislatives">
+                    <li><a> législatives 2017 - 1er Tour</a></li>
+                    <li><a> législatives 2017 - 2eme Tour</a></li>
+                    <li><a> législatives 2012 - 1er Tour</a></li>
+                    <li><a> législatives 2012 - 2eme Tour</a></li>
+                    <li><a> législatives 2007 - 1er Tour</a></li>
+                    <li><a> législatives 2007 - 2eme Tour</a></li>
+                </ul>
             </ul>
-            <li data-toggle="collapse" data-target="#service" class="collapsed">
-                <a href="#"><i class="fa fa-globe fa-lg"></i> Services <span class="arrow"></span></a>
+            <li data-toggle="collapse" data-target="#bv" class="collapsed">
+                <a><i class="fa fa-globe fa-lg"></i> Bureaux de votes <span class="arrow"></span></a>
             </li>
-            <ul class="sub-menu collapse" id="service">
+            <ul class="sub-menu collapse" id="bv">
                 <li>New Service 1</li>
                 <li>New Service 2</li>
                 <li>New Service 3</li>
             </ul>
-
-
-            <li data-toggle="collapse" data-target="#new" class="collapsed">
-                <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
-            </li>
-            <ul class="sub-menu collapse" id="new">
-                <li>New New 1</li>
-                <li>New New 2</li>
-                <li>New New 3</li>
-            </ul>
             <li>
                 <a href="#">
                     <i class="fa fa-user fa-lg"></i> Profile
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fa fa-users fa-lg"></i> Users
                 </a>
             </li>
         </ul>
