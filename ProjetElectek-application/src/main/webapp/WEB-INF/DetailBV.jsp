@@ -16,7 +16,7 @@
        
     </head>
     <body>
-        <%@include  file="TopMenu.jsp"%>
+        <%@include  file="template/TopMenu.jsp"%>
         
         <h1>Détail du bureau de vote n° ${param.numero}</h1>
         <table border="2" width="2" cellspacing="2">

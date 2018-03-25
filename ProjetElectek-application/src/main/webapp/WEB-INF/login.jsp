@@ -12,7 +12,7 @@
         <title>Login</title>
     </head>
     <body>
-                <%@include  file="TopMenu.jsp"%>
+                <%@include  file="template/TopMenu.jsp"%>
 
         <% 
             if(request.getAttribute("error")!=null){

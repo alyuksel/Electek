@@ -17,7 +17,7 @@
        
     </head>
     <body>
-        <%@include  file="TopMenu.jsp"%>
+        <%@include  file="template/TopMenu.jsp"%>
         
         <h1>Choisissez les critères de recherches</h1>
         <form action="/ProjetElectek-application/resultatBV" method="POST">

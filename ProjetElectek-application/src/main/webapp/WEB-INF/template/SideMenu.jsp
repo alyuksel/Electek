@@ -3,17 +3,11 @@
     Created on : 24 mars 2018, 23:56:56
     Author     : alpi9
 --%>
-
-<div class="nav-side-menu">
-    <div class="brand">Brand Logo</div>
+    <div class="nav-side-menu">
+    <div class="brand">Menu</div>
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
     <div class="menu-list">
         <ul id="menu-content" class="menu-content collapse out">
-            <li>
-                <a href="#">
-                    <i class="fa fa-dashboard fa-lg"></i> Dashboard
-                </a>
-            </li>
             <li data-toggle="collapse" data-target="#products" class="collapsed active">
                 <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a>
             </li>

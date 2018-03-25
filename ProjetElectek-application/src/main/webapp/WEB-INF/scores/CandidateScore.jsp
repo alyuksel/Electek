@@ -18,7 +18,7 @@
         <title>Test</title>
     </head>
     <body>
-        <%@include  file="../TopMenu.jsp"%>
+        <%@include  file="../template/TopMenu.jsp"%>
         <h2>Consultation du score d'un candidat</h2>
         <%
             String path = (String)(request.getContextPath()+request.getAttribute("path"));

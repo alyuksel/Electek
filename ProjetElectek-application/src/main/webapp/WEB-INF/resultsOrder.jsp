@@ -14,7 +14,7 @@
         <title>Résultats</title>
     </head>
     <body>
-        <%@include  file="TopMenu.jsp"%>
+        <%@include  file="template/TopMenu.jsp"%>
         
         <h1>Résultats généraux</h1>
         <form method="POST" action="/ProjetElectek-application/SortResults">

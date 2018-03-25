@@ -21,7 +21,7 @@
         <title>VoteOffice from AttachedZone</title>
     </head>
     <body>
-        <%@include  file="../TopMenu.jsp"%>
+        <%@include  file="../template/TopMenu.jsp"%>
         
         <h1>Hello World!</h1>
         <table id="myTable" class="tablesorter"> 

@@ -14,7 +14,7 @@
        
     </head>
     <body>
-        <%@include  file="../TopMenu.jsp"%>
+        <%@include  file="../template/TopMenu.jsp"%>
         
         <h1>Trouver votre bureau de vote!</h1>
         

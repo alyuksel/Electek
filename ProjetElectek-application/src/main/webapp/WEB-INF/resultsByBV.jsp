@@ -16,7 +16,7 @@
         <title>Rangs par bureaux de votes</title>
     </head>
     <body>
-        <%@include  file="TopMenu.jsp"%>
+        <%@include  file="template/TopMenu.jsp"%>
 
         
         <h1>Rangs par bureaux de votes</h1>

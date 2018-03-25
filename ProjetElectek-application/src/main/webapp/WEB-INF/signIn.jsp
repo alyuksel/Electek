@@ -12,7 +12,7 @@
         <title>Inscription</title>
     </head>
     <body>
-        <%@include  file="TopMenu.jsp"%>
+        <%@include  file="template/TopMenu.jsp"%>
         <%
             if(request.getAttribute("error")!=null){
                 out.println("<font color=red>"+request.getAttribute("error")+"</font>");

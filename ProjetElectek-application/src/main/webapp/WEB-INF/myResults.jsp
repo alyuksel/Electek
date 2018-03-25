@@ -12,7 +12,7 @@
         <title>Mes Résultats</title>
     </head>
     <body>
-        <%@include  file="TopMenu.jsp"%>
+        <%@include  file="template/TopMenu.jsp"%>
 
         <h1>Mes Résultats</h1>
         
