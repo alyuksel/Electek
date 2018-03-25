@@ -3,6 +3,11 @@
     Created on : 25 mars 2018, 15:40:15
     Author     : alpi
 --%>
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="icon" sizes="32x32" href="favicon-32.png" type="image/png">
+<link rel="icon" sizes="64x64" href="favicon-64.png" type="image/png">
+<link rel="icon" sizes="96x96" href="favicon-96.png" type="image/png">
 
 <link rel="stylesheet" type="text/css" href="/ProjetElectek-application/resources/css/mycss.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

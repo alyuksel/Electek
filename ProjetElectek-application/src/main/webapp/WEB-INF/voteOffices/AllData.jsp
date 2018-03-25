@@ -86,20 +86,4 @@
         $("#myTable").tablesorter({sortList: [[0, 0], [1, 0]]});
     }
     );
-    $(document).ready(function () {
-        $('#numberFilter').click(function () {
-            $.ajax({
-                type: 'POST',
-                url: "/ProjetElectek-application/voteoffices",
-                async: false,
-                data: {
-                    'foo': 'bar',
-                    'ca$libri': 'no$libri'
-                },
-                success: function (result) {
-                    $("div").html(result);
-                }});
-        });
-    });
-
 </script>

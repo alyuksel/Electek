@@ -3,6 +3,7 @@
     Created on : 24 mars 2018, 23:56:56
     Author     : alpi9
 --%>
+<%String paths =request.getContextPath();%>
 <div class="nav-side-menu">
     <div class="brand">Menu</div>
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
@@ -40,9 +41,9 @@
                 <a><i class="fa fa-globe fa-lg"></i> Bureaux de votes <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="bv">
-                <li>New Service 1</li>
-                <li>New Service 2</li>
-                <li>New Service 3</li>
+                <li><a href="<%=paths%>/voteoffices" >Tout les Bureaux de vote</a></li>
+                 <li><a href="<%=paths%>/voteoffices/searchAdress" >Trouver un Bureau de vote</a></li>
+                 <li><a href="<%=paths%>/voteoffices/arr" >Bureaux de vote par arrondissement</a></li>
             </ul>
             <li>
                 <a href="#">
