@@ -13,9 +13,10 @@
     </head>
     <body>
         <%@include  file="WEB-INF/TopMenu.jsp"%>
-        
-        <h1 class="h1">Bienvenue sur ElecteK!</h1>
-        <h4 class="h4">une nouvelle vision des resultats electoraux !</h4>
+        <div class="container" role="main">
+            <h1 class="h1">Bienvenue sur ElecteK!</h1>
+            <h4 class="h4">une nouvelle vision des resultats electoraux !</h4>
+        </div>
     </body>
 </html>
 
