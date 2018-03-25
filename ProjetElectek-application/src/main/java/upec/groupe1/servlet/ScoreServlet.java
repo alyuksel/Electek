@@ -77,7 +77,7 @@ public class ScoreServlet extends HttpServlet {
             request.setAttribute("turn", path);
             request.setAttribute("place", path);
             request.setAttribute("path", path);
-            this.getServletContext().getRequestDispatcher( "/WEB-INF/CandidateScore.jsp" ).forward( request, response );
+            this.getServletContext().getRequestDispatcher( "/WEB-INF/scores/CandidateScore.jsp" ).forward( request, response );
                     
         }    
     }

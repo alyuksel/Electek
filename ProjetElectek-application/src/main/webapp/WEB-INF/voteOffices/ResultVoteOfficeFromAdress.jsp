@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : ResultVoteOfficeFromAdress
     Created on : 17 mars 2018, 00:24:31
     Author     : drajasin
@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Votre Bureau de vote</title>
         <%@include file="../template/Header.jsp" %>
         <style>
             #map {
@@ -26,54 +26,56 @@
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
             <div>
-                <%                        Adresse posts = (Adresse) request.getAttribute("adresse");
-                %>
-                <h1 >Bureau de vote pour votre adresse:</h1>
-                <h2><span >Adresse:</span></h2>
-                <p>Vous avez sasie:</p>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td ><strong><span>Numéro :</span></strong></td>
-                            <td ><%=posts.getStreetNum()%></td>
-                        </tr>
-                        <tr>
-                            <td >Rue :</span></strong></td>
-                            <td ><%=posts.getStreetName()%></td>
-                        </tr>
-                        <tr>
-                            <td >Arrondissement :</span></strong></td>
-                            <td ><%=posts.getArr()%></td>
-                        </tr>
-                        <tr>
-                            <td >Pays :</span></strong></td>
-                            <td >FRANCE</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p>L'adresse saisie n'est pas pr&eacute;cise. Voici la liste des adresse se rattachant a l'adresse saisie. PAS FINIS</p>
-                <h2 >Bureau de vote :</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Id Bureau</td>
-                            <td>Bureau de vote</td>
-                            <td>Lib&eacute;l&eacute;</td>
-                            <td>Adresse</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <%  AttachedZone zone = (AttachedZone) posts.getAttachedZone();
-                        VoteOffices vo = (VoteOffices) zone.getVoteOffice();%>
-                            <td><%=vo.getIdVoteOffices()%></td>
-                            <td><%=vo.getNumber()%></td>
-                            <td><%=vo.getCaption()%></td>
-                            <td><%=vo.getAdress()%></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div id="map"></div>
+                <div class="container">
+                    <%                    Adresse posts = (Adresse) request.getAttribute("adresse");
+                    %>
+                    <h1 >Bureau de vote pour votre adresse:</h1>
+                    <h2><span >Adresse:</span></h2>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td ><strong><span>Numéro :</span></strong></td>
+                                <td ><%=posts.getStreetNum()%></td>
+                            </tr>
+                            <tr>
+                                <td >Rue :</span></strong></td>
+                                <td ><%=posts.getStreetName()%></td>
+                            </tr>
+                            <tr>
+                                <td >Arrondissement :</span></strong></td>
+                                <td ><%=posts.getArr()%></td>
+                            </tr>
+                            <tr>
+                                <td >Pays :</span></strong></td>
+                                <td >FRANCE</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h2 >Bureau de vote :</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Id Bureau</td>
+                                <td>Bureau de vote</td>
+                                <td>Libélé</td>
+                                <td>Adresse</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <%  AttachedZone zone = (AttachedZone) posts.getAttachedZone();
+                            VoteOffices vo = (VoteOffices) zone.getVoteOffice();%>
+                                <td><%=vo.getIdVoteOffices()%></td>
+                                <td><%=vo.getNumber()%></td>
+                                <td><%=vo.getCaption()%></td>
+                                <td><%=vo.getAdress()%></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <div id="map"></div>
+                </div>
                 <script>
                     function initMap() {
                         var depart = {lat: <%=posts.getGeoPoint().getY()%>, lng:<%=posts.getGeoPoint().getX()%>};

@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : DataByArr
     Created on : 16 mars 2018, 08:15:32
     Author     : drajasin
@@ -12,25 +12,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="../template/Header.jsp" %>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.6/js/jquery.tablesorter.js"></script>
-
-
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-        <title>VoteOffice from AttachedZone</title>
+        <%@include  file="../template/Header.jsp"%>
+        <title>Bureaux de vote par Arrondissement</title>
     </head>
     <body>
-        <%@include  file="../template/TopMenu.jsp"%>
+        <%@include  file="../template//TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
             <div>
-                <h1>Hello World!</h1>
-                <table id="myTable" class="tablesorter"> 
+                <h1>Bureaux de vote par Arrondissement !</h1>
+                <table>
                     <thead>
                         <tr>
                             <th>Arrondissment</th>
-                            <th>IdVoteOffice</th>
                             <th>Numéro</th>
                             <th>Libélé</th>
                             <th>Adresse</th>
@@ -38,49 +33,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%
-                        Map<String,List<VoteOffices>> posts = (Map<String,List<VoteOffices>>) request.getAttribute("MapVoteOffices"); 
-           
-                        for(String key : posts.keySet()){
-                            for(VoteOffices vo: posts.get(key)){
+                        <%                Map<String, List<VoteOffices>> posts = (Map<String, List<VoteOffices>>) request.getAttribute("MapVoteOffices");
+
+                            for (String key : posts.keySet()) {
+                                for (VoteOffices vo : posts.get(key)) {
                         %>
                         <tr>
                             <td><%=key%></td>
-                            <td><%=vo.getIdVoteOffices()%></td>
                             <td><%=vo.getNumber()%></td>
                             <td><%=vo.getCaption()%></td>
-                            <td><%=vo.getAdress()%></td>
-                            <td><%=vo.getPostalCode()%></td>  
+                            <td><a href="<%=request.getContextPath()%>/voteoffices/detail?number=<%=vo.getNumber()%>" ><%=vo.getAdress()%></a></td>
+                            <td><%=vo.getPostalCode()%></td>
 
                         </tr>
-                        <%      
-                        }
+                        <%
+                            }
                         %>
 
-                        <%           
-                        }
-                        %>  
+                        <%
+                            }
+                        %>
                         </tr>
                     </tbody>
-                </table>      
-
+                </table>
             </div>
         </div>
+
     </body>
-    <%@include file="../template/Footer.jsp" %>
+    <%@include  file="../template/Footer.jsp"%>
 </html>
-
-<script>
-
-    $(document).ready(function ()
-    {
-        $("#myTable").tablesorter();
-    }
-    );
-
-    $(document).ready(function ()
-    {
-        $("#myTable").tablesorter({sortList: [[0, 0], [1, 0]]});
-    }
-    );
-</script>

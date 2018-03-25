@@ -71,9 +71,27 @@ public class VoteOfficesServlet extends HttpServlet {
                 this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/SearchVoteOfficeFromAdress.jsp" ).forward( request, response );
                 break;
             }
-            //TODO a finir
+            
             case VOTE_OFFICE_DETAIL : {
-                System.out.println("param"+params);
+                params.forEach((f,v)->{
+                    if(f.equalsIgnoreCase("number") && v[0]!=null){
+                        System.out.print(f+"->");
+                        System.out.println(v[0]);
+                        try{
+                        String [] arrBV = v[0].split("-");
+                        
+                            int arr = Integer.parseInt(arrBV[0]);
+                            int bv = Integer.parseInt(arrBV[1]);
+                            VoteOffices vO = officesEJB.findVoteOffice(bv, arr);
+                            request.setAttribute("VoteOffices", vO);
+
+                        }catch(Exception ex){}
+                    }
+                });
+                if(request.getAttribute("VoteOffices")==null)
+                {
+                    request.setAttribute("message", "Erreur : Merci de vérifier les informations saisies.");
+                }
                 this.getServletContext().getRequestDispatcher( "/WEB-INF/voteOffices/VoteOfficeDetail.jsp" ).forward( request, response );
                 break;
             }

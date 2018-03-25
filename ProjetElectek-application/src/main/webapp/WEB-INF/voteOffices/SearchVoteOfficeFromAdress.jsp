@@ -14,47 +14,42 @@
 
     </head>
     <body>
-        <%@include  file="../template/TopMenu.jsp"%>
-        <div class="middleContent">
-            <%@include file="../template/SideMenu.jsp" %>
-            <div>
-                <h1>Trouver votre bureau de vote!</h1>
+        <%@include  file="../TopMenu.jsp"%>
 
-                <%String message = (String) request.getAttribute("message");
+        <h1>Trouver votre bureau de vote!</h1>
 
-                    if (message != null) {
-                %>
-                <div style="color: red;"><%=message%></div>
-                <%
-                    }
+        <%String message = (String)request.getAttribute("message");
 
-                %>
-                <form method="post" action="/ProjetElectek-application/voteoffices/searchAdress">
-                    <fieldset>
-                        <legend>Adresse</legend>
-                        <p>Entrez votre adresse.</p>
-                        <label for="numero">Numéro <span class="requis">*</span></label>
-                        <input type="text" id="numero" name="numero" value="" size="20" maxlength="100" />
-                        <br />
+            if(message!=null){
+            %>
+            <div style="color: red;"><%=message%></div>
+            <%
+            }
+        %>
+        <form method="post" action="<%=request.getContextPath()%>/voteoffices/searchAdress">
+            <fieldset>
+                <legend>Adresse</legend>
+                <p>Entrez votre adresse.</p>
+                <label for="numero">Numéro <span class="requis">*</span></label>
+                <input type="text" id="numero" name="numero" value="" size="20" maxlength="100" />
+                <br />
 
-                        <label for="rue">Rue <span class="requis">*</span></label>
-                        <input type="text" id="rue" name="rue" value="" size="20" maxlength="300" />
-                        <br />
+                <label for="rue">Rue <span class="requis">*</span></label>
+                <input type="text" id="rue" name="rue" value="" size="20" maxlength="300" />
+                <br />
 
-                        <label for="cp">Code Postale <span class="requis">*</span></label>
-                        <input type="text" id="cp" name="cp" value="750" size="20" maxlength="5" />
-                        <br />
+                <label for="cp">Code Postale <span class="requis">*</span></label>
+                <input type="text" id="cp" name="cp" value="750" size="20" maxlength="5" />
+                <br />
 
-                        <label for="pays">Pays</label>
-                        <input type="text" id="pays" name="pays" value="FRANCE" size="20" maxlength="20" readonly/>
-                        <br />
+                <label for="pays">Pays</label>
+                <input type="text" id="pays" name="pays" value="FRANCE" size="20" maxlength="20" readonly/>
+                <br />
 
-                        <input type="submit" value="Trouver" class="sansLabel" />
-                        <br />
-                    </fieldset>
-                </form>
-            </div>
-        </div>
+                <input type="submit" value="Trouver" class="sansLabel" />
+                <br />
+            </fieldset>
+        </form>
     </body>
     <%@include file="../template/Footer.jsp" %>
 </html>
