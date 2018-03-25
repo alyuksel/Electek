@@ -15,44 +15,48 @@
     </head>
     <body>
         <%@include  file="TopMenu.jsp"%>
-        
-        <h1>Résultats généraux</h1>
-        <form method="POST" action="/ProjetElectek-application/SortResults">
+        <div class="container">
+            <h1>Résultats généraux</h1>
+            <form method="POST" action="/ProjetElectek-application/SortResults">
 
-            <select name="election">
-                <option value="Presidentielle">Presidentielles</option>
-                <option value="Legislatives">Legislatives</option>
-            </select>
-            <select name="year">
-                <option value="2007">2007</option>
-                <option value="2012">2012</option>
-                <option value="2017">2017</option>
-            </select>
-            <select name="sort">
-                <option value="CANDIDATEFN">Nom</option>
-                <option value="CANDIDATELN">prenom</option>
-                <option value="NUMBV">bureau de vote</option>
-            </select>
-            <input class="btn btn-success" type="submit" name="Afficher" />
-        </form>
-        <table border="1" width="2" cellspacing="1">
+                <select class="form-control form-control-sm" name="election">
+                    <option value="Presidentielle">Presidentielles</option>
+                    <option value="Legislatives">Legislatives</option>
+                </select>
+                <select  class="form-control form-control-sm" name="year">
+                    <option value="2007">2007</option>
+                    <option value="2012">2012</option>
+                    <option value="2017">2017</option>
+                </select>
+                <select  class="form-control form-control-sm" name="sort">
+                    <option value="CANDIDATEFN">Nom</option>
+                    <option value="CANDIDATELN">prenom</option>
+                    <option value="NUMBV">bureau de vote</option>
+                </select>
+                <input class="btn btn-success" type="submit" name="Afficher" />
+            </form>
+            <table class="table">
 
-            <%
-                try{
-                    List<Results> results = (List<Results>)request.getAttribute("results");
-                    if(!results.isEmpty()){
-                        out.println("<tr><th>nom</th><th>prenom</th><th>nombre de voies</th><th>nombre de votes</th><th>election</th><th>tour</th><th>bureau</th></tr>");
-                        for (Results r : results){
-                            out.println("<tr><td>"+r.getCandidateFN()+"</td><td>"+r.getCandidateLN()+"</td><td>"+
-                                    r.getNbVoie()+"</td><td>"+r.getNbExprime()+"</td><td>"+r.getCaption()+"</td><td>"+r.getTurn()+"</td><td>"+r.getNumBV()+"</td></tr>");
+                <%                try {
+                        List<Results> results = (List<Results>) request.getAttribute("results");
+                        if (!results.isEmpty()) {
+                            out.println("<tr><th scope=`\"col\">nom</th>"
+                                    + "<th scope=`\"col\">prenom</th>"
+                                    + "<th scope=`\"col\">nombre de voies</th>"
+                                    + "<th scope=`\"col\">nombre de votes</th>"
+                                    + "<th scope=`\"col\">election</th><th>tour</th>"
+                                    + "<th scope=`\"col\">bureau</th></tr>");
+                            for (Results r : results) {
+                                out.println("<tr><td>" + r.getCandidateFN() + "</td><td>" + r.getCandidateLN() + "</td><td>"
+                                        + r.getNbVoie() + "</td><td>" + r.getNbExprime() + "</td><td>" + r.getCaption() + "</td><td>" + r.getTurn() + "</td><td>" + r.getNumBV() + "</td></tr>");
+                            }
                         }
-                    }
-                    
-                }catch(NullPointerException e){
-                    out.println("");
-                }
-            %>
-        </table>
 
+                    } catch (NullPointerException e) {
+                        out.println("");
+                    }
+                %>
+            </table>
+        </div>    
     </body>
 </html>
