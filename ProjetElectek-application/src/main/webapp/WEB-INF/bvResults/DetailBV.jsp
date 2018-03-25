@@ -19,8 +19,8 @@
         <%@include  file="../template/TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
-            <div>
-                <div class="container">
+            <div class="container">
+                <div>
                     <h1>Détail du bureau de vote n° ${param.numero}</h1>
                     <table class="table">
                         <%            Map<String, AffineBV> results = (Map<String, AffineBV>) request.getAttribute("result");

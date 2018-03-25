@@ -16,7 +16,7 @@
         <%@include  file="../template/TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
-            <div>
+            <div class="container">
                 <%                    if (request.getAttribute("error") != null) {
                         out.println("<font color=red>" + request.getAttribute("error") + "</font>");
                     }

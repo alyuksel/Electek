@@ -17,7 +17,7 @@
         <%@include  file="../template/TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
-            <div>
+            <div class="container">
                 <h1>Trouver votre bureau de vote!</h1>
 
                 <%String message = (String)request.getAttribute("message");

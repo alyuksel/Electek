@@ -25,8 +25,8 @@
         <%@include  file="../template/TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
-            <div>
-                <div class="container">
+            <div class="container">
+                <div>
                     <%                    Adresse posts = (Adresse) request.getAttribute("adresse");
                     %>
                     <h1 >Bureau de vote pour votre adresse:</h1>

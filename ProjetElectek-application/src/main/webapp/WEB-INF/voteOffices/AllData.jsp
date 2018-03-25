@@ -26,15 +26,14 @@
         <%@include  file="../template/TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
-            <div>
-                <div class="container">
+            <div class="container">
+                <div>
                     <h1>Bureaux de votes de Paris !</h1>
-                    <%
-                        ArrayList<VoteOffices> posts = (ArrayList<VoteOffices>) request.getAttribute("ListeVoteOffices");
+                    <%                        ArrayList<VoteOffices> posts = (ArrayList<VoteOffices>) request.getAttribute("ListeVoteOffices");
                         String erreur = (String) request.getAttribute("message");
                         if (erreur != null) {
                     %><p>Mauvais Filtrage : <%=erreur%></p><%
-                                    }
+                        }
 
                     %>
                     <div>
@@ -89,18 +88,17 @@
     );
     $(document).ready(function () {
         $('#numberFilter').click(function () {
-        $.ajax({
-        type: 'POST',
+            $.ajax({
+                type: 'POST',
                 url: "/ProjetElectek-application/voteoffices",
                 async: false,
                 data: {
-                'foo': 'bar',
-                        'ca$libri': 'no$libri'
+                    'foo': 'bar',
+                    'ca$libri': 'no$libri'
                 },
                 success: function (result) {
-                $("div").html(result);
+                    $("div").html(result);
                 }});
-        });
         });
     });
 

@@ -18,8 +18,8 @@
         <%@include  file="../template/TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
-            <div>
-                <div class="container">
+            <div class="container">
+                <div>
                     <h1>Résultats généraux</h1>
                     <form method="POST" action="/ProjetElectek-application/SortResults">
 

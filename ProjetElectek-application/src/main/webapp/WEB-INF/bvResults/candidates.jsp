@@ -20,8 +20,8 @@
         <%@include  file="../template/TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
-            <div>
-                <div class="container">
+            <div class="container">
+                <div>
                     <h1>Choisissez les critères de recherches</h1>
                     <form action="/ProjetElectek-application/resultatBV" method="POST">
                         <div class="form-check">

@@ -20,8 +20,8 @@
         <%@include  file="../template/TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
-            <div>
-                <div class="container">
+            <div class="container">
+                <div>
                     <h1>Rangs par bureaux de votes</h1>
                     <table class="table">
                         <%            Map<String, AffineBV> map = (Map<String, AffineBV>) request.getAttribute("results");

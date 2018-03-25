@@ -16,7 +16,7 @@
         <%@include  file="WEB-INF/template/TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="WEB-INF/template/SideMenu.jsp" %>
-            <div>
+            <div class="container">
                 <h1 class="h1">Bienvenue sur ElecteK!</h1>
                 <h4 class="h4">une nouvelle vision des resultats electoraux !</h4>
             </div>

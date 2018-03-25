@@ -20,7 +20,7 @@
         <%@include  file="../template//TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
-            <div>
+            <div class="container">
                 <h1>Bureaux de vote par Arrondissement !</h1>
                 <table>
                     <thead>

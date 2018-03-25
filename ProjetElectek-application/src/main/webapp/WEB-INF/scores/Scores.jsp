@@ -16,7 +16,7 @@
         <%@include  file="../template/TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
-            <div>
+            <div class="container">
                 <h1>Scores des candidats</h1>
                 <p>
                     Lien vers les scores présidentielle

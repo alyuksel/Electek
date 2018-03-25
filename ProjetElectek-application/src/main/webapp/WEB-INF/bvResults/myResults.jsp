@@ -16,7 +16,7 @@
         <%@include  file="../template/TopMenu.jsp"%>
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
-            <div>
+            <div class="container">
                 <h1>Mes Résultats</h1>
             </div>
         </div>

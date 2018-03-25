@@ -5,6 +5,10 @@
  */
 package upec.groupe1.dto;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 /**
  *
  * @author alpi
@@ -19,8 +23,13 @@ public class Score {
         this.candidate = candidate;
         this.voteNumber = voteNumber;
         this.total = total;
-        System.out.println("total : " + total + " vote : " +voteNumber);
-        this.percent = (voteNumber * 100) / total;
+        double temp = (voteNumber * 100.0) / total;
+        BigDecimal bd = new BigDecimal(temp);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);      
+        this.percent  = bd.doubleValue();
+       
+        
+        System.out.println("total : " + total + " vote : " +voteNumber + " pourcentage" +percent);
     }
 
     public long getVoteNumber() {
