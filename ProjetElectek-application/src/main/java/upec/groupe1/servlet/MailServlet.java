@@ -53,7 +53,7 @@ public class MailServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute("user") == null) {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
         } else {
 
             String path = request.getServletPath();
@@ -78,7 +78,7 @@ public class MailServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute("user") == null) {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
         } else {
             String login = (String) session.getAttribute("user");
             String mail = "";

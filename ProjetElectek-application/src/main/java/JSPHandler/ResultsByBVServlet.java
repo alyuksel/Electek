@@ -41,7 +41,7 @@ public class ResultsByBVServlet extends HttpServlet {
         Map<String,AffineBV> map = results.getRankCandidateByBV(election, turn, year);
         System.out.println(map);
         request.setAttribute("results", map);
-        this.getServletContext().getRequestDispatcher("/WEB-INF/resultsByBV.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/resultsByBV.jsp").forward(request, response);
     }
 
     /**

@@ -35,7 +35,33 @@ public class ResultsEJB extends ConcretEJB<Results>{
                 .distinct()
                 .collect(Collectors.toList());
     }
+    public List<Candidate> getCandidatesFiltred(String caption,String year,String turn ,Double arr ){
+        Map<String,Object> params = new HashMap<>();
+        params.put("caption", caption);
+        params.put("year", year);
+        params.put("turn", turn);
+        params.put("arr", arr);
+        
+        List<Results> results = findNamedQuery("Results.findCandidatesByCaptionFiltred", params);
 
+        return results.stream()
+                .map(result -> new Candidate(result.getCandidateFN(), result.getCandidateLN(), result.getCaption()))
+                .distinct()
+                .collect(Collectors.toList());
+    }
+    public List<Candidate> getCandidatesFiltred(String caption,String year,String turn  ){
+        Map<String,Object> params = new HashMap<>();
+        params.put("caption", caption);
+        params.put("year", year);
+        params.put("turn", turn);
+        
+        List<Results> results = findNamedQuery("Results.findCandidatesByCaptionFiltredWithoutArr", params);
+
+        return results.stream()
+                .map(result -> new Candidate(result.getCandidateFN(), result.getCandidateLN(), result.getCaption()))
+                .distinct()
+                .collect(Collectors.toList());
+    }
     public Map<String,AffineBV> getRankCandidateByBV(String caption, String turn,String year){
         mapOfBV = new HashMap<>();
         System.out.println(caption);
@@ -106,10 +132,10 @@ public class ResultsEJB extends ConcretEJB<Results>{
     }
     public Score getScoreByCandidateByArrondisse(String lastName, String name , String turn, String caption, String arr, String year) {
         Object[] results = (Object[]) em.createQuery("SELECT SUM(r.nbVoie), SUM(r.nbExprime), r.candidateFN FROM Results r WHERE "
-                + "r.caption =:caption AND r.candidateFN =:lastName AND r.candidateLN =:name AND r.turn =:turn "
+                + "r.caption =:caption AND r.candidateFN =:lastName AND r.candidateLN =:name AND r.turn =:turn AND r.arr=:arr "
                 + "AND r.yearEl =:year GROUP BY r.candidateFN", Object[].class)
             .setParameter("year", year)
-            .setParameter("arr", arr)
+            .setParameter("arr", Double.valueOf(arr))
             .setParameter("caption", caption)
             .setParameter("turn", turn)
             .setParameter("name", name)

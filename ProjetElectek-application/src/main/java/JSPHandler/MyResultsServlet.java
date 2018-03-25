@@ -30,9 +30,9 @@ public class MyResultsServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         if(session.getAttribute("user") == null){
-            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
         }else{
-            this.getServletContext().getRequestDispatcher("/WEB-INF/myResults.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/myResults.jsp").forward(request, response);
         }
 
     }
@@ -42,7 +42,7 @@ public class MyResultsServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         if(session.getAttribute("user")==null)
-            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
     }
 
     @Override

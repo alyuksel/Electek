@@ -6,7 +6,6 @@
 package upec.groupe1.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -35,68 +34,52 @@ public class ScoreServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
             String path = request.getServletPath();
             if(RESULTS_PRESIDENTIELLE.equals(path) || RESULTS_LEGISLATIVE.equals(path)){
-               List<Candidate> candidates = null;
-              switch(path){
-                  case RESULTS_PRESIDENTIELLE : {
-                      candidates = resultsEJB.getCandidatesByCaption("Presidentielle");
-                  }break;
-                  case RESULTS_LEGISLATIVE : {
-                      candidates = resultsEJB.getCandidatesByCaption("Legislatives");
-                  }break;
-              }
               request.setAttribute("isScore", false);
-              request.setAttribute("candidates", candidates);
               request.setAttribute("path", path);
-              this.getServletContext().getRequestDispatcher( "/WEB-INF/CandidateScore.jsp" ).forward( request, response );
+              this.getServletContext().getRequestDispatcher( "/WEB-INF/scores/CandidateScore.jsp" ).forward( request, response );
             }
-        }
+            if(RESULTS.equals(path)){
+                this.getServletContext().getRequestDispatcher( "/WEB-INF/scores/Scores.jsp" ).forward( request, response );
+            }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
             String path = request.getServletPath();
-        switch(path){
+
+        String turn = request.getParameter("turn");
+        String arrondissement = request.getParameter("place");
+        String year = request.getParameter("year");    
+        if(turn !=null && arrondissement!=null && year!=null)
+        {
+            List<Candidate> candidates =null;
+            String election = "";
+            switch(path){
                 case RESULTS_PRESIDENTIELLE : {
-                    String[] fullName = request.getParameter("fullName").split("_");
-                    String turn = request.getParameter("turn");
-                    String arrondissement = request.getParameter("place");
-                    String year = request.getParameter("year");
-                    Score score = null;
-                    if("global".equals(arrondissement))
-                        score = resultsEJB.getScoreByCandidate(fullName[0], fullName[1], turn, "Presidentielle", year);
-                    else
-                        score = resultsEJB.getScoreByCandidateByArrondisse(fullName[0], fullName[1], turn, "Presidentielle", arrondissement, year);
-                    List<Candidate> candidates = resultsEJB.getCandidatesByCaption("Presidentielle");
-                    request.setAttribute("candidates", candidates);
-                    request.setAttribute("isScore", true);
-                    request.setAttribute("score", score);
-                    request.setAttribute("path", path);
-                    this.getServletContext().getRequestDispatcher( "/WEB-INF/CandidateScore.jsp" ).forward( request, response );
+                    election = "Presidentielle";
                 }break;
                 case RESULTS_LEGISLATIVE : {
-                    String[] fullName = request.getParameter("fullName").split("_");
-                    String turn = request.getParameter("turn");
-                    String arrondissement = request.getParameter("place");
-                    String year = request.getParameter("year");
-                    Score score = null;
-                    if("global".equals(arrondissement))
-                        score = resultsEJB.getScoreByCandidate(fullName[0], fullName[1], turn, "Legislatives", year);
-                    else
-                        score = resultsEJB.getScoreByCandidateByArrondisse(fullName[0], fullName[1], turn, "Legislatives", arrondissement, year);
-                    List<Candidate> candidates = resultsEJB.getCandidatesByCaption("Legislatives");
-                    request.setAttribute("candidates", candidates);
-                    request.setAttribute("isScore", true);
-                    request.setAttribute("score", score);
-                    request.setAttribute("path", path);
-                    this.getServletContext().getRequestDispatcher( "/WEB-INF/CandidateScore.jsp" ).forward( request, response );
+                    election = "Legislatives";            
                 }break;
             }
-        }
+            
+            if("global".equals(arrondissement))
+                candidates = resultsEJB.getCandidatesFiltred(election,year,turn);
+            else
+                candidates = resultsEJB.getCandidatesFiltred(election,year,turn, Double.valueOf(arrondissement));
+            
+            request.setAttribute("candidates", candidates);
+            request.setAttribute("isScore", false);
+            request.setAttribute("year", path);
+            request.setAttribute("turn", path);
+            request.setAttribute("place", path);
+            request.setAttribute("path", path);
+            this.getServletContext().getRequestDispatcher( "/WEB-INF/CandidateScore.jsp" ).forward( request, response );
+                    
+        }    
     }
 
     @Override

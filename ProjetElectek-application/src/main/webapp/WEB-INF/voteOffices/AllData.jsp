@@ -20,48 +20,51 @@
         <div class="middleContent">
             <%@include file="../template/SideMenu.jsp" %>
             <div>
-                <h1>Bureaux de votes de Paris !</h1>
-                <%            ArrayList<VoteOffices> posts = (ArrayList<VoteOffices>) request.getAttribute("ListeVoteOffices");
-                    String erreur = (String) request.getAttribute("erreur");
-                    if (erreur != null) {
-                %><p>Erreur mauvais Filtrage : <%=erreur%></p><%
-                                }
+                <div class="container">
+                    <h1>Bureaux de votes de Paris !</h1>
+                    <%            ArrayList<VoteOffices> posts = (ArrayList<VoteOffices>) request.getAttribute("ListeVoteOffices");
+                        String erreur = (String) request.getAttribute("erreur");
+                        if (erreur != null) {
+                    %><p>Erreur mauvais Filtrage : <%=erreur%></p><%
+                                    }
 
-                %>
-                <form id="form" method="post" action="/ProjetElectek-application/voteoffices">
-                    <table id="myTable" class="tablesorter"> 
-                        <p><button type="submit" form="form" value="Submit">Submit</button></p>
-                        <tr>
-                            <td></td>
-                            <td><input name="number" type="text" /></td>
-                            <td><input name="caption" type="text" /></td>
-                            <td><input name="adress" type="text" /></td>
-                            <td></td>
-                        </tr>
-                        <thead>
+                    %>
+                    <form id="form" method="post" action="/ProjetElectek-application/voteoffices">
+                        <table id="myTable" class="tablesorter"> 
+                            <p><button type="submit" form="form" value="Submit">Submit</button></p>
                             <tr>
-                                <th>Id Bureau de Vote</th>
-                                <th>Numéro</th>
-                                <th>Libélé</th>
-                                <th>Adresse</th>
-                                <th>Code Postale</th>
+                                <td></td>
+                                <td><input name="number" type="text" /></td>
+                                <td><input name="caption" type="text" /></td>
+                                <td><input name="adress" type="text" /></td>
+                                <td></td>
                             </tr>
-                        </thead>
-                        <%                for (VoteOffices vO : posts) {
-                        %>
-                        <tr>
-                            <td><%=vO.getIdVoteOffices()%></td>
-                            <td><%=vO.getNumber()%></td>
-                            <td><%=vO.getCaption()%></td>
-                            <td><%=vO.getAdress()%></td>
-                            <td><%=vO.getPostalCode()%></td>  
-                        </tr>
-                        <%}%>
-                    </table>      
-                </form>
+                            <thead>
+                                <tr>
+                                    <th>Id Bureau de Vote</th>
+                                    <th>Numéro</th>
+                                    <th>Libélé</th>
+                                    <th>Adresse</th>
+                                    <th>Code Postale</th>
+                                </tr>
+                            </thead>
+                            <%                for (VoteOffices vO : posts) {
+                            %>
+                            <tr>
+                                <td><%=vO.getIdVoteOffices()%></td>
+                                <td><%=vO.getNumber()%></td>
+                                <td><%=vO.getCaption()%></td>
+                                <td><%=vO.getAdress()%></td>
+                                <td><%=vO.getPostalCode()%></td>  
+                            </tr>
+                            <%}%>
+                        </table>      
+                    </form>
+                </div>
             </div>
         </div>
     </body>
+    <%@include file="../template/Footer.jsp" %>
 </html>
 <script>
 

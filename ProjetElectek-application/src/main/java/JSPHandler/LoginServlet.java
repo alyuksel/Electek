@@ -13,12 +13,10 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.omg.CORBA.DomainManager;
 import upec.groupe1.entities.Users;
 import upec.groupe1.session.Exceptions.NotFoundException;
 import upec.groupe1.session.UserEJB;
@@ -38,9 +36,9 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute("user") != null){
-            this.getServletContext().getRequestDispatcher("/WEB-INF/myResults.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/myResults.jsp").forward(request, response);
         } else {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
         }
     }
 
@@ -49,7 +47,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute("login") != null) {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/myResults.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/myResults.jsp").forward(request, response);
         } else {
             String login = request.getParameter("username");
             String password = request.getParameter("password");
@@ -68,14 +66,14 @@ public class LoginServlet extends HttpServlet {
                         Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     session.setAttribute("right", type);
-                    this.getServletContext().getRequestDispatcher("/WEB-INF/myResults.jsp").forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/myResults.jsp").forward(request, response);
                 }else{
                     request.setAttribute("error", "login ou mot de passe incorrects");
-                    this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
                 }
             } catch (NotFoundException ex) {
                 request.setAttribute("error", "le login est inconnu");
-                this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+                this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
             }
             
 
