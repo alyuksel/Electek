@@ -41,9 +41,9 @@
                 <a><i class="fa fa-globe fa-lg"></i> Bureaux de votes <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="bv">
-                <li><a href="<%=paths%>/voteoffices" >Tout les Bureaux de vote</a></li>
-                 <li><a href="<%=paths%>/voteoffices/searchAdress" >Trouver un Bureau de vote</a></li>
-                 <li><a href="<%=paths%>/voteoffices/arr" >Bureaux de vote par arrondissement</a></li>
+                <li onclick="location.href = '<%=paths%>/voteoffices';">Tout les Bureaux de vote</li>
+                <li onclick="location.href = '<%=paths%>/voteoffices/searchAdress' ;">Trouver un Bureau de vote</li>
+                <li onclick="location.href = '<%=paths%>/voteoffices/arr';" >Bureaux de vote par arrondissement</li>
             </ul>
             <li>
                 <a href="#">

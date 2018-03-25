@@ -34,8 +34,8 @@
                         </select>
                         <select  class="form-control form-control-sm" name="sort">
                             <option value="CANDIDATEFN">Nom</option>
-                            <option value="CANDIDATELN">prenom</option>
-                            <option value="NUMBV">bureau de vote</option>
+                            <option value="CANDIDATELN">Prenom</option>
+                            <option value="ARR,NUMBV">Bureau de vote</option>
                         </select>
                         <input class="btn btn-success" type="submit" name="Afficher" />
                     </form>
@@ -51,8 +51,10 @@
                                             + "<th scope=`\"col\">election</th><th>tour</th>"
                                             + "<th scope=`\"col\">bureau</th></tr>");
                                     for (Results r : results) {
-                                        out.println("<tr><td>" + r.getCandidateFN() + "</td><td>" + r.getCandidateLN() + "</td><td>"
-                                                + r.getNbVoie() + "</td><td>" + r.getNbExprime() + "</td><td>" + r.getCaption() + "</td><td>" + r.getTurn() + "</td><td>" + r.getNumBV() + "</td></tr>");
+                                        out.print("<tr><td>" + r.getCandidateFN() + "</td><td>" + r.getCandidateLN() + "</td><td>"
+                                                + r.getNbVoie() + "</td><td>" + r.getNbExprime() + "</td><td>" + r.getCaption() + "</td><td>" + r.getTurn() + "</td>");
+                                        String link = "<td> <a href='"+request.getContextPath()+"/voteoffices/detail?number="+ r.getArr().intValue()+"-"+r.getNumBV() + "'>"+r.getArr().intValue()+"-"+r.getNumBV()+"</a></td></tr>" ;
+                                        out.println(link);
                                     }
                                 }
 
