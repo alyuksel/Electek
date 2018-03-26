@@ -7,6 +7,7 @@ package upec.groupe1.session;
 
 import javax.ejb.Stateless;
 import upec.groupe1.entities.Users;
+import upec.groupe1.session.Exceptions.NotFoundException;
 
 /**
  *
@@ -15,5 +16,10 @@ import upec.groupe1.entities.Users;
 @Stateless
 public class UserEJB extends ConcretEJB<Users>{
    
+    public void changeStatus(String login,String right) throws NotFoundException{
+        Users user = super.find(Users.class, login);
+        user.setType(right);
+        super.update(user);
+    }
     
 }
