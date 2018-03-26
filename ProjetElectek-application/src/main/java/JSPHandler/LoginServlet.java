@@ -36,7 +36,8 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute("user") != null){
-            this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/myResults.jsp").forward(request, response);
+            request.setAttribute("message", "Vous êtes connecté");
+            this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } else {
             this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
         }
@@ -47,7 +48,8 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute("login") != null) {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/myResults.jsp").forward(request, response);
+            request.setAttribute("message", "Vous êtes connecté");
+            this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } else {
             String login = request.getParameter("username");
             String password = request.getParameter("password");
@@ -66,7 +68,8 @@ public class LoginServlet extends HttpServlet {
                         Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     session.setAttribute("right", type);
-                    this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/myResults.jsp").forward(request, response);
+                    request.setAttribute("message", "Vous êtes connecté");
+            this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
                 }else{
                     request.setAttribute("error", "login ou mot de passe incorrects");
                     this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);

@@ -31,7 +31,8 @@ public class SignInServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute("user") != null) {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/myResults.jsp").forward(request, response);
+            request.setAttribute("message", "Vous êtes connecté");
+            this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } else {
             this.getServletContext().getRequestDispatcher("/WEB-INF/login/signIn.jsp").forward(request, response);
         }
@@ -48,7 +49,8 @@ public class SignInServlet extends HttpServlet {
         String confirmation;
         String mail;
         if (session.getAttribute("user") != null) {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/bvResults/myResults.jsp").forward(request, response);
+            request.setAttribute("message", "Vous êtes connecté");
+            this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } else {
                 login = request.getParameter("username");
             try {

@@ -25,16 +25,20 @@
                     <h1>Rangs par bureaux de votes</h1>
                     <table class="table">
                         <%            Map<String, AffineBV> map = (Map<String, AffineBV>) request.getAttribute("results");
-                            out.println("<tr><th scope=`\"col\">BV n°</th><th scope=`\"col\">premier</th>"
+                            out.println("<tr><th scope=`\"col\">Bureau n°</th><th scope=`\"col\">Premier</th>"
                                     + "<th scope=`\"col\">dernier</th><th scope=`\"col\">Plus ?</th></tr>");
                             for (String l : map.keySet()) {
                                 String first = map.get(l).getFirst();
                                 String last = map.get(l).getLast();
-                                out.print("<tr><td>" + l + "</td><td>" + first + "</td><td>" + last + "</td><td>");
+                                
+                                String link = "<tr><td> <a href='"+ request.getContextPath() +"/voteoffices/detail?number="+ l + "'>"+l+"</a></td>";
+                                out.print(link);
+
+                                out.print("<td>" + first + "</td><td>" + last + "</td><td>");
                                 out.println("<form action=\"/ProjetElectek-application/DetailBV\" method=\"POST\">"
                                         + "<input type=\"hidden\" value=\"" + l + "\" name=\"numero\">"
                                         + "<input class=\"btn btn-outline-secondary\" "
-                                        + "type=\"submit\" value=\"détail\" name=\"detail\" />"
+                                            + "type=\"submit\" value=\"détail\" name=\"detail\" />"
                                         + "</form></td></tr>");
 
                             }

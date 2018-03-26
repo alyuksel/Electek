@@ -19,7 +19,7 @@
                         <a class="navbar-brand" href="/ProjetElectek-application/SortResults">Résultats triés</a>
                     </li>
                     <li class="nav-link">
-                        <a class="navbar-brand" href="/ProjetElectek-application/MyResults">Messagerie</a>
+                        <a class="navbar-brand" href="/ProjetElectek-application/SendMail">Messagerie</a>
                     </li>
                     <li class="nav-link">
                         <a class="navbar-brand" href="/ProjetElectek-application/scores">Scores candidats</a>

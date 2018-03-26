@@ -32,7 +32,7 @@
                                 if (affineBV.getMapScores().isEmpty()) {
                                     out.println("<h4>Pas de résultats pour ce bureau de vote</h4>");
                                 } else {
-                                    out.println("<tr><th scope=`\"col\">candidat</th><th scope=`\"col\">score</th></tr>");
+                                    out.println("<tr><th scope=`\"col\">Candidat</th><th scope=`\"col\">Score %</th></tr>");
                                     for (String candidat : affineBV.getMapScores().keySet()) {
                                         out.println("<tr><td>" + candidat + "</td><td>" + affineBV.purcent(candidat) + "</td></tr>");
                                     }

@@ -71,7 +71,7 @@ public class ResultsEJB extends ConcretEJB<Results>{
                 .setParameter("turn",turn).setParameter("year", year).getResultList();
         for (Results r : list){
             System.out.println(r.getCandidateFN());
-            String key = r.getNumBV().intValue()+"-"+r.getArr().intValue();
+            String key = r.getArr().intValue()+"-"+r.getNumBV().intValue();
             if (mapOfBV.containsKey(key)){
                 mapOfBV.get(key).addCandidate(r);
             }else{

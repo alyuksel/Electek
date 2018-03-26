@@ -5,6 +5,8 @@
  */
 package upec.groupe1.affine;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +41,10 @@ public class AffineBV {
     
     public Double purcent(String candidate){
         if (candidateScore.containsKey(candidate)){
-            return (candidateScore.get(candidate)*100.0)/candidateExprime.get(candidate);
+            double temp = (candidateScore.get(candidate)*100.0)/candidateExprime.get(candidate);
+            BigDecimal bd = new BigDecimal(temp);
+            bd = bd.setScale(2, RoundingMode.HALF_UP);      
+            return  bd.doubleValue();
         }else
             return Double.valueOf(0);
     }
