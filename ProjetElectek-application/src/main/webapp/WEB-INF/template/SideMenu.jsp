@@ -17,24 +17,24 @@
                     Presidentielle
                 </li>
                 <ul class="sub-menu collapse" id="Presidentielles">
-                    <li><a> presidentielle 2017 - 1er Tour</a></li>
-                    <li><a> presidentielle 2017 - 2eme Tour</a></li>
-                    <li><a> presidentielle 2012 - 1er Tour</a></li>
-                    <li><a> presidentielle 2012 - 2eme Tour</a></li>
-                    <li><a> presidentielle 2007 - 1er Tour</a></li>
-                    <li><a> presidentielle 2007 - 2eme Tour</a></li>
+                    <li onclick="location.href = '<%=paths%>/scores/presidentielle?turn=1&year=2017';"> presidentielle 2017 - 1er Tour</li>
+                    <li onclick="location.href = '<%=paths%>/scores/presidentielle?turn=2&year=2017';"> presidentielle 2017 - 2eme Tour</li>
+                    <li onclick="location.href ='<%=paths%>/scores/presidentielle?turn=1&year=2012';"> presidentielle 2012 - 1er Tour</li>
+                    <li onclick="location.href = '<%=paths%>/scores/presidentielle?turn=2&year=2012';"> presidentielle 2012 - 2eme Tour</li>
+                    <li onclick="location.href = '<%=paths%>/scores/presidentielle?turn=1&year=2007';"> presidentielle 2007 - 1er Tour</li>
+                    <li onclick="location.href = '<%=paths%>/scores/presidentielle?turn=2&year=2007';">presidentielle 2007 - 2eme Tour</li>
                 </ul>
                 
                 <li data-toggle="collapse" data-target="#Legislatives" class="collapsed active">
                     Législatives
                 </li>
                 <ul class="sub-menu collapse" id="Legislatives">
-                    <li><a> législatives 2017 - 1er Tour</a></li>
-                    <li><a> législatives 2017 - 2eme Tour</a></li>
-                    <li><a> législatives 2012 - 1er Tour</a></li>
-                    <li><a> législatives 2012 - 2eme Tour</a></li>
-                    <li><a> législatives 2007 - 1er Tour</a></li>
-                    <li><a> législatives 2007 - 2eme Tour</a></li>
+                    <li onclick="location.href = '<%=paths%>/scores/legislatives?turn=1&year=2017';"> législatives 2017 - 1er Tour</li>
+                    <li onclick="location.href = '<%=paths%>/scores/legislatives?turn=2&year=2017';"> législatives 2017 - 2eme Tour</li>
+                    <li onclick="location.href = '<%=paths%>/scores/legislatives?turn=1&year=2012';"> législatives 2012 - 1er Tour</li>
+                    <li onclick="location.href = '<%=paths%>/scores/legislatives?turn=2&year=2012';"> législatives 2012 - 2eme Tour</li>
+                    <li onclick="location.href = '<%=paths%>/scores/legislatives?turn=1&year=2007';"> législatives 2007 - 1er Tour</li>
+                    <li onclick="location.href = '<%=paths%>/scores/legislatives?turn=2&year=2007';"> législatives 2007 - 2eme Tour</li>
                 </ul>
             </ul>
             <li data-toggle="collapse" data-target="#bv" class="collapsed">
