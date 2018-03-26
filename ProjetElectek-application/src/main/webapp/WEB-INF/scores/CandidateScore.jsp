@@ -113,11 +113,11 @@
                         String candidatFN =(String) score.getCandidate().getFullName();
                 %>
                 <br>
-                <table>
+                <table class="table">
                     <tr>
-                        <th>Candidat</th>
-                        <th>Nb Voies</th>
-                        <th>Pourcentage</th>
+                        <th scope="row">Candidat</th>
+                        <th scope="row">Nb Voies</th>
+                        <th scope="row">Pourcentage</th>
                     </tr>
                     <tr>
                         <td><%=candidatFN%></td>
