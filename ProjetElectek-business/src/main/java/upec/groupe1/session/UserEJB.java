@@ -21,5 +21,16 @@ public class UserEJB extends ConcretEJB<Users>{
         user.setType(right);
         super.update(user);
     }
+    public void changePassword(String login,String password) throws NotFoundException{
+        
+        Users user = super.find(Users.class, login);
+        user.setPassword(password);
+        super.update(user);
+    }
     
+    public void changeMail(String login, String mail) throws NotFoundException{
+        Users user = super.find(Users.class, login);
+        user.setMail(mail);
+        super.update(user);
+    }
 }
