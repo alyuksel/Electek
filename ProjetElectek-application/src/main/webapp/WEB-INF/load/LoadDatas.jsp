@@ -111,11 +111,10 @@
                 <p><a title="" href="https://opendata.paris.fr/terms/terms-of-use/">https://opendata.paris.fr/terms/terms-of-use/</a></p>
 
 
-
-
+                <div>
+                    <%@include file="../template/Footer.jsp" %>
+                </div>
             </div>
         </div>
-
     </body>
-    <%@include file="../template/Footer.jsp" %>
 </html>

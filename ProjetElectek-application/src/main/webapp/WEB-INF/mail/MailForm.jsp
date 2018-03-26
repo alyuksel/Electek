@@ -43,9 +43,10 @@
                     <input type="submit" value="Send">
                     <input type="reset" value="Reset">
                 </form>
-
+            <div>
+                <%@include file="../template/Footer.jsp" %>
+            </div>
             </div>
         </div>
     </body>
-    <%@include file="../template/Footer.jsp" %>
 </html>

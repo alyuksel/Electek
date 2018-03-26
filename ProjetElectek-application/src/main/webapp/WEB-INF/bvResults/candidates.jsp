@@ -45,6 +45,8 @@
                 </div>
             </div>
         </div>
+        <div>
+            <%@include file="../template/Footer.jsp" %>
+        </div>
     </body>
-    <%@include file="../template/Footer.jsp" %>
 </html>

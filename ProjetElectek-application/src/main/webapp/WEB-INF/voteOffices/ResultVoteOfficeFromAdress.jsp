@@ -111,8 +111,10 @@
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ86xz8TOlbA3hYecJD9OgzrhCY3qGUxw&callback=initMap"
                         async defer>
                 </script>
+                <div>
+                    <%@include file="../template/Footer.jsp" %>
+                </div>
             </div>
         </div>
     </body>
-    <%@include file="../template/Footer.jsp" %>
 </html>

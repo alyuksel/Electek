@@ -26,9 +26,11 @@
                     Lien vers les scores législatives
                     <a href="/ProjetElectek-application/scores/legislatives">Législatives</a>
                 </p>
-                
+            
             </div>
         </div>
+        <div>
+                <%@include file="../template/Footer.jsp" %>
+        </div>
     </body>
-    <%@include file="../template/Footer.jsp" %>
 </html>

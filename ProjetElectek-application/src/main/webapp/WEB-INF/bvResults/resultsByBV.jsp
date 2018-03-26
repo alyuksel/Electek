@@ -30,15 +30,15 @@
                             for (String l : map.keySet()) {
                                 String first = map.get(l).getFirst();
                                 String last = map.get(l).getLast();
-                                
-                                String link = "<tr><td> <a href='"+ request.getContextPath() +"/voteoffices/detail?number="+ l + "'>"+l+"</a></td>";
+
+                                String link = "<tr><td> <a href='" + request.getContextPath() + "/voteoffices/detail?number=" + l + "'>" + l + "</a></td>";
                                 out.print(link);
 
                                 out.print("<td>" + first + "</td><td>" + last + "</td><td>");
                                 out.println("<form action=\"/ProjetElectek-application/DetailBV\" method=\"POST\">"
                                         + "<input type=\"hidden\" value=\"" + l + "\" name=\"numero\">"
                                         + "<input class=\"btn btn-outline-secondary\" "
-                                            + "type=\"submit\" value=\"détail\" name=\"detail\" />"
+                                        + "type=\"submit\" value=\"détail\" name=\"detail\" />"
                                         + "</form></td></tr>");
 
                             }
@@ -46,8 +46,10 @@
 
                     </table>
                 </div>
+                <div>
+                    <%@include file="../template/Footer.jsp" %>
+                </div>
             </div>
         </div>
     </body>
-    <%@include file="../template/Footer.jsp" %>
 </html>

@@ -33,8 +33,11 @@
                     <input class="btn btn-success" type="submit" name="Se Connecter" /> 
                 </form>
                 <p>Vous ne posséder pas de compte ? <a href="/ProjetElectek-application/SignIn" >Par ici ! </a>
+                
             </div>
         </div>
+        <div>
+            <%@include file="../template/Footer.jsp" %>
+        </div>
     </body>
-    <%@include file="../template/Footer.jsp" %>
 </html>
