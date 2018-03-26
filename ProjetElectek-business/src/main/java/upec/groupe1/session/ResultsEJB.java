@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 import upec.groupe1.dto.Candidate;
 import upec.groupe1.dto.Score;
 import upec.groupe1.affine.AffineBV;
@@ -105,7 +106,8 @@ public class ResultsEJB extends ConcretEJB<Results>{
 }
 
     public Score getScoreByCandidate(String lastName, String name , String turn, String caption, String year) {
-        Object[] results = (Object[]) em.createQuery("SELECT SUM(r.nbVoie), SUM(r.nbExprime), r.candidateFN FROM Results r WHERE "
+        try{
+            Object[] results = (Object[]) em.createQuery("SELECT SUM(r.nbVoie), SUM(r.nbExprime), r.candidateFN FROM Results r WHERE "
                 + "r.caption =:caption AND r.candidateFN =:lastName AND r.candidateLN =:name AND r.turn =:turn "
                 + "AND r.yearEl =:year GROUP BY r.candidateFN", Object[].class)
             .setParameter("year", year)
@@ -114,7 +116,13 @@ public class ResultsEJB extends ConcretEJB<Results>{
             .setParameter("name", name)
             .setParameter("lastName", lastName)
                 .getSingleResult();
-        return new Score( new Candidate(lastName, name, caption), (long)results[0], (long)results[1]);
+            return new Score( new Candidate(lastName, name, caption), (long)results[0], (long)results[1]);
+        }catch(NoResultException ex){
+            System.out.println("WARN - Aucune ligne trouvé pour cette requete "+lastName+" "+name +" "+turn+" "+caption+" "+year);
+          return null;  
+        }
+        
+        
     }
 
     public Double getResultByMail(String lastName, String name , String turn, String caption, String num,String arr, String year){
@@ -131,7 +139,8 @@ public class ResultsEJB extends ConcretEJB<Results>{
         return (r.getNbVoie()/r.getNbVotants())*100.0;
     }
     public Score getScoreByCandidateByArrondisse(String lastName, String name , String turn, String caption, String arr, String year) {
-        Object[] results = (Object[]) em.createQuery("SELECT SUM(r.nbVoie), SUM(r.nbExprime), r.candidateFN FROM Results r WHERE "
+        try{
+            Object[] results = (Object[]) em.createQuery("SELECT SUM(r.nbVoie), SUM(r.nbExprime), r.candidateFN FROM Results r WHERE "
                 + "r.caption =:caption AND r.candidateFN =:lastName AND r.candidateLN =:name AND r.turn =:turn AND r.arr=:arr "
                 + "AND r.yearEl =:year GROUP BY r.candidateFN", Object[].class)
             .setParameter("year", year)
@@ -142,6 +151,12 @@ public class ResultsEJB extends ConcretEJB<Results>{
             .setParameter("lastName", lastName)
                 .getSingleResult();
         return new Score(new Candidate(lastName, name, caption), (long)results[0], (long)results[1]);
+            
+        }catch(NoResultException ex){
+            System.out.println("WARN - Aucune ligne trouvé pour cette requete "+lastName+" "+name +" "+turn+" "+caption+" "+year+" "+arr);
+          return null;  
+        }
+        
     }
 
     public int count() {

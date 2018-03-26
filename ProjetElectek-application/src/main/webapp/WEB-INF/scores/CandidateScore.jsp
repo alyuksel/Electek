@@ -104,7 +104,7 @@
                     <input class="btn btn-success" type="submit" value="Submit" />
                 </form>
                 <%
-                    if((Boolean)request.getAttribute("isScore") == true){
+                    if((Boolean)request.getAttribute("isScore") == true && request.getAttribute("score") != null){
 
                         Score score = (Score) request.getAttribute("score");
                         Double percent = score.getPercent();
