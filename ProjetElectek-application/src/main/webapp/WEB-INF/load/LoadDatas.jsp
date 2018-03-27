@@ -19,7 +19,7 @@
             <div class="container">
                 <h1 style="color: #4485b8;">Bonjour ADMIN !</h1>
                 <p><strong style="color: #000;">Information :</strong> Cette page vos offre les droits d'importation de la base de donn&eacute;es.<br />Edit any of the two areas and see the other changing in real time.&nbsp;</p>
-                <h4>Use the table below to test most of the features</h4>
+                <h4>Open Data API</h4>
                 <% String errorMSG = (String) request.getAttribute("error");
                     Long countAdresse = (Long) request.getAttribute("countAdresses");
                     Long countZones = (Long) request.getAttribute("countAttachedZones");
@@ -103,7 +103,7 @@
                         </tbody>
                     </table>
                 </form>
-                <p><button type="submit" form="form" value="Submit">Submit</button></p>
+                <p><button type="submit" form="form" value="Submit">Charger</button></p>
                 <hr />
                 <h1><strong>Licence de r&eacute;utilisation des donn&eacute;es</strong></h1>
                 <form></form><form></form>

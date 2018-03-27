@@ -45,7 +45,9 @@
                 <li onclick="location.href = '<%=paths%>/voteoffices/searchAdress' ;">Trouver un Bureau de vote</li>
                 <li onclick="location.href = '<%=paths%>/voteoffices/arr';" >Bureaux de vote par arrondissement</li>
             </ul>
-            <li onclick="location.href = '<%=paths%>/ProfileServlet';"> Profile</li>
+            <li data-toggle="collapse" data-target="#profilue" class="collapsed" onclick="location.href = '<%=paths%>/ProfileServlet';">
+                 <a><i class="fa fa-user fa-lg"></i>  Profile</a>
+            </li> 
                     
         </ul>
     </div>
