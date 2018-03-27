@@ -18,7 +18,12 @@
             <%@include file="WEB-INF/template/SideMenu.jsp" %>
             <div class="container">
                 <h1 class="h1">Bienvenue sur ElecteK!</h1>
-                <h4 class="h4">une nouvelle vision des resultats electoraux !</h4>
+                <h4 class="h4">Une nouvelle vision des resultats electoraux !</h4>
+                <div>
+                    <i>
+                        En direct tous les résultats à Paris (75000) des élections présidentielle, législatives, les chiffres de la participation pour tous les scrutins, au premier et au second tour, et le nom des élus. Vous pouvez également trouver le bureau de vote auquel vous êtes attaché.
+                    </i>
+                </div>
             </div>
         </div>
     </body>
