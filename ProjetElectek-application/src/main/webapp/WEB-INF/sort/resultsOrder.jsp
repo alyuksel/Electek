@@ -21,7 +21,7 @@
             <div class="container">
                 <div>
                     <h1>Résultats généraux</h1>
-                    <form method="POST" action="/ProjetElectek-application/SortResults">
+                    <form method="POST" action="<%=request.getContextPath()%>/SortResults">
 
                         <select class="form-control form-control-sm" name="election">
                             <option value="Presidentielle">Presidentielles</option>
@@ -53,7 +53,7 @@
                                     for (Results r : results) {
                                         out.print("<tr><td>" + r.getCandidateFN() + "</td><td>" + r.getCandidateLN() + "</td><td>"
                                                 + r.getNbVoie() + "</td><td>" + r.getNbExprime() + "</td><td>" + r.getCaption() + "</td><td>" + r.getTurn() + "</td>");
-                                        String link = "<td> <a href='"+request.getContextPath()+"/voteoffices/detail?number="+ r.getArr().intValue()+"-"+r.getNumBV() + "'>"+r.getArr().intValue()+"-"+r.getNumBV()+"</a></td></tr>" ;
+                                        String link = "<td> <a href='" + request.getContextPath() + "/voteoffices/detail?number=" + r.getArr().intValue() + "-" + r.getNumBV() + "'>" + r.getArr().intValue() + "-" + r.getNumBV() + "</a></td></tr>";
                                         out.println(link);
                                     }
                                 }
@@ -63,11 +63,12 @@
                             }
                         %>
                     </table>
-                </div>   
+                </div>
+                <div>
+                    <%@include file="../template/Footer.jsp" %>
+                </div>
             </div>
         </div>
-        <div>
-            <%@include file="../template/Footer.jsp" %>
-        </div>  
+
     </body>
 </html>

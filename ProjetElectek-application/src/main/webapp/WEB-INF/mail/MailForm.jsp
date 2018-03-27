@@ -23,7 +23,7 @@
                 %>
                 <h1>Recevoir les résultats par email</h1>
 
-                <form action="/ProjetElectek-application/SendMail" method="post" >
+                <form action="<%=request.getContextPath()%>/SendMail" method="post" >
 
                     Nom du candidat<br>
                     <input type="text" name="ncandidat"><br>

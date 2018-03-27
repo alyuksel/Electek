@@ -55,21 +55,7 @@ public class MailServlet extends HttpServlet {
         if (session.getAttribute("user") == null) {
             this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
         } else {
-
-            String path = request.getServletPath();
-            switch (path) {
-                case MAIL: {
-                    this.getServletContext().getRequestDispatcher("/WEB-INF/mail/MailForm.jsp").forward(request, response);
-                    break;
-                }
-
-                case MAILRESPONSE: {
-                    this.getServletContext().getRequestDispatcher("/WEB-INF/mail/MailForm.jsp").forward(request, response);
-                    break;
-                }
-                default:
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            }
+            this.getServletContext().getRequestDispatcher("/WEB-INF/mail/MailForm.jsp").forward(request, response);
         }
     }
 
@@ -117,6 +103,7 @@ public class MailServlet extends HttpServlet {
                 this.getServletContext().getRequestDispatcher("/WEB-INF/mail/MailForm.jsp").forward(request, response);
             }
             String path = request.getServletPath();
+            System.out.println("pATH" + path);
             switch (path) {
                 case MAIL: {
                     

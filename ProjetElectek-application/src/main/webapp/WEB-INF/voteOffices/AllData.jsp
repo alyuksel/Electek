@@ -37,7 +37,7 @@
 
                     %>
                     <div>
-                        <form id="form" method="post" action="/ProjetElectek-application/voteoffices">
+                        <form id="form" method="post" action="<%=request.getContextPath()%>/voteoffices">
                             <table id="myTable" class="tablesorter">
                                 <p><button type="submit" form="form" value="Submit" style="visibility: hidden;">Submit</button></p>
                                 <tr>

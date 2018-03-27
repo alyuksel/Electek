@@ -31,7 +31,7 @@
                 <%
                 }%>
 
-                <form id="form" method="post" action="/ProjetElectek-application/LoadData">
+                <form id="form" method="post" action="<%=request.getContextPath()%>/LoadData">
                     <table class="editorDemoTable" style="vertical-align: top;">
                         <thead>
                             <tr style="height: 23px;">

@@ -22,7 +22,7 @@
                     }
                 %>
                 <h1>S'inscrire</h1>
-                <form name="signin" action="/ProjetElectek-application/SignIn" method="POST">
+                <form name="signin" action="<%=request.getContextPath()%>/SignIn" method="POST">
                     <p>Nom</p>
                     <input type="text" name="name" />
                     <p>Prenom</p>

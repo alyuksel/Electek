@@ -20,11 +20,11 @@
                 <h1>Scores des candidats</h1>
                 <p>
                     Lien vers les scores présidentielle
-                    <a href="/ProjetElectek-application/scores/presidentielle">Présidentielle</a>
+                    <a href="<%=request.getContextPath()%>/scores/presidentielle">Présidentielle</a>
                 </p>
                 <p>
                     Lien vers les scores législatives
-                    <a href="/ProjetElectek-application/scores/legislatives">Législatives</a>
+                    <a href="<%=request.getContextPath()%>/scores/legislatives">Législatives</a>
                 </p>
             
             </div>

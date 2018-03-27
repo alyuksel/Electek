@@ -10,26 +10,26 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-link">
-                        <a class="navbar-brand" href="/ProjetElectek-application">Accueil</a>
+                        <a class="navbar-brand" href="<%=request.getContextPath()%>">Accueil</a>
                     </li>
                     <li class="nav-link">
-                        <a class="navbar-brand" href="/ProjetElectek-application/Candidates">Classement</a>
+                        <a class="navbar-brand" href="<%=request.getContextPath()%>/Candidates">Classement</a>
                     </li>
                     <li class="nav-link">
-                        <a class="navbar-brand" href="/ProjetElectek-application/SortResults">Résultats triés</a>
+                        <a class="navbar-brand" href="<%=request.getContextPath()%>/SortResults">Résultats triés</a>
                     </li>
                     <li class="nav-link">
-                        <a class="navbar-brand" href="/ProjetElectek-application/SendMail">Messagerie</a>
+                        <a class="navbar-brand" href="<%=request.getContextPath()%>/SendMail">Messagerie</a>
                     </li>
                     <li class="nav-link">
-                        <a class="navbar-brand" href="/ProjetElectek-application/scores">Scores candidats</a>
+                        <a class="navbar-brand" href="<%=request.getContextPath()%>/scores">Scores candidats</a>
                     </li>
                     <li class="nav-link">
-                        <a class="navbar-brand" href="/ProjetElectek-application/voteoffices">Bureaux</a>            
+                        <a class="navbar-brand" href="<%=request.getContextPath()%>/voteoffices">Bureaux</a>            
                     </li>
                     <%
                         if (session.getAttribute("user") != null) {
-                            out.println("<li class=\"nav-link\"><a class=\"navbar-brand\" href=\"/ProjetElectek-application/Logout\">Logout</a></li>");
+                            out.println("<li class=\"nav-link\"><a class=\"navbar-brand\" href=\""+request.getContextPath()+"/Logout\">Logout</a></li>");
                         }
                     %>
                 </ul>

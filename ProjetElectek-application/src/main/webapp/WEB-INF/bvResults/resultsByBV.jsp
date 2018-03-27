@@ -35,7 +35,7 @@
                                 out.print(link);
 
                                 out.print("<td>" + first + "</td><td>" + last + "</td><td>");
-                                out.println("<form action=\"/ProjetElectek-application/DetailBV\" method=\"POST\">"
+                                out.println("<form action=\""+request.getContextPath()+"/DetailBV\" method=\"POST\">"
                                         + "<input type=\"hidden\" value=\"" + l + "\" name=\"numero\">"
                                         + "<input class=\"btn btn-outline-secondary\" "
                                         + "type=\"submit\" value=\"détail\" name=\"detail\" />"

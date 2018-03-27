@@ -25,14 +25,14 @@
                     }
                 %>
                 <h1>Login</h1>
-                <form name="login" action="/ProjetElectek-application/Login" method="POST">
+                <form name="login" action="<%=request.getContextPath()%>/Login" method="POST">
                     <p>login</p>
                     <input type="text" name="username" /> 
                     <p>mot de passe</p>
                     <input type="password" name="password" /> 
                     <input class="btn btn-success" type="submit" name="Se Connecter" /> 
                 </form>
-                <p>Vous ne posséder pas de compte ? <a href="/ProjetElectek-application/SignIn" >Par ici ! </a>
+                <p>Vous ne posséder pas de compte ? <a href="<%=request.getContextPath()%>/SignIn" >Par ici ! </a>
                 
             </div>
         </div>

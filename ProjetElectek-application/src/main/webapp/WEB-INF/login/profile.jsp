@@ -38,7 +38,7 @@
 
                     <h1>Mettre a jour vos informations</h1>
 
-                    <form name="login" action="/ProjetElectek-application/ProfileServlet" method="POST">
+                    <form name="login" action="<%=request.getContextPath()%>/ProfileServlet" method="POST">
                         <table class="table">
                             
                             <thead>
@@ -84,7 +84,7 @@
                         <tr> 
                             <td><%=u.getId()%></td><td><%=u.getType()%></td>
                             <td>
-                                <form action="/ProjetElectek-application/ProfileServlet" method="POST">
+                                <form action="<%=request.getContextPath()%>/ProfileServlet" method="POST">
                                     <input type="hidden" value="<%=u.getId()%>" name="login">
                                     <input class="btn btn-outline-secondary" type="submit" value="Changer"/>
                                 </form>
