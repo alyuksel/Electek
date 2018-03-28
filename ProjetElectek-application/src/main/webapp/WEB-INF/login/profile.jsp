@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Inscription</title>
+        <title>Profile</title>
         <%@include file="../template/Header.jsp" %>
     </head>
     <body>

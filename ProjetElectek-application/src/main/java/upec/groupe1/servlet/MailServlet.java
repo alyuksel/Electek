@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
@@ -97,7 +96,7 @@ public class MailServlet extends HttpServlet {
                 System.out.println(result.getNbVoie()+" "+result.getNbExprime());
                 score = result.getNbVoie()*100/result.getNbExprime();
     
-            } catch (NotFoundException | NullPointerException ex) {
+            } catch (NotFoundException | NullPointerException | NumberFormatException ex) {
                 Logger.getLogger(MailServlet.class.getName()).log(Level.SEVERE, null, ex);
                 request.setAttribute("error", "Mauvaise saisie des données ou résultat non disponibles, veuillez réessayer");
                 this.getServletContext().getRequestDispatcher("/WEB-INF/mail/MailForm.jsp").forward(request, response);

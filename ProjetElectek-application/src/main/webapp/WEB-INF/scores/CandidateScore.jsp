@@ -20,7 +20,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Test</title>
+        <title>Score du candidat</title>
         <%@include  file="../template/Header.jsp"%>
         <script>
             $(document).ready(function () {
@@ -137,8 +137,8 @@
                     Morris.Donut({
                         element: 'donut',
                         data: [
-                          {label: "Nombre de votant pour ce candidat", value: <%=score.getVoteNumber()%>},
-                          {label: "Nombre d'inscrit", value: <%=score.getTotal()%>}
+                          {label: "Nombre de voies", value: <%=score.getVoteNumber()%>},
+                          {label: "Nombre de votants", value: <%=score.getTotal()%>}
                         ]
                       });
                 </script>
