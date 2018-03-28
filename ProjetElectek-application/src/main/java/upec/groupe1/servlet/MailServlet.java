@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -35,9 +36,6 @@ import upec.groupe1.session.UserEJB;
 @WebServlet(name = "MailServlet", 
         urlPatterns = {"/SendMail"})
 public class MailServlet extends HttpServlet {
-
-    private final String MAIL = "/SendMail";
-    private final String MAILRESPONSE = MAIL + "/response";
     @EJB
     Email email;
     @EJB
@@ -66,7 +64,7 @@ public class MailServlet extends HttpServlet {
             this.getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(request, response);
         } else {
             String login = (String) session.getAttribute("user");
-            String mail = "";
+            
             String ncandidat = (String) request.getParameter("ncandidat");
             String pcandidat = (String) request.getParameter("pcandidat");
             String caption = (String) request.getParameter("caption");
@@ -74,13 +72,13 @@ public class MailServlet extends HttpServlet {
             String turn = (String) request.getParameter("turn");
             String numAdress = (String) request.getParameter("snum");
             String adress = (String) request.getParameter("adress");
-            Users user = null;
+            
             Long score=Long.valueOf(0);
             Adresse addr = new Adresse();
             try {
-                user = userEJB.find(Users.class, login);
-                mail = user.getMail();
-                Map<String,Object> mapParam = new HashMap<>();
+                Users user  = userEJB.find(Users.class, login);
+                String mail = user.getMail();
+                Map<String,Object> mapParam = new HashMap<>(); 
                 mapParam.put("streetNum", Integer.valueOf(numAdress));
                 mapParam.put("streetName", numAdress+" "+adress);
                 List<Adresse> list = adresseEJB.findNamedQuery("Adresse.findNumberAndStreetName",mapParam,Adresse.class);
@@ -95,45 +93,28 @@ public class MailServlet extends HttpServlet {
                 Results result =  lr.stream().filter(r -> (r.getCandidateFN().equalsIgnoreCase(ncandidat)&&r.getCandidateLN().equalsIgnoreCase(pcandidat)&&r.getTurn().equalsIgnoreCase(turn)&&r.getYearEl().equalsIgnoreCase(year)&&r.getNumBV().equals(Long.valueOf(num))&&r.getArr().equals(Double.valueOf(arr)))).findFirst().get();
                 System.out.println(result.getNbVoie()+" "+result.getNbExprime());
                 score = result.getNbVoie()*100/result.getNbExprime();
-    
-            } catch (NotFoundException | NullPointerException | NumberFormatException ex) {
+                
+                
+                System.err.println("PRINT mail" + ncandidat + pcandidat + adress);    
+                String message = "Bonjour Mr. "+user.getName() + " "+user.getLastName()+
+                        "\n voici vos résultat pour le candidat "+ncandidat+" "+pcandidat+" \n son score est de : \n"
+                        +score+"% au tour n° "+turn+" des élections "+caption+" de "+year ;
+                try{
+                    email.setBody(message);
+                    email.setTo(mail);
+                    email.setFrom(mail);
+                    email.setSubject("Resultat de "+ncandidat+" "+pcandidat);
+                    email.send();
+                } catch (MessagingException ex) {
+                    Logger.getLogger(MailServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    System.err.println("Impossible d'envoyer le mail" );
+                    request.setAttribute("error", "L'envoie du mail a échoué");
+                }
+            } catch (NotFoundException | NullPointerException | NumberFormatException | NoSuchElementException ex) {
                 Logger.getLogger(MailServlet.class.getName()).log(Level.SEVERE, null, ex);
                 request.setAttribute("error", "Mauvaise saisie des données ou résultat non disponibles, veuillez réessayer");
-                this.getServletContext().getRequestDispatcher("/WEB-INF/mail/MailForm.jsp").forward(request, response);
-            }
-            String path = request.getServletPath();
-            System.out.println("pATH" + path);
-            switch (path) {
-                case MAIL: {
-                    
-                    System.err.println("PRINT mail" + ncandidat + pcandidat + adress);
-                    
-                    String message = "Bonjour Mr. "+user.getName() + " "+user.getLastName()+
-                            "\n voici vos résultat pour le candidat "+ncandidat+" "+pcandidat+" \n son score est de : \n"
-                            +score+"% au tour n° "+turn+" des élections "+caption+" de "+year ;
-
-                    try{
-                        email.setBody(message);
-                        email.setTo(mail);
-                        email.setFrom(mail);
-                        email.setSubject("Resultat de "+ncandidat+" "+pcandidat);
-                        email.send();
-                    } catch (MessagingException ex) {
-                        Logger.getLogger(MailServlet.class.getName()).log(Level.SEVERE, null, ex);
-                        System.err.println("Impossible d'envoyer le mail" );
-                        request.setAttribute("error", "l'envoie du mail a échoué");
-                    }
-                    this.getServletContext().getRequestDispatcher("/WEB-INF/mail/MailForm.jsp").forward(request, response);
-                    break;
-                }
-
-                case MAILRESPONSE: {
-                    this.getServletContext().getRequestDispatcher("/WEB-INF/mail/MailForm.jsp").forward(request, response);
-                    break;
-                }
-                default:
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            }
+            }        
+            this.getServletContext().getRequestDispatcher("/WEB-INF/mail/MailForm.jsp").forward(request, response);
         }
     }
 
