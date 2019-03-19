@@ -1,3 +1,4 @@
+.idea/
 nbproject/private/
 build/
 nbbuild/
@@ -5,6 +6,7 @@ dist/
 nbdist/
 .nb-gradle/
 
+*.iml
 target/
 
 *persistence.xml
